@@ -1,6 +1,7 @@
 $indent_1: 5px;
 $indent_2: 10px;
 $indent_3: 15px;
+$indent_4: 20px;
 
 .width-250 {
   width: 250px;
@@ -54,6 +55,10 @@ $indent_3: 15px;
   margin-top: $indent_3;
 }
 
+.mt-4 {
+  margin-top: $indent_4;
+}
+
 .mb-1 {
   margin-bottom: $indent_1;
 }
@@ -64,6 +69,10 @@ $indent_3: 15px;
 
 .mb-3 {
   margin-bottom: $indent_3;
+}
+
+.mb-4 {
+  margin-bottom: $indent_4;
 }
 
 .ml-1 {
@@ -78,6 +87,10 @@ $indent_3: 15px;
   margin-left: $indent_3;
 }
 
+.ml-4 {
+  margin-left: $indent_4;
+}
+
 .mr-1 {
   margin-right: $indent_1;
 }
@@ -88,6 +101,10 @@ $indent_3: 15px;
 
 .mr-3 {
   margin-right: $indent_3;
+}
+
+.mr-4 {
+  margin-left: $indent_4;
 }
 
 .pt-1 {
@@ -102,6 +119,10 @@ $indent_3: 15px;
   padding-top: $indent_3;
 }
 
+.pt-4 {
+  padding-top: $indent_4;
+}
+
 .pb-1 {
   padding-bottom: $indent_1;
 }
@@ -112,4 +133,16 @@ $indent_3: 15px;
 
 .pb-3 {
   padding-bottom: $indent_3;
+}
+
+.pb-4 {
+  padding-bottom: $indent_4;
+}
+
+.px {
+  padding: 40px 150px;
+}
+
+.px-mobile {
+  padding: 40px 10px;
 }

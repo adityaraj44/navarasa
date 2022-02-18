@@ -24,13 +24,6 @@ body {
   list-style-type: none;
 }
 
-html,
-body,
-#root,
-#root > div {
-  height: 100%;
-}
-
 h1,
 h2,
 h3,
@@ -56,7 +49,7 @@ a {
 }
 
 .navbar-home {
-  height: 240px;
+  height: 350px;
 }
 
 .navbar {
@@ -69,4 +62,60 @@ a {
 
 .navbar-mobile {
   height: 250px;
+}
+
+.nav-links {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.nav-heading {
+  position: relative;
+  z-index: 1;
+
+  font-size: 62px;
+  font-weight: 100;
+  line-height: 62px;
+}
+
+.nav-subheading {
+  position: relative;
+  z-index: 1;
+
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: bold;
+}
+
+.social-links {
+  position: relative;
+  z-index: 1;
+}
+
+.home-logo {
+  position: relative;
+  padding-left: 250px;
+  z-index: 1;
+}
+
+.home-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 99px;
+}
+
+.banner-image {
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dark-banner {
+  z-index: 0;
+  height: 400px;
 }

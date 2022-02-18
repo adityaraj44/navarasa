@@ -1,14 +1,18 @@
 import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import "./styles/main.scss";
+import { Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
+import Home from "./components/Home/Home";
 
 const App = () => {
   return (
     <ChakraProvider>
-      <div>
-        <p>hey</p>
-        <h1>aditya</h1>
-      </div>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+      </Switch>
     </ChakraProvider>
   );
 };
