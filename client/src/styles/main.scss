@@ -74,11 +74,23 @@ a {
 .nav-heading {
   position: relative;
   z-index: 1;
-
-  font-size: 62px;
+  font-family: "Azo Sans", sans-serif;
   font-weight: 100;
+  font-style: normal;
+  font-size: 62px;
+
   line-height: 62px;
-  letter-spacing: 2px;
+}
+
+.nav-heading-general {
+  position: relative;
+  z-index: 1;
+  font-family: "Azo Sans", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 45px;
+
+  line-height: 62px;
 }
 
 .nav-subheading {
@@ -157,4 +169,25 @@ a {
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
+}
+
+// about
+.about-masthead {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-heading {
+  font-size: 80px;
+  font-family: "Azo Sans", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  line-height: 80px;
+}
+
+.about-subheading {
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 25px;
 }

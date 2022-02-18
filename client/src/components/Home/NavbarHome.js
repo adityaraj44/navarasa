@@ -12,87 +12,84 @@ const NavbarHome = () => {
   const location = useLocation();
 
   return (
-    <Box className="px navbar-home bgYellow">
-      <Flex
-        flexDirection="row"
-        alignItems="flex-start"
-        justifyContent="space-between"
-      >
-        <Box>
-          <HomeLogo />
-        </Box>
+    <Flex
+      flexDirection="row"
+      alignItems="flex-start"
+      justifyContent="space-between"
+      className="px navbar-home bgYellow"
+    >
+      <Box>
+        <HomeLogo />
+      </Box>
 
-        <Flex
-          flexDirection="column"
-          justifyContent="space-between"
-          alignItems="flex-end"
-          flexWrap="wrap"
-        >
-          <Box className="nav-links text-dark">
-            <Flex
-              flexDirection="row"
-              flexWrap="wrap"
-              alignItems="center"
-              justifyContent="space-between"
+      <Flex
+        flexDirection="column"
+        justifyContent="space-between"
+        alignItems="flex-end"
+        flexWrap="wrap"
+      >
+        <Box className="nav-links text-dark">
+          <Flex
+            flexDirection="row"
+            flexWrap="wrap"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Link
+              className={`mr-3 ${location.pathname === "/" ? "active" : ""}`}
+              to="/"
             >
-              <Link
-                className={`mr-3 ${location.pathname === "/" ? "active" : ""}`}
-                to="/"
-              >
-                Home
-              </Link>
-              <Link
-                className={`mr-3 ${
-                  location.pathname === "/submitentry" ? "active" : ""
-                }`}
-                to="/submitentry"
-              >
-                Submit entry
-              </Link>
-              <Link
-                to="/aboutus"
-                className={`${
-                  location.pathname === "/aboutus" ? "active" : ""
-                }`}
-              >
-                About us
-              </Link>
-            </Flex>
-          </Box>
-          <Box>
-            <Text className="nav-heading text-pink mt-4 mb-1">
-              Navarasa Creative
-            </Text>
-          </Box>
-          <Box>
-            <Text className="text-dark nav-subheading mb-2">
-              Exploring emerging creative talent in the indie-sphere
-            </Text>
-          </Box>
-          <Box className="social-links mt-4">
-            <Flex
-              flexDirection="row"
-              flexWrap="wrap"
-              justifyContent="space-between"
-              alignItems="flex-end"
+              Home
+            </Link>
+            <Link
+              className={`mr-3 ${
+                location.pathname === "/submitentry" ? "active" : ""
+              }`}
+              to="/submitentry"
             >
-              <a className="social-link" href="/">
-                <Image alt="instagram" borderRadius="100%" src={instagram} />
-              </a>
-              <a className="social-link ml-4" href="/">
-                <Image alt="twitter" borderRadius="100%" src={twitter} />
-              </a>
-              <a className="social-link ml-4" href="/">
-                <Image alt="youtube" borderRadius="100%" src={youtube} />
-              </a>
-              <a className="social-link ml-4" href="/">
-                <Image alt="arroba" borderRadius="100%" src={arroba} />
-              </a>
-            </Flex>
-          </Box>
-        </Flex>
+              Submit entry
+            </Link>
+            <Link
+              to="/aboutus"
+              className={`${location.pathname === "/aboutus" ? "active" : ""}`}
+            >
+              About us
+            </Link>
+          </Flex>
+        </Box>
+        <Box>
+          <Text className="nav-heading text-pink mt-4 mb-1">
+            Navarasa Creative
+          </Text>
+        </Box>
+        <Box>
+          <Text className="text-dark nav-subheading mb-2">
+            Exploring emerging creative talent in the indie-sphere
+          </Text>
+        </Box>
+        <Box className="social-links mt-4">
+          <Flex
+            flexDirection="row"
+            flexWrap="wrap"
+            justifyContent="space-between"
+            alignItems="flex-end"
+          >
+            <a className="social-link" href="/">
+              <Image alt="instagram" borderRadius="100%" src={instagram} />
+            </a>
+            <a className="social-link ml-4" href="/">
+              <Image alt="twitter" borderRadius="100%" src={twitter} />
+            </a>
+            <a className="social-link ml-4" href="/">
+              <Image alt="youtube" borderRadius="100%" src={youtube} />
+            </a>
+            <a className="social-link ml-4" href="/">
+              <Image alt="arroba" borderRadius="100%" src={arroba} />
+            </a>
+          </Flex>
+        </Box>
       </Flex>
-    </Box>
+    </Flex>
   );
 };
 
