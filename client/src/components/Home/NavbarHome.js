@@ -25,6 +25,14 @@ const NavbarHome = () => {
         duration: 0.5,
       },
     },
+    exit: {
+      opacity: 0,
+      transition: {
+        type: "spring",
+        delay: 0.4,
+        duration: 0.5,
+      },
+    },
   };
 
   const textVariants = {
@@ -40,6 +48,14 @@ const NavbarHome = () => {
         type: "spring",
       },
     },
+    exit: {
+      opacity: 0,
+      transition: {
+        type: "spring",
+        delay: 0.4,
+        duration: 0.5,
+      },
+    },
   };
 
   const textVariants2 = {
@@ -53,6 +69,14 @@ const NavbarHome = () => {
         delay: 0.2,
         duration: 0.5,
         type: "spring",
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        type: "spring",
+        delay: 0.4,
+        duration: 0.5,
       },
     },
   };
@@ -71,169 +95,224 @@ const NavbarHome = () => {
         duration: 0.5,
       },
     },
+    exit: {
+      y: 30,
+      opacity: 0,
+      transition: {
+        type: "spring",
+        delay: 0.4,
+        duration: 0.5,
+      },
+    },
   };
 
   return (
-    <Flex
-      flexDirection="row"
-      alignItems="flex-start"
-      justifyContent="space-between"
-      className="px navbar-home bgYellow"
+    <motion.div
+      exit={{
+        height: "170px",
+        transition: {
+          ease: "easeInOut",
+          delay: "1.1",
+          duration: 0.5,
+        },
+      }}
     >
-      <Box>
-        <HomeLogo />
-      </Box>
-
       <Flex
-        flexDirection="column"
+        flexDirection="row"
+        alignItems="flex-start"
         justifyContent="space-between"
-        alignItems="flex-end"
-        flexWrap="wrap"
+        className="px navbar-home bgYellow"
       >
-        <Box className="nav-links text-dark">
-          <Flex
-            flexDirection="row"
-            flexWrap="wrap"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Link
-              className={`mr-3 ${location.pathname === "/" ? "active" : ""}`}
-              to="/"
-            >
-              <motion.p
-                variants={linkVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                Home
-              </motion.p>
-            </Link>
-            <Link
-              className={`mr-3 ${
-                location.pathname === "/submitentry" ? "active" : ""
-              }`}
-              to="/submitentry"
-            >
-              <motion.p
-                variants={linkVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                Submit entry
-              </motion.p>
-            </Link>
-            <Link
-              to="/aboutus"
-              className={`${location.pathname === "/aboutus" ? "active" : ""}`}
-            >
-              <motion.p
-                variants={linkVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                About us
-              </motion.p>
-            </Link>
-          </Flex>
-        </Box>
         <Box>
-          <motion.p
-            variants={textVariants}
-            initial="hidden"
-            animate="visible"
-            className="nav-heading text-pink mt-4 mb-1"
-          >
-            Navarasa Creative
-          </motion.p>
+          <HomeLogo />
         </Box>
-        <Box>
-          <motion.p
-            variants={textVariants2}
-            initial="hidden"
-            animate="visible"
-            className="text-dark nav-subheading mb-2"
-          >
-            Exploring emerging creative talent in the indie-sphere
-          </motion.p>
-        </Box>
-        <Box className="social-links mt-4">
-          <Flex
-            flexDirection="row"
-            flexWrap="wrap"
-            justifyContent="space-between"
-            alignItems="flex-end"
-          >
-            <motion.a
-              variants={socialVariants}
+
+        <Flex
+          flexDirection="column"
+          justifyContent="space-between"
+          alignItems="flex-end"
+          flexWrap="wrap"
+        >
+          <Box className="nav-links text-dark">
+            <Flex
+              flexDirection="row"
+              flexWrap="wrap"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Link
+                className={`mr-3 ${location.pathname === "/" ? "active" : ""}`}
+                to="/"
+              >
+                <motion.p
+                  variants={linkVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  Home
+                </motion.p>
+              </Link>
+              <Link
+                className={`mr-3 ${
+                  location.pathname === "/submitentry" ? "active" : ""
+                }`}
+                to="/submitentry"
+              >
+                <motion.p
+                  variants={linkVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  Submit entry
+                </motion.p>
+              </Link>
+              <Link
+                to="/aboutus"
+                className={`${
+                  location.pathname === "/aboutus" ? "active" : ""
+                }`}
+              >
+                <motion.p
+                  variants={linkVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  About us
+                </motion.p>
+              </Link>
+            </Flex>
+          </Box>
+          <Box>
+            <motion.p
+              variants={textVariants}
               initial="hidden"
               animate="visible"
-              className="social-link"
-              href="/"
+              exit="exit"
+              className="nav-heading text-pink mt-4 mb-1"
             >
-              <Image alt="instagram" borderRadius="100%" src={instagram} />
-            </motion.a>
-            <motion.a
-              initial={{
-                y: 30,
-                opacity: 0,
-              }}
-              animate={{
-                y: 0,
-                opacity: 1,
-              }}
-              transition={{
-                type: "spring",
-                delay: 0.4,
-                duration: 0.5,
-              }}
-              className="social-link ml-4"
-              href="/"
+              Navarasa Creative
+            </motion.p>
+          </Box>
+          <Box>
+            <motion.p
+              variants={textVariants2}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="text-dark nav-subheading mb-2"
             >
-              <Image alt="twitter" borderRadius="100%" src={twitter} />
-            </motion.a>
-            <motion.a
-              initial={{
-                y: 30,
-                opacity: 0,
-              }}
-              animate={{
-                y: 0,
-                opacity: 1,
-              }}
-              transition={{
-                type: "spring",
-                delay: 0.4,
-                duration: 0.5,
-              }}
-              className="social-link ml-4"
-              href="/"
+              Exploring emerging creative talent in the indie-sphere
+            </motion.p>
+          </Box>
+          <Box className="social-links mt-4">
+            <Flex
+              flexDirection="row"
+              flexWrap="wrap"
+              justifyContent="space-between"
+              alignItems="flex-end"
             >
-              <Image alt="youtube" borderRadius="100%" src={youtube} />
-            </motion.a>
-            <motion.a
-              initial={{
-                y: 30,
-                opacity: 0,
-              }}
-              animate={{
-                y: 0,
-                opacity: 1,
-              }}
-              transition={{
-                type: "spring",
-                delay: 0.4,
-                duration: 0.5,
-              }}
-              className="social-link ml-4"
-              href="/"
-            >
-              <Image alt="arroba" borderRadius="100%" src={arroba} />
-            </motion.a>
-          </Flex>
-        </Box>
+              <motion.a
+                variants={socialVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="social-link"
+                href="/"
+              >
+                <Image alt="instagram" borderRadius="100%" src={instagram} />
+              </motion.a>
+              <motion.a
+                initial={{
+                  y: 30,
+                  opacity: 0,
+                }}
+                animate={{
+                  y: 0,
+                  opacity: 1,
+                }}
+                transition={{
+                  type: "spring",
+                  delay: 0.4,
+                  duration: 0.5,
+                }}
+                exit={{
+                  y: 30,
+                  opacity: 0,
+                  transition: {
+                    type: "spring",
+                    delay: 0.4,
+                    duration: 0.5,
+                  },
+                }}
+                className="social-link ml-4"
+                href="/"
+              >
+                <Image alt="twitter" borderRadius="100%" src={twitter} />
+              </motion.a>
+              <motion.a
+                initial={{
+                  y: 30,
+                  opacity: 0,
+                }}
+                animate={{
+                  y: 0,
+                  opacity: 1,
+                }}
+                transition={{
+                  type: "spring",
+                  delay: 0.4,
+                  duration: 0.5,
+                }}
+                exit={{
+                  y: 30,
+                  opacity: 0,
+                  transition: {
+                    type: "spring",
+                    delay: 0.4,
+                    duration: 0.5,
+                  },
+                }}
+                className="social-link ml-4"
+                href="/"
+              >
+                <Image alt="youtube" borderRadius="100%" src={youtube} />
+              </motion.a>
+              <motion.a
+                initial={{
+                  y: 30,
+                  opacity: 0,
+                }}
+                animate={{
+                  y: 0,
+                  opacity: 1,
+                }}
+                transition={{
+                  type: "spring",
+                  delay: 0.4,
+                  duration: 0.5,
+                }}
+                exit={{
+                  y: 30,
+                  opacity: 0,
+                  transition: {
+                    type: "spring",
+                    delay: 0.4,
+                    duration: 0.5,
+                  },
+                }}
+                className="social-link ml-4"
+                href="/"
+              >
+                <Image alt="arroba" borderRadius="100%" src={arroba} />
+              </motion.a>
+            </Flex>
+          </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </motion.div>
   );
 };
 

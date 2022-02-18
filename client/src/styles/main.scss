@@ -22,6 +22,7 @@ body {
   text-decoration: none;
   box-sizing: border-box;
   list-style-type: circle;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -50,10 +51,6 @@ a {
 
 .navbar-home {
   height: 350px;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
 }
 
 .navbar {

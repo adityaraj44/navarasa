@@ -11,9 +11,19 @@ const Home = () => {
   return (
     <Box className="bgPurple">
       <NavbarHome />
-      <Box className="w-100 dark-banner bgPurpleDark">
+      <motion.div
+        exit={{
+          height: "900px",
+          transition: {
+            type: "spring",
+            delay: 0.5,
+            duration: 0.8,
+          },
+        }}
+        className="w-100 dark-banner bgPurpleDark"
+      >
         <HomeBanner />
-      </Box>
+      </motion.div>
       <Box className="video px">
         <motion.div
           initial={{
@@ -28,6 +38,15 @@ const Home = () => {
             type: "spring",
             duration: 0.5,
             delay: 0.2,
+          }}
+          exit={{
+            y: 100,
+            opacity: 0,
+            transition: {
+              ease: "easeInOut",
+              delay: "0.2",
+              duration: 0.6,
+            },
           }}
         >
           <video src="" poster={placeholder} />

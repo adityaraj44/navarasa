@@ -15,6 +15,14 @@ const GeneralLogo = () => {
         delay: 0.1,
         duration: 0.8,
       }}
+      exit={{
+        x: "-100vw",
+        transition: {
+          ease: "easeInOut",
+          delay: "0.4",
+          duration: 0.6,
+        },
+      }}
     >
       <svg
         width="52"
