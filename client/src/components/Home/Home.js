@@ -438,9 +438,22 @@ const Home = () => {
           across various media platforms for promotional purposes.
         </motion.p>
         <Box marginTop="30px">
-          <Link to="/submitentry" className="submit-song text-yellow bgPink">
-            Submit a song
-          </Link>
+          <motion.div
+            whileHover={{
+              scale: 1.1,
+              transition: {
+                type: "spring",
+
+                damping: 10,
+                yoyo: "Infinity",
+                duration: 0.5,
+              },
+            }}
+          >
+            <Link to="/submitentry" className="submit-song text-yellow bgPink">
+              Submit a song
+            </Link>
+          </motion.div>
         </Box>
       </Box>
     </Box>
