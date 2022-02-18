@@ -50,6 +50,10 @@ a {
 
 .navbar-home {
   height: 350px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .navbar {
@@ -116,11 +120,12 @@ a {
   position: absolute;
   top: 40px;
   left: calc(50vw - 400px);
-  z-index: 1;
+  z-index: 99999999;
 }
 
 .home-banner {
   position: absolute;
+  z-index: 0;
   top: 100px;
   left: 0;
   right: 0;

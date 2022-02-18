@@ -1,7 +1,8 @@
-import { Box, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "../Navbar/Navbar";
 import masthead from "../../imgs/placeholder.png";
+import { motion } from "framer-motion";
 
 const About = () => {
   return (
@@ -10,7 +11,31 @@ const About = () => {
       <Box className="bgPurpleDark">
         <Box className="px">
           <Box className="about-masthead ">
-            <Image alt="about-masthead mt-4" width="100%" src={masthead} />
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: "100vh",
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                type: "spring",
+                delay: 0.3,
+                duration: 0.8,
+              }}
+              exit={{
+                y: "100vh",
+                transition: {
+                  ease: "easeInOut",
+                  delay: "0.5",
+                  duration: 0.5,
+                },
+              }}
+            >
+              <Image alt="about-masthead mt-4" width="100%" src={masthead} />
+            </motion.div>
           </Box>
           <Box textAlign="left" className="mt-4">
             <Text className="about-subheading text-yellow">

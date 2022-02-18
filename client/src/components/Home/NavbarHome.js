@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import HomeLogo from "../Logo/HomeLogo";
@@ -7,9 +7,71 @@ import twitter from "../../imgs/twitter.png";
 import youtube from "../../imgs/youtube.png";
 import arroba from "../../imgs/arroba.png";
 import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const NavbarHome = () => {
   const location = useLocation();
+
+  const linkVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+
+      transition: {
+        type: "spring",
+        delay: 0.2,
+        duration: 0.5,
+      },
+    },
+  };
+
+  const textVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+
+      transition: {
+        delay: 0.2,
+        duration: 0.5,
+        type: "spring",
+      },
+    },
+  };
+
+  const textVariants2 = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+
+      transition: {
+        delay: 0.2,
+        duration: 0.5,
+        type: "spring",
+      },
+    },
+  };
+
+  const socialVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        delay: 0.4,
+        duration: 0.5,
+      },
+    },
+  };
 
   return (
     <Flex
@@ -39,7 +101,13 @@ const NavbarHome = () => {
               className={`mr-3 ${location.pathname === "/" ? "active" : ""}`}
               to="/"
             >
-              Home
+              <motion.p
+                variants={linkVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                Home
+              </motion.p>
             </Link>
             <Link
               className={`mr-3 ${
@@ -47,25 +115,47 @@ const NavbarHome = () => {
               }`}
               to="/submitentry"
             >
-              Submit entry
+              <motion.p
+                variants={linkVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                Submit entry
+              </motion.p>
             </Link>
             <Link
               to="/aboutus"
               className={`${location.pathname === "/aboutus" ? "active" : ""}`}
             >
-              About us
+              <motion.p
+                variants={linkVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                About us
+              </motion.p>
             </Link>
           </Flex>
         </Box>
         <Box>
-          <Text className="nav-heading text-pink mt-4 mb-1">
+          <motion.p
+            variants={textVariants}
+            initial="hidden"
+            animate="visible"
+            className="nav-heading text-pink mt-4 mb-1"
+          >
             Navarasa Creative
-          </Text>
+          </motion.p>
         </Box>
         <Box>
-          <Text className="text-dark nav-subheading mb-2">
+          <motion.p
+            variants={textVariants2}
+            initial="hidden"
+            animate="visible"
+            className="text-dark nav-subheading mb-2"
+          >
             Exploring emerging creative talent in the indie-sphere
-          </Text>
+          </motion.p>
         </Box>
         <Box className="social-links mt-4">
           <Flex
@@ -74,18 +164,72 @@ const NavbarHome = () => {
             justifyContent="space-between"
             alignItems="flex-end"
           >
-            <a className="social-link" href="/">
+            <motion.a
+              variants={socialVariants}
+              initial="hidden"
+              animate="visible"
+              className="social-link"
+              href="/"
+            >
               <Image alt="instagram" borderRadius="100%" src={instagram} />
-            </a>
-            <a className="social-link ml-4" href="/">
+            </motion.a>
+            <motion.a
+              initial={{
+                y: 30,
+                opacity: 0,
+              }}
+              animate={{
+                y: 0,
+                opacity: 1,
+              }}
+              transition={{
+                type: "spring",
+                delay: 0.4,
+                duration: 0.5,
+              }}
+              className="social-link ml-4"
+              href="/"
+            >
               <Image alt="twitter" borderRadius="100%" src={twitter} />
-            </a>
-            <a className="social-link ml-4" href="/">
+            </motion.a>
+            <motion.a
+              initial={{
+                y: 30,
+                opacity: 0,
+              }}
+              animate={{
+                y: 0,
+                opacity: 1,
+              }}
+              transition={{
+                type: "spring",
+                delay: 0.4,
+                duration: 0.5,
+              }}
+              className="social-link ml-4"
+              href="/"
+            >
               <Image alt="youtube" borderRadius="100%" src={youtube} />
-            </a>
-            <a className="social-link ml-4" href="/">
+            </motion.a>
+            <motion.a
+              initial={{
+                y: 30,
+                opacity: 0,
+              }}
+              animate={{
+                y: 0,
+                opacity: 1,
+              }}
+              transition={{
+                type: "spring",
+                delay: 0.4,
+                duration: 0.5,
+              }}
+              className="social-link ml-4"
+              href="/"
+            >
               <Image alt="arroba" borderRadius="100%" src={arroba} />
-            </a>
+            </motion.a>
           </Flex>
         </Box>
       </Flex>

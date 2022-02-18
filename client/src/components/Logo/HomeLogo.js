@@ -1,8 +1,33 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const HomeLogo = () => {
   return (
-    <div className="home-logo">
+    <motion.div
+      initial={{
+        opacity: 0,
+        x: "-100vw",
+      }}
+      animate={{
+        opacity: 1,
+        x: 0,
+      }}
+      transition={{
+        type: "spring",
+
+        delay: 1,
+        duration: 0.8,
+      }}
+      exit={{
+        x: "-100vw",
+        transition: {
+          ease: "easeInOut",
+          delay: "0.4",
+          duration: 0.8,
+        },
+      }}
+      className="home-logo"
+    >
       <svg
         width="104"
         height="120"
@@ -19,7 +44,7 @@ const HomeLogo = () => {
           fill="#FAD01C"
         />
       </svg>
-    </div>
+    </motion.div>
   );
 };
 
