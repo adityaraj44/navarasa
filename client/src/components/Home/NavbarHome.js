@@ -6,8 +6,11 @@ import instagram from "../../imgs/instagram.png";
 import twitter from "../../imgs/twitter.png";
 import youtube from "../../imgs/youtube.png";
 import arroba from "../../imgs/arroba.png";
+import { useLocation } from "react-router-dom";
 
 const NavbarHome = () => {
+  const location = useLocation();
+
   return (
     <Box className="px navbar-home bgYellow">
       <Flex
@@ -32,13 +35,28 @@ const NavbarHome = () => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Link className="mr-3 active" to="/">
+              <Link
+                className={`mr-3 ${location.pathname === "/" ? "active" : ""}`}
+                to="/"
+              >
                 Home
               </Link>
-              <Link className="mr-3" to="/submitentry">
+              <Link
+                className={`mr-3 ${
+                  location.pathname === "/submitentry" ? "active" : ""
+                }`}
+                to="/submitentry"
+              >
                 Submit entry
               </Link>
-              <Link to="/aboutus">About us</Link>
+              <Link
+                to="/aboutus"
+                className={`${
+                  location.pathname === "/aboutus" ? "active" : ""
+                }`}
+              >
+                About us
+              </Link>
             </Flex>
           </Box>
           <Box>

@@ -4,8 +4,14 @@ import bannerImg from "../../imgs/banner_home.png";
 
 const HomeBanner = () => {
   return (
-    <Box className="home-banner px">
-      <Image className="banner-image" alt="banner" src={bannerImg} />
+    <Box className="home-banner">
+      <Image
+        className="banner-image"
+        objectFit="cover"
+        alt="banner"
+        width="1300px"
+        src={bannerImg}
+      />
     </Box>
   );
 };

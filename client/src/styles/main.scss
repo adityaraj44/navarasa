@@ -21,7 +21,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-decoration: none;
   box-sizing: border-box;
-  list-style-type: none;
+  list-style-type: circle;
 }
 
 h1,
@@ -65,6 +65,8 @@ a {
 }
 
 .nav-links {
+  position: relative;
+  z-index: 1;
   font-weight: bold;
   font-size: 14px;
 }
@@ -76,6 +78,7 @@ a {
   font-size: 62px;
   font-weight: 100;
   line-height: 62px;
+  letter-spacing: 2px;
 }
 
 .nav-subheading {
@@ -92,30 +95,66 @@ a {
   z-index: 1;
 }
 
+.dark-banner {
+  z-index: 0;
+  height: 400px;
+}
+
 .home-logo {
-  position: relative;
-  padding-left: 250px;
+  position: absolute;
+  top: 40px;
+  left: calc(50vw - 400px);
   z-index: 1;
 }
 
 .home-banner {
   position: absolute;
-  top: 0;
+  top: 100px;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 99px;
+  padding: 0px 60px;
 }
 
 .banner-image {
   z-index: 0;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
+  margin: 0 auto;
 }
 
-.dark-banner {
-  z-index: 0;
-  height: 400px;
+.video {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -100px;
+}
+
+.video-element {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 6px 6px;
+  border-radius: 100%;
+}
+
+.submit-song {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
