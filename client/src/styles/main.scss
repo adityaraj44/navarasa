@@ -198,6 +198,70 @@ a {
   line-height: 25px;
 }
 
+.submit-heading {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
+
+.submit-heading-link {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.form-control {
+  font-family: "Red Hat Display", sans-serif;
+}
+
+.select {
+  border: none !important;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  padding: 0px 10px;
+
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  font-size: 0.5rem;
+  top: 25px;
+  right: 10px;
+  color: white;
+  position: absolute;
+}
+
+.form-info {
+  font-size: 16px;
+}
+
+.continueBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
 @media only screen and (max-width: 576px) {
   .footer {
     height: 250px;
@@ -277,6 +341,17 @@ a {
   .video {
     margin-top: 0px;
     padding: 0px;
+  }
+
+  .submit-heading {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .submit-heading-link {
+    font-size: 12px;
+    font-weight: bold;
   }
 }
 

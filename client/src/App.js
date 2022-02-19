@@ -6,9 +6,11 @@ import { Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import About from "./components/About/About";
-import SubmitEntry from "./components/SubmitEntry/SubmitEntry";
 import { AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
+import SubmitSong from "./components/SubmitEntry/SubmitSong";
+import SubmitFinalize from "./components/SubmitEntry/SubmitFinalize";
+import SubmitInfo from "./components/SubmitEntry/SubmitInfo";
 
 const App = () => {
   const location = useLocation();
@@ -20,11 +22,18 @@ const App = () => {
           <Route exact path="/">
             <Home />
           </Route>
+
           <Route exact path="/aboutus">
             <About />
           </Route>
           <Route exact path="/submitentry">
-            <SubmitEntry />
+            <SubmitInfo />
+          </Route>
+          <Route exact path="/submitsong">
+            <SubmitSong />
+          </Route>
+          <Route exact path="/finalizeentry">
+            <SubmitFinalize />
           </Route>
         </Switch>
       </AnimatePresence>
