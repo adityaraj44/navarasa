@@ -115,12 +115,12 @@ a {
 
 .dark-banner {
   z-index: 0;
-  height: 450px;
+  height: 300px;
 }
 
 .home-logo {
   position: absolute;
-  top: 40px;
+  top: 90px;
   left: calc(50vw - 400px);
   z-index: 99999999;
 }
@@ -128,7 +128,7 @@ a {
 .home-banner {
   position: absolute;
   z-index: 0;
-  top: 65px;
+  top: 110px;
   left: 0;
   right: 0;
   margin-left: auto;

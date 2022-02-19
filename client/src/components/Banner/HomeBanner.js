@@ -37,7 +37,7 @@ const HomeBanner = () => {
       <Image
         className="banner-image"
         alt="banner"
-        width={isSmall ? "450px" : "100%"}
+        width={isSmall ? "450px" : "1125px"}
         src={isSmall ? bannerImgMobile : bannerImg}
       />
     </motion.div>

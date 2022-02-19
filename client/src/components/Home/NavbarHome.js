@@ -323,6 +323,7 @@ const NavbarHome = () => {
 
   return (
     <motion.div
+      className="navbar-home bgYellow"
       exit={{
         height: "170px",
         transition: {
@@ -332,16 +333,10 @@ const NavbarHome = () => {
         },
       }}
     >
-      <Flex
-        flexDirection="row"
-        alignItems="flex-start"
-        justifyContent="space-between"
-        className="px navbar-home bgYellow"
-      >
-        <Box>
-          <HomeLogo />
-        </Box>
-
+      <Box>
+        <HomeLogo />
+      </Box>
+      <Box maxWidth="1125px" mx="auto" className="px">
         <Flex
           flexDirection="column"
           justifyContent="space-between"
@@ -526,7 +521,7 @@ const NavbarHome = () => {
             </Flex>
           </Box>
         </Flex>
-      </Flex>
+      </Box>
     </motion.div>
   );
 };
