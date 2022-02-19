@@ -9,6 +9,7 @@ const MobileLogo = () => {
       }}
       animate={{
         x: 0,
+        scale: 0.7,
       }}
       transition={{
         type: "spring",
@@ -23,11 +24,12 @@ const MobileLogo = () => {
           duration: 0.6,
         },
       }}
+      className="home-logo"
     >
       <svg
-        width="64"
+        width="72"
         height="72"
-        viewBox="0 0 64 72"
+        viewBox="0 0 72 72"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >

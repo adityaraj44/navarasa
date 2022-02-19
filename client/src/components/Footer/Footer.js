@@ -42,7 +42,7 @@ const Footer = () => {
         <Box className="mt-4 text-dark" fontWeight="bold">
           <a href="/">Privacy Policy</a> | <a href="/">Terms & Conditions</a>
         </Box>
-        <Box fontWeight="bold" className="mb-4 text-dark" marginTop="160px">
+        <Box fontWeight="bold" className="mb-4 text-dark footer-text">
           <Text>© Copyright Navarasa 2022</Text>
         </Box>
       </Flex>
