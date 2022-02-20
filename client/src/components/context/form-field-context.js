@@ -12,6 +12,14 @@ export const FormFieldProvider = ({ children }) => {
     state: "",
     city: "",
     postaladdress: "",
+    audio: "",
+    songtitle: "",
+    artist: "",
+    artistCategory: "",
+    instagram: "",
+    youtube: "",
+    twitter: "",
+    additionalinfo: "",
   });
 
   const [validSubmittername, setValidSubmittername] = React.useState(null);
@@ -22,6 +30,10 @@ export const FormFieldProvider = ({ children }) => {
   const [validState, setValidState] = React.useState(null);
   const [validCity, setValidCity] = React.useState(null);
   const [validAddress, setValidAddress] = React.useState(null);
+  const [validAudio, setValidAudio] = React.useState(null);
+  const [validSongTitle, setValidSongTitle] = React.useState(null);
+  const [validArtist, setValidArtist] = React.useState(null);
+  const [validArtistCategory, setValidArtistCategory] = React.useState(null);
 
   const validateFields = () => {
     if (
@@ -73,7 +85,9 @@ export const FormFieldProvider = ({ children }) => {
       formFields.contact === null ||
       formFields.contact === undefined ||
       formFields.contact === " " ||
-      formFields.contact.length < 10
+      formFields.contact.length < 10 ||
+      formFields.contact.length > 10 ||
+      !/^[1-9]+$/.test(formFields.contact)
     ) {
       setValidContact(false);
     } else {
@@ -115,6 +129,53 @@ export const FormFieldProvider = ({ children }) => {
     }
   };
 
+  const validateFieldsSongs = () => {
+    if (
+      formFields.audio === "" ||
+      formFields.audio === null ||
+      formFields.audio === undefined ||
+      formFields.audio === " " ||
+      formFields.audio.length < 1
+    ) {
+      setValidAudio(false);
+    } else {
+      setValidAudio(true);
+    }
+    if (
+      formFields.songtitle === "" ||
+      formFields.songtitle === null ||
+      formFields.songtitle === undefined ||
+      formFields.songtitle === " " ||
+      formFields.songtitle.length < 1
+    ) {
+      setValidSongTitle(false);
+    } else {
+      setValidSongTitle(true);
+    }
+    if (
+      formFields.artist === "" ||
+      formFields.artist === null ||
+      formFields.artist === undefined ||
+      formFields.artist === " " ||
+      formFields.artist.length < 1
+    ) {
+      setValidArtist(false);
+    } else {
+      setValidArtist(true);
+    }
+    if (
+      formFields.artistCategory === "" ||
+      formFields.artistCategory === null ||
+      formFields.artistCategory === undefined ||
+      formFields.artistCategory === " " ||
+      formFields.artistCategory.length < 1
+    ) {
+      setValidArtistCategory(false);
+    } else {
+      setValidArtistCategory(true);
+    }
+  };
+
   return (
     <FormFieldContext.Provider
       value={{
@@ -129,6 +190,11 @@ export const FormFieldProvider = ({ children }) => {
         validCity,
         validAddress,
         validateFields,
+        validateFieldsSongs,
+        validArtist,
+        validAudio,
+        validArtistCategory,
+        validSongTitle,
       }}
     >
       {children}

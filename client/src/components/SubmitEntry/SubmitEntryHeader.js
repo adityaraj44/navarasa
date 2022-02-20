@@ -56,36 +56,33 @@ const SubmitEntryHeader = () => {
               className="mt-4"
               wrap="nowrap"
             >
-              <Link to="/submitentry">
-                <p
-                  className={`text-white ${
-                    location.pathname === "/submitentry" ? "active" : ""
-                  } submit-heading-link ${isSmall ? "" : "mr-1"}`}
-                >
-                  1.Submitter info
-                </p>
-              </Link>
+              <p
+                className={`text-white ${
+                  location.pathname === "/submitentry" ? "active" : ""
+                } submit-heading-link ${isSmall ? "" : "mr-1"}`}
+              >
+                1.Submitter info
+              </p>
 
               <BiChevronRight className="submit-heading-link text-white mr-1" />
-              <Link to="/submitsong">
-                <p
-                  className={`text-white ${
-                    location.pathname === "/submitsong" ? "active" : ""
-                  } submit-heading-link ${isSmall ? "" : "mr-1"}`}
-                >
-                  2.Song submission
-                </p>
-              </Link>
+
+              <p
+                className={`text-white ${
+                  location.pathname === "/submitsong" ? "active" : ""
+                } submit-heading-link ${isSmall ? "" : "mr-1"}`}
+              >
+                2.Song submission
+              </p>
+
               <BiChevronRight className="submit-heading-link text-white mr-1" />
-              <Link to="/finalizeentry">
-                <p
-                  className={`text-white ${
-                    location.pathname === "/finalizeentry" ? "active" : ""
-                  } submit-heading-link`}
-                >
-                  3.Finalize
-                </p>
-              </Link>
+
+              <p
+                className={`text-white ${
+                  location.pathname === "/finalizeentry" ? "active" : ""
+                } submit-heading-link`}
+              >
+                3.Finalize
+              </p>
             </Flex>
           </motion.div>
         </Box>
