@@ -11,33 +11,35 @@ import { useLocation } from "react-router-dom";
 import SubmitSong from "./components/SubmitEntry/SubmitSong";
 import SubmitFinalize from "./components/SubmitEntry/SubmitFinalize";
 import SubmitInfo from "./components/SubmitEntry/SubmitInfo";
+import { FormFieldProvider } from "./components/context/form-field-context";
 
 const App = () => {
   const location = useLocation();
 
   return (
     <ChakraProvider>
-      <AnimatePresence exitBeforeEnter>
-        <Switch location={location} key={location.pathname}>
-          <Route exact path="/">
-            <Home />
-          </Route>
+      <FormFieldProvider>
+        <AnimatePresence exitBeforeEnter>
+          <Switch location={location} key={location.pathname}>
+            <Route exact path="/">
+              <Home />
+            </Route>
 
-          <Route exact path="/aboutus">
-            <About />
-          </Route>
-          <Route exact path="/submitentry">
-            <SubmitInfo />
-          </Route>
-          <Route exact path="/submitsong">
-            <SubmitSong />
-          </Route>
-          <Route exact path="/finalizeentry">
-            <SubmitFinalize />
-          </Route>
-        </Switch>
-      </AnimatePresence>
-
+            <Route exact path="/aboutus">
+              <About />
+            </Route>
+            <Route exact path="/submitentry">
+              <SubmitInfo />
+            </Route>
+            <Route exact path="/submitsong">
+              <SubmitSong />
+            </Route>
+            <Route exact path="/finalizeentry">
+              <SubmitFinalize />
+            </Route>
+          </Switch>
+        </AnimatePresence>
+      </FormFieldProvider>
       <Footer />
     </ChakraProvider>
   );
