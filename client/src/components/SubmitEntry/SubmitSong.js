@@ -80,7 +80,6 @@ const SubmitSong = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateFieldsSongs();
 
     if (
       validAudio === true &&
@@ -115,6 +114,7 @@ const SubmitSong = () => {
   };
 
   useEffect(() => {
+    validateFieldsSongs();
     if (
       validSubmittername !== true &&
       validRole !== true &&
@@ -137,6 +137,7 @@ const SubmitSong = () => {
     validRole,
     validState,
     validSubmittername,
+    validateFieldsSongs,
   ]);
 
   return (
