@@ -187,15 +187,24 @@ const SubmitFinalize = () => {
                 <Text className="text-purpleLight font-bold" fontSize="16px">
                   Uploaded song
                 </Text>
-                <Text className="text-white mb-2" fontSize="18px">
-                  {formFields.audio.name}
-                </Text>
-                <audio
-                  className="mt-4"
-                  style={{ margin: "0 auto" }}
-                  src={URL.createObjectURL(formFields.audio)}
-                  controls
-                ></audio>
+                <Box
+                  padding="20px 20px"
+                  borderRadius="2px"
+                  className="bgPurpleDark mt-2"
+                >
+                  <Text
+                    textAlign="left"
+                    className="text-white mb-4"
+                    fontSize="16px"
+                  >
+                    {formFields.audio.name}
+                  </Text>
+                  <audio
+                    style={{ margin: "0 auto" }}
+                    src={URL.createObjectURL(formFields.audio)}
+                    controls
+                  ></audio>
+                </Box>
               </Box>
 
               <Box className="mb-4">
