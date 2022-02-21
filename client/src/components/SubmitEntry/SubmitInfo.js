@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "../../custom-hooks";
 import FormFieldContext from "../context/form-field-context";
 import SubmitEntry from "./SubmitEntry";
+import { Country, State, City } from "country-state-city";
 
 const SubmitInfo = () => {
   const isSmall = useMediaQuery("(max-width:992px)");
@@ -45,7 +46,6 @@ const SubmitInfo = () => {
       [e.target.name]: e.target.value,
     });
   };
-
   useEffect(() => {
     validateFields();
   }, [validateFields]);
@@ -98,6 +98,28 @@ const SubmitInfo = () => {
       },
     },
   };
+
+  // countries-states-cities
+  const countries = Country.getAllCountries();
+
+  const updatedCountries = countries.map((country) => ({
+    label: country.name,
+    value: country.id,
+    ...country,
+  }));
+
+  const updatedStates = (countryId) =>
+    State.getStatesOfCountry(countryId).map((state) => ({
+      label: state.name,
+      value: state.id,
+      ...state,
+    }));
+  const updatedCities = (countryId, stateId) =>
+    City.getCitiesOfState(countryId, stateId).map((city) => ({
+      label: city.name,
+      value: city.id,
+      ...city,
+    }));
 
   return (
     <>
@@ -237,8 +259,18 @@ const SubmitInfo = () => {
                               value={formFields.country}
                               onChange={handleOnChange}
                             >
-                              <option value="">Select your country</option>
-                              <option value="India">India</option>
+                              <option value="">Select country</option>
+                              {updatedCountries &&
+                                updatedCountries.map((updatedCountry) => {
+                                  return (
+                                    <option
+                                      key={updatedCountry.isoCode}
+                                      value={`${updatedCountry.label},${updatedCountry.isoCode}`}
+                                    >
+                                      {updatedCountry.label}
+                                    </option>
+                                  );
+                                })}
                             </select>
                           </div>
                           {validCountry === false && (
@@ -328,7 +360,20 @@ const SubmitInfo = () => {
                               onChange={handleOnChange}
                             >
                               <option value="">Select state</option>
-                              <option value="Tamil Nadu">Tamil Nadu</option>
+                              {updatedStates(
+                                formFields.country !== ""
+                                  ? formFields.country.split(",")[1]
+                                  : null
+                              ).map((updatedState) => {
+                                return (
+                                  <option
+                                    key={updatedState.isoCode}
+                                    value={`${updatedState.label},${updatedState.isoCode}`}
+                                  >
+                                    {updatedState.label}
+                                  </option>
+                                );
+                              })}
                             </select>
                           </div>
                           {validState === false && (
@@ -360,7 +405,19 @@ const SubmitInfo = () => {
                               onChange={handleOnChange}
                             >
                               <option value="">Select city</option>
-                              <option value="Chennai">Chennai</option>
+                              {updatedCities(
+                                formFields.country.split(",")[1],
+                                formFields.state.split(",")[1]
+                              ).map((updatedCity) => {
+                                return (
+                                  <option
+                                    key={updatedCity.label}
+                                    value={updatedCity.label}
+                                  >
+                                    {updatedCity.label}
+                                  </option>
+                                );
+                              })}
                             </select>
                           </div>
                           {validCity === false && (

@@ -32,7 +32,7 @@ const SubmitFinalize = () => {
     validArtistCategory,
     validSongTitle,
   } = formContext;
-  console.log(formFields.audio);
+
   useEffect(() => {
     if (
       validSubmittername !== true &&

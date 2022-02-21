@@ -291,7 +291,11 @@ const SubmitSong = () => {
                     required
                   >
                     <option value="">Pick an artist category</option>
-                    <option value="default">Select to let form validate</option>
+                    <option value="Composer">Composer</option>
+                    <option value="Solo Artist">Solo Artist</option>
+                    <option value="Musician">Musician</option>
+                    <option value="Band">Band</option>
+                    <option value="Collaboration">Collaboration</option>
                   </select>
                 </Box>
                 {validArtistCategory === false && (

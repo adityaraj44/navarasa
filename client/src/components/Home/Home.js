@@ -246,6 +246,7 @@ const Home = () => {
           </motion.p>
           <Box marginTop="30px">
             <motion.div
+              className="submit-song text-yellow bgPink"
               whileHover={{
                 scale: 1.1,
                 transition: {
@@ -257,12 +258,7 @@ const Home = () => {
                 },
               }}
             >
-              <Link
-                to="/submitentry"
-                className="submit-song text-yellow bgPink"
-              >
-                Submit a song
-              </Link>
+              <Link to="/submitentry">Submit a song</Link>
             </motion.div>
           </Box>
         </Box>
