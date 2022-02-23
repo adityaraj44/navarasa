@@ -99,12 +99,13 @@ const SubmitFinalize = () => {
 
   // audio player
   const audioRef = useRef();
+  useEffect(() => {
+    audioRef.current.load();
+  }, [audioRef]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [progress, setProgress] = useState(0);
-
-  console.log(URL.createObjectURL(formFields.audio));
 
   const handlePlay = () => {
     const prevValue = isPlaying;
@@ -235,10 +236,17 @@ const SubmitFinalize = () => {
                       alignItems="center"
                       justifyContent="center"
                     >
-                      <audio
-                        ref={audioRef}
-                        src={URL.createObjectURL(formFields.audio)}
-                      />
+                      <audio ref={audioRef}>
+                        <source
+                          src={
+                            formFields.audio !== ""
+                              ? window.webkitURL.createObjectURL(
+                                  formFields.audio
+                                )
+                              : ""
+                          }
+                        />
+                      </audio>
                       {isPlaying ? (
                         <BsPauseFill
                           style={{
