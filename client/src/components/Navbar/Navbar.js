@@ -168,7 +168,13 @@ const Navbar = () => {
                 className="social-link  ml-4"
                 href="/"
               >
-                <Image alt="instagram" borderRadius="100%" src={instagram} />
+                <Image
+                  alt="instagram"
+                  width="40px"
+                  height="40px"
+                  borderRadius="100%"
+                  src={instagram}
+                />
               </motion.a>
               <motion.a
                 initial={{
@@ -196,7 +202,13 @@ const Navbar = () => {
                 className="social-link ml-4"
                 href="/"
               >
-                <Image alt="twitter" borderRadius="100%" src={twitter} />
+                <Image
+                  alt="twitter"
+                  width="40px"
+                  height="40px"
+                  borderRadius="100%"
+                  src={twitter}
+                />
               </motion.a>
               <motion.a
                 initial={{
@@ -224,7 +236,13 @@ const Navbar = () => {
                 className="social-link ml-4"
                 href="/"
               >
-                <Image alt="youtube" borderRadius="100%" src={youtube} />
+                <Image
+                  alt="youtube"
+                  width="40px"
+                  height="40px"
+                  borderRadius="100%"
+                  src={youtube}
+                />
               </motion.a>
               <motion.a
                 initial={{
@@ -252,7 +270,13 @@ const Navbar = () => {
                 className="social-link  ml-4"
                 href="/"
               >
-                <Image alt="arroba" borderRadius="100%" src={arroba} />
+                <Image
+                  alt="arroba"
+                  width="40px"
+                  height="40px"
+                  borderRadius="100%"
+                  src={arroba}
+                />
               </motion.a>
             </Flex>
           </Box>
@@ -327,7 +351,13 @@ const Navbar = () => {
                 className="social-link  ml-4"
                 href="/"
               >
-                <Image alt="instagram" borderRadius="100%" src={instagram} />
+                <Image
+                  alt="instagram"
+                  width="30px"
+                  height="30px"
+                  borderRadius="100%"
+                  src={instagram}
+                />
               </motion.a>
               <motion.a
                 initial={{
@@ -355,7 +385,13 @@ const Navbar = () => {
                 className="social-link ml-4"
                 href="/"
               >
-                <Image alt="twitter" borderRadius="100%" src={twitter} />
+                <Image
+                  alt="twitter"
+                  width="30px"
+                  height="30px"
+                  borderRadius="100%"
+                  src={twitter}
+                />
               </motion.a>
               <motion.a
                 initial={{
@@ -383,7 +419,13 @@ const Navbar = () => {
                 className="social-link ml-4"
                 href="/"
               >
-                <Image alt="youtube" borderRadius="100%" src={youtube} />
+                <Image
+                  alt="youtube"
+                  width="30px"
+                  height="30px"
+                  borderRadius="100%"
+                  src={youtube}
+                />
               </motion.a>
               <motion.a
                 initial={{
@@ -411,7 +453,13 @@ const Navbar = () => {
                 className="social-link  ml-4"
                 href="/"
               >
-                <Image alt="arroba" borderRadius="100%" src={arroba} />
+                <Image
+                  alt="arroba"
+                  width="30px"
+                  height="30px"
+                  borderRadius="100%"
+                  src={arroba}
+                />
               </motion.a>
             </Flex>
           </Box>

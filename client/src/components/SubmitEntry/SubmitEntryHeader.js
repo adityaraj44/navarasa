@@ -2,7 +2,6 @@ import { Box, Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
 import { useMediaQuery } from "../../custom-hooks";
-import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 
@@ -37,7 +36,12 @@ const SubmitEntryHeader = () => {
 
   return (
     <>
-      <motion.div className="bgPurpleDark">
+      <Flex
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        className="bgPurpleDark submit-header-container"
+      >
         <Box maxWidth="1125px" mx="auto">
           <motion.div
             variants={headerVariant}
@@ -53,7 +57,7 @@ const SubmitEntryHeader = () => {
               flexDirection="row"
               justifyContent="center"
               alignItems="center"
-              className="mt-4"
+              className="mt-2"
               wrap="nowrap"
             >
               <p
@@ -86,7 +90,7 @@ const SubmitEntryHeader = () => {
             </Flex>
           </motion.div>
         </Box>
-      </motion.div>
+      </Flex>
     </>
   );
 };
