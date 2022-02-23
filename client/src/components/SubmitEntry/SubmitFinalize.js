@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Box, Text, Image, Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { BiChevronLeft } from "react-icons/bi";
@@ -9,6 +9,7 @@ import { useMediaQuery } from "../../custom-hooks";
 import instagram from "../../imgs/instagram.png";
 import twitter from "../../imgs/twitter.png";
 import youtube from "../../imgs/youtube.png";
+import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 
 const SubmitFinalize = () => {
   const isSmall = useMediaQuery("(max-width:992px)");
@@ -94,6 +95,25 @@ const SubmitFinalize = () => {
         duration: 0.8,
       },
     },
+  };
+
+  // audio player
+  const audioRef = useRef();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [progress, setProgress] = useState(0);
+
+  console.log(URL.createObjectURL(formFields.audio));
+
+  const handlePlay = () => {
+    const prevValue = isPlaying;
+    setIsPlaying(!prevValue);
+    if (!prevValue) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
   };
 
   return (
@@ -199,11 +219,76 @@ const SubmitFinalize = () => {
                   >
                     {formFields.audio.name}
                   </Text>
-                  <audio
-                    style={{ margin: "0 auto" }}
-                    src={URL.createObjectURL(formFields.audio)}
-                    controls
-                  ></audio>
+                  <Flex
+                    flexDirection="row"
+                    justifyContent="space-around"
+                    alignItems="center"
+                  >
+                    <Flex
+                      className="play-pause-btn bgPinkLight"
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "100%",
+                        cursor: "pointer",
+                      }}
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <audio
+                        ref={audioRef}
+                        src={URL.createObjectURL(formFields.audio)}
+                      />
+                      {isPlaying ? (
+                        <BsPauseFill
+                          style={{
+                            width: "16px",
+                            height: "16px",
+                          }}
+                          onClick={handlePlay}
+                          className="play-icon text-white"
+                        />
+                      ) : (
+                        <BsPlayFill
+                          style={{
+                            width: "16px",
+                            height: "16px",
+                          }}
+                          onClick={handlePlay}
+                          className="play-icon text-white"
+                        />
+                      )}
+                    </Flex>
+
+                    <Box
+                      justifySelf="flex-start"
+                      className="text-white font-bold"
+                    >
+                      <p
+                        style={{
+                          fontSize: "12px",
+                        }}
+                      >
+                        00:00
+                      </p>
+                    </Box>
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <input
+                        type="range"
+                        className="progressBar"
+                        name="range"
+                        id="range"
+                      />
+                    </Box>
+
+                    <Box className="text-white font-bold">
+                      <p style={{ fontSize: "12px" }}>04:39</p>
+                    </Box>
+                  </Flex>
                 </Box>
               </Box>
 

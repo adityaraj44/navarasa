@@ -341,6 +341,105 @@ a {
   -o-border-radius: 2px;
 }
 
+.progressBar {
+  --bar-bg: #ffffff;
+  --seek-before-width: 100px;
+  --seek-before-color: #a884fc;
+  --knobby: #a884fc;
+  --selectedKnobby: #a884fc;
+  background: var(--bar-bg);
+  appearance: none;
+  outline: none;
+  height: 1px;
+  position: relative;
+  width: 100%;
+}
+
+// safari
+.progressBar::-webkit-slider-runnable-track {
+  background: var(--bar-bg);
+
+  outline: none;
+  height: 1px;
+  position: relative;
+  width: 100%;
+}
+
+// firefox
+.progressBar::-moz-range-track {
+  background: var(--bar-bg);
+  outline: none;
+  height: 1px;
+  position: relative;
+  width: 100%;
+}
+
+.progressBar::-moz-focus-outer {
+  border: 0;
+}
+
+// chrome and safari progress
+.progressBar::before {
+  content: "";
+  height: 1px;
+  width: var(--seek-before-width);
+  background: var(--seek-before-color);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+// firefox
+.progressBar::-moz-range-progress {
+  background: var(--seek-before-color);
+}
+
+// knobby chrome and safari
+.progressBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border: none;
+  border-radius: 100%;
+  background: var(--knobby);
+  position: relative;
+  margin: -10px 0 0 0;
+  z-index: 3;
+  box-sizing: border-box;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+}
+
+.progressBar:active::-webkit-slider-thumb {
+  transform: scale(1.1);
+  background: var(--selectedKnobby);
+}
+
+// knobby firefox
+.progressBar::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border: transparent;
+  background: var(--knobby);
+  position: relative;
+  border-radius: 100%;
+  z-index: 3;
+  box-sizing: border-box;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+}
+
+.progressBar:active::-moz-range-thumb {
+  transform: scale(1.1);
+  background: var(--selectedKnobby);
+}
+
 @media only screen and (max-width: 576px) {
   .footer {
     height: 250px;

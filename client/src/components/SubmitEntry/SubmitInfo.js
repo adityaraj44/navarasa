@@ -41,10 +41,10 @@ const SubmitInfo = () => {
   } = formContext;
 
   const handleOnChange = (e) => {
-    setFormFields({
-      ...formFields,
+    setFormFields((prevState) => ({
+      ...prevState,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
   useEffect(() => {
     validateFields();
@@ -454,7 +454,17 @@ const SubmitInfo = () => {
                             onChange={handleOnChange}
                           >
                             <option value="">Select your country</option>
-                            <option value="India">India</option>
+                            {updatedCountries &&
+                              updatedCountries.map((updatedCountry) => {
+                                return (
+                                  <option
+                                    key={updatedCountry.isoCode}
+                                    value={`${updatedCountry.label},${updatedCountry.isoCode}`}
+                                  >
+                                    {updatedCountry.label}
+                                  </option>
+                                );
+                              })}
                           </select>
                         </div>
                         {validCountry === false && (
@@ -542,7 +552,20 @@ const SubmitInfo = () => {
                             onChange={handleOnChange}
                           >
                             <option value="">Select state</option>
-                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            {updatedStates(
+                              formFields.country !== ""
+                                ? formFields.country.split(",")[1]
+                                : null
+                            ).map((updatedState) => {
+                              return (
+                                <option
+                                  key={updatedState.isoCode}
+                                  value={`${updatedState.label},${updatedState.isoCode}`}
+                                >
+                                  {updatedState.label}
+                                </option>
+                              );
+                            })}
                           </select>
                         </div>
                         {validState === false && (
@@ -574,7 +597,19 @@ const SubmitInfo = () => {
                             onChange={handleOnChange}
                           >
                             <option value="">Select city</option>
-                            <option value="Chennai">Chennai</option>
+                            {updatedCities(
+                              formFields.country.split(",")[1],
+                              formFields.state.split(",")[1]
+                            ).map((updatedCity) => {
+                              return (
+                                <option
+                                  key={updatedCity.label}
+                                  value={updatedCity.label}
+                                >
+                                  {updatedCity.label}
+                                </option>
+                              );
+                            })}
                           </select>
                         </div>
                         {validCity === false && (
