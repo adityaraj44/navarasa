@@ -127,11 +127,11 @@ const SubmitFinalize = () => {
 
   // audio player
   const audioRef = useRef();
-  // useEffect(() => {
-  //   if (formFields.audio !== "") {
-  //     audioRef.current.load();
-  //   }
-  // }, [audioRef, formFields.audio]);
+
+  useEffect(() => {
+    setDuration(audioRef.current.duration);
+  }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState]);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -506,7 +506,7 @@ const SubmitFinalize = () => {
                           fontSize: "12px",
                         }}
                       >
-                        00:00
+                        {duration}
                       </p>
                     </Box>
                     <Box
@@ -700,6 +700,7 @@ const SubmitFinalize = () => {
                     },
                   }}
                   className="text-yellow ml-1 form-control bgPink confirm-submit"
+                  onClick={() => setIsSuccess(true)}
                 >
                   Confirm submission
                 </motion.button>

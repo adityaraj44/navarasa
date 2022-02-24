@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Box, Image } from "@chakra-ui/react";
 import NavbarHome from "./NavbarHome";
 import HomeBanner from "../Banner/HomeBanner";
 import placeholder from "../../imgs/placeholder.png";
-import { BsPlayFill } from "react-icons/bs";
+import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "../../custom-hooks";
 import bannerImgMobile1 from "../../imgs/banner_home_mobile1.png";
+import videoLarge from "../../videos/Navarasa Promo.mp4";
 
 const Home = () => {
   const isSmall = useMediaQuery("(max-width:992px)");
@@ -26,6 +27,30 @@ const Home = () => {
         delay: 0.2,
       },
     },
+  };
+
+  const videoRef = useRef();
+
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isButtonVisible, setIsButtonVisible] = useState(null);
+
+  // hover the video to show the play/pause button
+  const handleMouseEnter = () => {
+    setIsButtonVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsButtonVisible(false);
+  };
+
+  const handleVideo = () => {
+    let prev = isVideoPlaying;
+    setIsVideoPlaying(!prev);
+    if (!prev) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+    }
   };
 
   return (
@@ -104,9 +129,33 @@ const Home = () => {
               duration: 0.6,
             },
           }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
-          <video src="" poster={placeholder} />
-          <BsPlayFill className="video-element text-white bgPinkLight" />
+          <video
+            ref={videoRef}
+            src={videoLarge}
+            poster={placeholder}
+            controls={isVideoPlaying === true}
+            onEnded={() => setIsVideoPlaying(false)}
+          />
+          {isButtonVisible === null || isButtonVisible === true ? (
+            <>
+              {isVideoPlaying ? (
+                <BsPauseFill
+                  onClick={handleVideo}
+                  className="video-element text-white bgPinkLight"
+                />
+              ) : (
+                <BsPlayFill
+                  onClick={handleVideo}
+                  className="video-element text-white bgPinkLight"
+                />
+              )}
+            </>
+          ) : (
+            ""
+          )}
         </motion.div>
       </Box>
       <Box maxWidth="1125px" mx="auto">

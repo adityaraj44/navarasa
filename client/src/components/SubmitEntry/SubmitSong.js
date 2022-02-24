@@ -326,9 +326,14 @@ const SubmitSong = () => {
                   alignItems="center"
                   className="mt-4 mb-4"
                 >
-                  <a className="social-link" href="/">
-                    <Image alt="instagram" src={instagram} />
-                  </a>
+                  <Image
+                    alt="instagram"
+                    width="30px"
+                    height="30px"
+                    borderRadius="100%"
+                    src={instagram}
+                  />
+
                   <Input
                     className="input bgWhite ml-4 text-grey"
                     borderRadius="2px"
@@ -348,9 +353,14 @@ const SubmitSong = () => {
                   alignItems="center"
                   className="mt-4 mb-4"
                 >
-                  <a className="social-link" href="/">
-                    <Image alt="youtube" src={youtube} />
-                  </a>
+                  <Image
+                    alt="youtube"
+                    width="30px"
+                    height="30px"
+                    borderRadius="100%"
+                    src={youtube}
+                  />
+
                   <Input
                     className="input bgWhite ml-4 text-grey"
                     borderRadius="2px"
@@ -370,9 +380,14 @@ const SubmitSong = () => {
                   alignItems="center"
                   className="mt-4 mb-4"
                 >
-                  <a className="social-link" href="/">
-                    <Image alt="twitter" src={twitter} />
-                  </a>
+                  <Image
+                    alt="twitter"
+                    width="30px"
+                    height="30px"
+                    borderRadius="100%"
+                    src={twitter}
+                  />
+
                   <Input
                     className="input bgWhite ml-4 text-grey"
                     borderRadius="2px"
