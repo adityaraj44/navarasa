@@ -348,14 +348,14 @@ a {
 
 .progressBar {
   --bar-bg: #ffffff;
-  --seek-before-width: 100px;
+  --seek-before-width: 10px;
   --seek-before-color: #a884fc;
   --knobby: #a884fc;
   --selectedKnobby: #a884fc;
   background: var(--bar-bg);
   appearance: none;
   outline: none;
-  height: 1px;
+  height: 2px;
   position: relative;
   width: 100%;
 }
@@ -365,7 +365,7 @@ a {
   background: var(--bar-bg);
 
   outline: none;
-  height: 1px;
+  height: 2px;
   position: relative;
   width: 100%;
 }
@@ -374,7 +374,7 @@ a {
 .progressBar::-moz-range-track {
   background: var(--bar-bg);
   outline: none;
-  height: 1px;
+  height: 2px;
   position: relative;
   width: 100%;
 }
@@ -386,7 +386,7 @@ a {
 // chrome and safari progress
 .progressBar::before {
   content: "";
-  height: 1px;
+  height: 3px;
   width: var(--seek-before-width);
   background: var(--seek-before-color);
   position: absolute;

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Box, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Text, Image, Flex, useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { BiChevronLeft } from "react-icons/bi";
 import { useHistory, Link } from "react-router-dom";
@@ -15,6 +15,7 @@ import masthead from "../../imgs/placeholder.png";
 import errorSvg from "../../imgs/error.svg";
 
 const SubmitFinalize = () => {
+  const toast = useToast();
   const isSmall = useMediaQuery("(max-width:992px)");
   const history = useHistory();
 
@@ -127,30 +128,72 @@ const SubmitFinalize = () => {
 
   // audio player
   const audioRef = useRef();
-
-  useEffect(() => {
-    setDuration(audioRef.current.duration);
-  }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState]);
+  const progressBarRef = useRef();
+  const animationRef = useRef();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [progress, setProgress] = useState(0);
+
+  const calculateTime = (secs) => {
+    const minutes = Math.floor(secs / 60);
+    const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const seconds = Math.floor(secs % 60);
+    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${returnedMinutes}:${returnedSeconds}`;
+  };
 
   const handlePlay = () => {
     const prevValue = isPlaying;
     setIsPlaying(!prevValue);
     if (!prevValue) {
       audioRef.current.play();
+      animationRef.current = requestAnimationFrame(whilePlaying);
     } else {
       audioRef.current.pause();
+      cancelAnimationFrame(animationRef.current);
     }
   };
 
+  const whilePlaying = () => {
+    progressBarRef.current.value = audioRef.current.currentTime;
+    changePlayerCurrentTime();
+    animationRef.current = requestAnimationFrame(whilePlaying);
+  };
+
+  const changeRange = () => {
+    audioRef.current.currentTime = progressBarRef.current.value;
+    changePlayerCurrentTime();
+  };
+
+  const changePlayerCurrentTime = () => {
+    progressBarRef.current.style.setProperty(
+      "--seek-before-width",
+      `${(progressBarRef.current.value / duration) * 100}%`
+    );
+    setCurrentTime(progressBarRef.current.value);
+  };
+
+  const [isChecked, setIsChecked] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  if (isSuccess) {
+  const handleChecked = () => {
+    if (isChecked === true) {
+      setIsSuccess(true);
+      setIsError(false);
+    } else {
+      toast({
+        title: "Please accept the terms and conditions",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  };
+
+  if (isSuccess === true && isError === false) {
     return (
       <>
         <Navbar />
@@ -174,11 +217,11 @@ const SubmitFinalize = () => {
               fontFamily="Azo Sans, sans-serif"
               className="text-pink success-header"
             >
-              Success
+              Success!
             </Text>
           </motion.div>
         </Flex>
-        <Box className="bgPurple">
+        <Box position="relative" className="bgPurple">
           <Box maxWidth="1125px" mx="auto">
             <motion.div
               variants={fieldsVariant}
@@ -225,29 +268,45 @@ const SubmitFinalize = () => {
             >
               <Image alt="about-masthead mt-4" width="100%" src={masthead} />
             </motion.div>
-            <Box textAlign="center" className={isSmall ? "px-mobile" : "px"}>
-              <Text fontSize="18px" className="text-white mb-3">
-                Your submission Ref ID is
-              </Text>
-              <Text fontSize="40px" className="text-white font-bold">
-                #8562-8453-4361
-              </Text>
-              <Text fontSize="18px" className="text-white mt-2">
-                A confirmation receipt has been sent to the email address you
-                provided in your application.
-              </Text>
-              <Text fontSize="18px" mt="130px" className="text-white mb-4">
-                If you have any questions about your entry, please contact us
-                via email at contact@navarasacreative.com or via Whatsapp
-              </Text>
-            </Box>
+            <motion.div
+              variants={fieldsVariant}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <Box textAlign="center" className={isSmall ? "px-mobile" : "px"}>
+                <Text fontSize="18px" className="text-white mb-3">
+                  Your submission Ref ID is
+                </Text>
+                <Text fontSize="40px" className="text-white font-bold">
+                  #8562-8453-4361
+                </Text>
+                <Text fontSize="18px" className="text-white mt-2">
+                  A confirmation receipt has been sent to the email address you
+                  provided in your application.
+                </Text>
+                <Text fontSize="18px" mt="200px" className="text-white mb-4">
+                  If you have any questions about your entry, please contact us
+                  via email at{" "}
+                  <span className="text-yellow">
+                    <a href="mailto:contact@navarasacreative.com">
+                      contact@navarasacreative.com
+                    </a>
+                  </span>{" "}
+                  or via{" "}
+                  <span className="text-yellow">
+                    <a href="/">Whatsapp</a>
+                  </span>
+                </Text>
+              </Box>
+            </motion.div>
           </Box>
         </Box>
       </>
     );
   }
 
-  if (isError) {
+  if (isError === true && isSuccess === false) {
     return (
       <>
         <Navbar />
@@ -333,11 +392,18 @@ const SubmitFinalize = () => {
               <Text fontSize="18px" className="text-white">
                 We apologise for any inconvenience. Please try again later.
               </Text>
-
-              <Text fontSize="18px" mt="130px" className="text-white mb-4">
+              <Text fontSize="18px" mt="200px" className="text-white mb-4">
                 If you continue to have trouble submitting your entry, please
-                contact us via email at contact@navarasacreative.com or via
-                Whatsapp
+                contact us via email at{" "}
+                <span className="text-yellow">
+                  <a href="mailto:contact@navarasacreative.com">
+                    contact@navarasacreative.com
+                  </a>
+                </span>{" "}
+                or via{" "}
+                <span className="text-yellow">
+                  <a href="/">Whatsapp</a>
+                </span>
               </Text>
             </Box>
           </Box>
@@ -455,6 +521,7 @@ const SubmitFinalize = () => {
                     alignItems="center"
                   >
                     <Flex
+                      onClick={handlePlay}
                       className="play-pause-btn bgPinkLight"
                       style={{
                         width: "40px",
@@ -465,7 +532,16 @@ const SubmitFinalize = () => {
                       alignItems="center"
                       justifyContent="center"
                     >
-                      <audio ref={audioRef}>
+                      <audio
+                        ref={audioRef}
+                        onLoadedData={() =>
+                          setDuration(audioRef.current.duration)
+                        }
+                        onTimeUpdate={() =>
+                          setCurrentTime(audioRef.current.currentTime)
+                        }
+                        onEnded={() => setIsPlaying(false)}
+                      >
                         <source
                           src={
                             formFields.audio !== ""
@@ -506,7 +582,7 @@ const SubmitFinalize = () => {
                           fontSize: "12px",
                         }}
                       >
-                        {duration}
+                        {calculateTime(currentTime)}
                       </p>
                     </Box>
                     <Box
@@ -515,15 +591,23 @@ const SubmitFinalize = () => {
                       justifyContent="center"
                     >
                       <input
+                        ref={progressBarRef}
                         type="range"
                         className="progressBar"
                         name="range"
                         id="range"
+                        defaultValue={0}
+                        max={Math.floor(duration)}
+                        onChange={changeRange}
                       />
                     </Box>
 
                     <Box className="text-white font-bold">
-                      <p style={{ fontSize: "12px" }}>04:39</p>
+                      <p style={{ fontSize: "12px" }}>
+                        {duration &&
+                          !isNaN(duration) &&
+                          calculateTime(duration)}
+                      </p>
                     </Box>
                   </Flex>
                 </Box>
@@ -633,6 +717,8 @@ const SubmitFinalize = () => {
                   <input
                     className="text-yellow bgYellow  mt-4 mb-4"
                     type="checkbox"
+                    checked={isChecked}
+                    onChange={() => setIsChecked(!isChecked)}
                     id="terms"
                     name="terms"
                     value="Bike"
@@ -700,7 +786,7 @@ const SubmitFinalize = () => {
                     },
                   }}
                   className="text-yellow ml-1 form-control bgPink confirm-submit"
-                  onClick={() => setIsSuccess(true)}
+                  onClick={handleChecked}
                 >
                   Confirm submission
                 </motion.button>

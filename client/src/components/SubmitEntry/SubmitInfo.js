@@ -121,6 +121,11 @@ const SubmitInfo = () => {
       ...city,
     }));
 
+  const getPhoneCode = (countryId) => {
+    const resp = Country.getCountryByCode(countryId);
+    return resp;
+  };
+
   return (
     <>
       <SubmitEntry />
@@ -297,19 +302,25 @@ const SubmitInfo = () => {
                           </FormLabel>
                           <InputGroup>
                             <Input
-                              width="80px"
+                              width="100px"
                               className="input bgWhite mt-2 mb-4 mr-3 text-grey"
                               borderRadius="2px"
                               size="md"
-                              defaultValue="+91"
                               readOnly
-                              placeholder="+91"
+                              placeholder={
+                                formFields.country !== ""
+                                  ? getPhoneCode(
+                                      formFields.country.split(",")[1]
+                                    ).phonecode
+                                  : "91"
+                              }
                               fontSize="18px"
                               id="countrycode"
                               name="countrycode"
                               type="text"
                             />
                             <Input
+                              width={"200px"}
                               className="input bgWhite mt-2 mb-4 text-grey"
                               borderRadius="2px"
                               size="md"
