@@ -509,9 +509,14 @@ const SubmitInfo = () => {
                               className="input bgWhite mt-2 mb-4 mr-3 text-grey"
                               borderRadius="2px"
                               size="md"
-                              defaultValue="+91"
                               readOnly
-                              placeholder="+91"
+                              placeholder={
+                                formFields.country !== ""
+                                  ? getPhoneCode(
+                                      formFields.country.split(",")[1]
+                                    ).phonecode
+                                  : "91"
+                              }
                               fontSize="18px"
                               id="countrycode"
                               name="countrycode"

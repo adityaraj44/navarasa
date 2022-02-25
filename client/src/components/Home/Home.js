@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Box, Image } from "@chakra-ui/react";
 import NavbarHome from "./NavbarHome";
 import HomeBanner from "../Banner/HomeBanner";
@@ -48,8 +48,14 @@ const Home = () => {
     setIsVideoPlaying(!prev);
     if (!prev) {
       videoRef.current.play();
+      setTimeout(() => {
+        setIsButtonVisible(false);
+      }, 3000);
     } else {
       videoRef.current.pause();
+      setTimeout(() => {
+        setIsButtonVisible(false);
+      }, 3000);
     }
   };
 
@@ -131,12 +137,14 @@ const Home = () => {
           }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onFocus={() => setIsButtonVisible(true)}
+          onBlur={() => setIsButtonVisible(false)}
         >
           <video
             ref={videoRef}
             src={videoLarge}
             poster={placeholder}
-            controls={isVideoPlaying === true}
+            // controls={isVideoPlaying === true}
             onEnded={() => setIsVideoPlaying(false)}
           />
           {isButtonVisible === null || isButtonVisible === true ? (
