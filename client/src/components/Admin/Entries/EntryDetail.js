@@ -219,11 +219,11 @@ const EntryDetail = () => {
               </Box>
 
               <Box
-                width="90%"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 margin="0px 20px"
+                flexGrow={1}
               >
                 <input
                   type="range"
