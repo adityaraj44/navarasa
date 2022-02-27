@@ -4,6 +4,7 @@ import AdminNavbar from "../AdminNavbar";
 import { TriangleUpIcon, TriangleDownIcon } from "@chakra-ui/icons";
 import EntryItem from "./EntryItem";
 import { BsPlayFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const AllEntries = () => {
   const [isSelected, setIsSelected] = useState();
@@ -163,13 +164,15 @@ const AllEntries = () => {
               >
                 Shortlist
               </Text>
-              <Text
-                display="inline"
-                className="text-pink font-bold ml-3"
-                fontSize="14px"
-              >
-                Details
-              </Text>
+              <Link to="/navarasa/admin/entries/entry/:id">
+                <Text
+                  display="inline"
+                  className="text-pink font-bold ml-3"
+                  fontSize="14px"
+                >
+                  Details
+                </Text>
+              </Link>
             </Box>
           </Flex>
           <Flex

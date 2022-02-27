@@ -14,6 +14,8 @@ import SubmitInfo from "./components/SubmitEntry/SubmitInfo";
 import { FormFieldProvider } from "./components/context/form-field-context";
 import Login from "./components/Admin/Auth/Login";
 import AllEntries from "./components/Admin/Entries/AllEntries";
+import EntryDetail from "./components/Admin/Entries/EntryDetail";
+import EditEntry from "./components/Admin/Entries/EditEntry";
 
 const App = () => {
   const location = useLocation();
@@ -43,6 +45,12 @@ const App = () => {
             </Route>
             <Route exact path="/navarasa/admin/entries">
               <AllEntries />
+            </Route>
+            <Route exact path="/navarasa/admin/entries/entry/:id">
+              <EntryDetail />
+            </Route>
+            <Route exact path="/navarasa/admin/entries/editentry/:id">
+              <EditEntry />
             </Route>
           </Switch>
         </AnimatePresence>

@@ -517,7 +517,7 @@ const SubmitFinalize = () => {
                   </Text>
                   <Flex
                     flexDirection="row"
-                    justifyContent="space-around"
+                    justifyContent="space-between"
                     alignItems="center"
                   >
                     <Flex
@@ -575,7 +575,7 @@ const SubmitFinalize = () => {
 
                     <Box
                       justifySelf="flex-start"
-                      className="text-white font-bold"
+                      className="text-white font-bold ml-2"
                     >
                       <p
                         style={{
@@ -586,9 +586,12 @@ const SubmitFinalize = () => {
                       </p>
                     </Box>
                     <Box
+                      width={isSmall ? "70%" : "70%"}
+                      margin="0px 20px"
                       display="flex"
                       alignItems="center"
                       justifyContent="center"
+                      flexShrink={"9"}
                     >
                       <input
                         ref={progressBarRef}
