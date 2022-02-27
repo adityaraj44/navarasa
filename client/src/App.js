@@ -12,6 +12,8 @@ import SubmitSong from "./components/SubmitEntry/SubmitSong";
 import SubmitFinalize from "./components/SubmitEntry/SubmitFinalize";
 import SubmitInfo from "./components/SubmitEntry/SubmitInfo";
 import { FormFieldProvider } from "./components/context/form-field-context";
+import Login from "./components/Admin/Auth/Login";
+import AllEntries from "./components/Admin/Entries/AllEntries";
 
 const App = () => {
   const location = useLocation();
@@ -24,7 +26,6 @@ const App = () => {
             <Route exact path="/">
               <Home />
             </Route>
-
             <Route exact path="/aboutus">
               <About />
             </Route>
@@ -36,6 +37,12 @@ const App = () => {
             </Route>
             <Route exact path="/finalizeentry">
               <SubmitFinalize />
+            </Route>
+            <Route exact path="/navarasa/admin/login">
+              <Login />
+            </Route>
+            <Route exact path="/navarasa/admin/entries">
+              <AllEntries />
             </Route>
           </Switch>
         </AnimatePresence>

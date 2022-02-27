@@ -445,6 +445,55 @@ a {
   background: var(--selectedKnobby);
 }
 
+// admin
+.loginBtn {
+  width: 120px;
+  height: 50px;
+  text-align: center;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  outline: none;
+  border: transparent;
+}
+
+.tab-btn {
+  color: white;
+  background-color: #a884fc;
+  font-size: 14px;
+  width: 165px;
+  height: 50px;
+  text-align: center;
+  outline: none;
+  border: transparent;
+}
+
+.tab-btn-selected {
+  width: 165px;
+  height: 50px;
+  text-align: center;
+  font-size: 14px;
+  color: #a884fc;
+  background-color: #42376f;
+  outline: none;
+  border: transparent;
+}
+
+.tableTitle {
+  text-align: left;
+  padding-left: 20px;
+  height: 50px;
+  font-size: 14px;
+  outline: none;
+  border: transparent;
+}
+
+.tableElem {
+  padding: 20px 0px 20px 10px;
+}
+
 @media only screen and (max-width: 576px) {
   .footer {
     height: 250px;

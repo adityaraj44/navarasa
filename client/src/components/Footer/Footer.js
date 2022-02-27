@@ -4,8 +4,23 @@ import instagram from "../../imgs/instagram.png";
 import twitter from "../../imgs/twitter.png";
 import youtube from "../../imgs/youtube.png";
 import arroba from "../../imgs/arroba.png";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation();
+
+  if (location.pathname.includes("/navarasa/admin")) {
+    return (
+      <Box className="footer bgYellow" textAlign="center">
+        <Box pt="10px">
+          <Text fontSize="14px" fontWeight="bold" className="mt-4 text-dark">
+            © Copyright Navarasa 2022
+          </Text>
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <Box className="footer bgYellow">
       <Flex
