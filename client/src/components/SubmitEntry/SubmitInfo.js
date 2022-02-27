@@ -100,13 +100,7 @@ const SubmitInfo = () => {
   };
 
   // countries-states-cities
-  const countries = Country.getAllCountries();
-
-  const updatedCountries = countries.map((country) => ({
-    label: country.name,
-    value: country.id,
-    ...country,
-  }));
+  const country = Country.getCountryByCode("IN");
 
   const updatedStates = (countryId) =>
     State.getStatesOfCountry(countryId).map((state) => ({
@@ -120,11 +114,6 @@ const SubmitInfo = () => {
       value: city.id,
       ...city,
     }));
-
-  const getPhoneCode = (countryId) => {
-    const resp = Country.getCountryByCode(countryId);
-    return resp;
-  };
 
   return (
     <>
@@ -265,17 +254,13 @@ const SubmitInfo = () => {
                               onChange={handleOnChange}
                             >
                               <option value="">Select country</option>
-                              {updatedCountries &&
-                                updatedCountries.map((updatedCountry) => {
-                                  return (
-                                    <option
-                                      key={updatedCountry.isoCode}
-                                      value={`${updatedCountry.label},${updatedCountry.isoCode}`}
-                                    >
-                                      {updatedCountry.label}
-                                    </option>
-                                  );
-                                })}
+                              {country && (
+                                <option
+                                  value={`${country.name},${country.isoCode}`}
+                                >
+                                  {country.name}
+                                </option>
+                              )}
                             </select>
                           </div>
                           {validCountry === false && (
@@ -307,13 +292,7 @@ const SubmitInfo = () => {
                               borderRadius="2px"
                               size="md"
                               readOnly
-                              placeholder={
-                                formFields.country !== ""
-                                  ? getPhoneCode(
-                                      formFields.country.split(",")[1]
-                                    ).phonecode
-                                  : "91"
-                              }
+                              placeholder="+91"
                               fontSize="18px"
                               id="countrycode"
                               name="countrycode"
@@ -465,17 +444,13 @@ const SubmitInfo = () => {
                             onChange={handleOnChange}
                           >
                             <option value="">Select your country</option>
-                            {updatedCountries &&
-                              updatedCountries.map((updatedCountry) => {
-                                return (
-                                  <option
-                                    key={updatedCountry.isoCode}
-                                    value={`${updatedCountry.label},${updatedCountry.isoCode}`}
-                                  >
-                                    {updatedCountry.label}
-                                  </option>
-                                );
-                              })}
+                            {country && (
+                              <option
+                                value={`${country.name},${country.isoCode}`}
+                              >
+                                {country.name}
+                              </option>
+                            )}
                           </select>
                         </div>
                         {validCountry === false && (
@@ -510,13 +485,7 @@ const SubmitInfo = () => {
                               borderRadius="2px"
                               size="md"
                               readOnly
-                              placeholder={
-                                formFields.country !== ""
-                                  ? getPhoneCode(
-                                      formFields.country.split(",")[1]
-                                    ).phonecode
-                                  : "91"
-                              }
+                              placeholder="+91"
                               fontSize="18px"
                               id="countrycode"
                               name="countrycode"
