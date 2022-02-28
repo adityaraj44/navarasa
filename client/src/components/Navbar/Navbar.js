@@ -104,7 +104,11 @@ const Navbar = () => {
               </Link>
               <Link
                 className={`mr-3 ${
-                  location.pathname === "/submitentry" ? "active" : ""
+                  location.pathname === "/submitentry" ||
+                  location.pathname === "/submitsong" ||
+                  location.pathname === "/finalizeentry"
+                    ? "active"
+                    : ""
                 }`}
                 to="/submitentry"
               >
@@ -494,7 +498,11 @@ const Navbar = () => {
                   </Link>
                   <Link
                     className={`mr-3 ${
-                      location.pathname === "/submitentry" ? "active" : ""
+                      location.pathname === "/submitentry" ||
+                      location.pathname === "/submitsong" ||
+                      location.pathname === "/finalizeentry"
+                        ? "active"
+                        : ""
                     }`}
                     to="/submitentry"
                   >

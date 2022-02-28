@@ -249,7 +249,7 @@ const SubmitFinalize = () => {
                 </Text>
               </Box>
               <Text fontSize="18px" className="text-yellow font-bold mt-4 mb-4">
-                Verify submitter information
+                Verify song details
               </Text>
               <Box className="mb-4">
                 <Text className="text-purpleLight font-bold" fontSize="16px">
