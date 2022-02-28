@@ -10,9 +10,8 @@ import instagram from "../../imgs/instagram.png";
 import twitter from "../../imgs/twitter.png";
 import youtube from "../../imgs/youtube.png";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
-import Navbar from "../Navbar/Navbar";
-import masthead from "../../imgs/placeholder.png";
-import errorSvg from "../../imgs/error.svg";
+import SuccessPage from "./SuccessPage";
+import ErrorPage from "./ErrorPage";
 
 const SubmitFinalize = () => {
   const toast = useToast();
@@ -21,57 +20,46 @@ const SubmitFinalize = () => {
 
   const formContext = useContext(FormFieldContext);
 
-  const {
-    formFields,
-    validSubmittername,
-    validRole,
-    validEmail,
-    validCountry,
-    validContact,
-    validState,
-    validCity,
-    validAddress,
+  const { formFields } = formContext;
 
-    validArtist,
-    validAudio,
-    validArtistCategory,
-    validSongTitle,
-  } = formContext;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     if (
-      validSubmittername !== true &&
-      validRole !== true &&
-      validEmail !== true &&
-      validCountry !== true &&
-      validContact !== true &&
-      validState !== true &&
-      validCity !== true &&
-      validAddress !== true
+      !formFields.submittername ||
+      !formFields.role ||
+      !formFields.email ||
+      !formFields.country ||
+      !formFields.state ||
+      !formFields.city ||
+      !formFields.postaladdress ||
+      !formFields.contact
     ) {
       history.push("/submitentry");
     } else if (
-      validAudio !== true &&
-      validArtist !== true &&
-      validSongTitle !== true &&
-      validArtistCategory !== true
+      !formFields.songtitle ||
+      !formFields.audio ||
+      !formFields.artist ||
+      !formFields.artistCategory
     ) {
       history.push("/submitsong");
     }
   }, [
+    formFields.artist,
+    formFields.artistCategory,
+    formFields.audio,
+    formFields.city,
+    formFields.contact,
+    formFields.country,
+    formFields.email,
+    formFields.postaladdress,
+    formFields.role,
+    formFields.songtitle,
+    formFields.state,
+    formFields.submittername,
     history,
-    validAddress,
-    validArtist,
-    validArtistCategory,
-    validAudio,
-    validCity,
-    validContact,
-    validCountry,
-    validEmail,
-    validRole,
-    validSongTitle,
-    validState,
-    validSubmittername,
   ]);
 
   const isSocialMediaLinks =
@@ -92,31 +80,6 @@ const SubmitFinalize = () => {
       },
     },
     exit: {
-      opacity: 0,
-      transition: {
-        type: "spring",
-        delay: 0.4,
-        duration: 0.8,
-      },
-    },
-  };
-
-  const headerVariant = {
-    hidden: {
-      x: "100vw",
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        delay: 0.4,
-        duration: 0.8,
-      },
-    },
-    exit: {
-      x: "100vw",
       opacity: 0,
       transition: {
         type: "spring",
@@ -194,222 +157,11 @@ const SubmitFinalize = () => {
   };
 
   if (isSuccess === true && isError === false) {
-    return (
-      <>
-        <Navbar />
-        <Flex
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          className="bgPurpleDark submit-header-container"
-        >
-          <motion.div
-            variants={headerVariant}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className={isSmall ? "px-mobile" : "px"}
-          >
-            <Text
-              textAlign="center"
-              fontSize="45px"
-              fontWeight="100"
-              fontFamily="Azo Sans, sans-serif"
-              className="text-pink success-header"
-            >
-              Success!
-            </Text>
-          </motion.div>
-        </Flex>
-        <Box position="relative" className="bgPurple">
-          <Box maxWidth="1125px" mx="auto">
-            <motion.div
-              variants={fieldsVariant}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <Box
-                mx="auto"
-                textAlign="center"
-                className={isSmall ? "px-mobile" : "px"}
-              >
-                <Text fontSize="20px" className="text-yellow font-bold  mb-4">
-                  Your entry to the Indie Music Competition has been
-                  successfully submitted.
-                </Text>
-              </Box>
-            </motion.div>
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: "100vh",
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                type: "spring",
-                delay: 0.3,
-                duration: 0.8,
-              }}
-              exit={{
-                y: "100vh",
-                transition: {
-                  ease: "easeInOut",
-                  delay: "0.5",
-                  duration: 0.5,
-                },
-              }}
-              style={{
-                padding: `${isSmall ? "10px 20px" : "10px 150px"}`,
-              }}
-            >
-              <Image alt="about-masthead mt-4" width="100%" src={masthead} />
-            </motion.div>
-            <motion.div
-              variants={fieldsVariant}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <Box textAlign="center" className={isSmall ? "px-mobile" : "px"}>
-                <Text fontSize="18px" className="text-white mb-3">
-                  Your submission Ref ID is
-                </Text>
-                <Text fontSize="40px" className="text-white font-bold">
-                  #8562-8453-4361
-                </Text>
-                <Text fontSize="18px" className="text-white mt-2">
-                  A confirmation receipt has been sent to the email address you
-                  provided in your application.
-                </Text>
-                <Text fontSize="18px" mt="200px" className="text-white mb-4">
-                  If you have any questions about your entry, please contact us
-                  via email at{" "}
-                  <span className="text-yellow">
-                    <a href="mailto:contact@navarasacreative.com">
-                      contact@navarasacreative.com
-                    </a>
-                  </span>{" "}
-                  or via{" "}
-                  <span className="text-yellow">
-                    <a href="/">Whatsapp</a>
-                  </span>
-                </Text>
-              </Box>
-            </motion.div>
-          </Box>
-        </Box>
-      </>
-    );
+    return <SuccessPage />;
   }
 
   if (isError === true && isSuccess === false) {
-    return (
-      <>
-        <Navbar />
-        <Flex
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          className="bgPurpleDark submit-header-container"
-        >
-          <motion.div
-            variants={headerVariant}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className={isSmall ? "px-mobile" : "px"}
-          >
-            <Text
-              textAlign="center"
-              fontSize="45px"
-              fontWeight="100"
-              fontFamily="Azo Sans, sans-serif"
-              className="text-yellow success-header"
-            >
-              Something went wrong...
-            </Text>
-          </motion.div>
-        </Flex>
-        <Box className="bgPurple">
-          <Box maxWidth="1125px" mx="auto">
-            <motion.div
-              variants={fieldsVariant}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <Box
-                mx="auto"
-                textAlign="center"
-                className={isSmall ? "px-mobile" : "px"}
-              >
-                <Text fontSize="20px" className="text-yellow font-bold  mb-4">
-                  Your entry to the Indie Music Competition was not completed.
-                </Text>
-              </Box>
-            </motion.div>
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: "100vh",
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                type: "spring",
-                delay: 0.3,
-                duration: 0.8,
-              }}
-              exit={{
-                y: "100vh",
-                transition: {
-                  ease: "easeInOut",
-                  delay: "0.5",
-                  duration: 0.5,
-                },
-              }}
-              style={{
-                padding: `${isSmall ? "5px 20px" : "5px 150px"}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                alt="about-masthead"
-                width="80px"
-                height="80px"
-                src={errorSvg}
-              />
-            </motion.div>
-            <Box textAlign="center" className={isSmall ? "px-mobile" : "px"}>
-              <Text fontSize="18px" className="text-white">
-                We apologise for any inconvenience. Please try again later.
-              </Text>
-              <Text fontSize="18px" mt="200px" className="text-white mb-4">
-                If you continue to have trouble submitting your entry, please
-                contact us via email at{" "}
-                <span className="text-yellow">
-                  <a href="mailto:contact@navarasacreative.com">
-                    contact@navarasacreative.com
-                  </a>
-                </span>{" "}
-                or via{" "}
-                <span className="text-yellow">
-                  <a href="/">Whatsapp</a>
-                </span>
-              </Text>
-            </Box>
-          </Box>
-        </Box>
-      </>
-    );
+    <ErrorPage />;
   }
 
   return (

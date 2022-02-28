@@ -21,159 +21,55 @@ export const FormFieldProvider = ({ children }) => {
     twitter: "",
     additionalinfo: "",
   });
-
-  const [validSubmittername, setValidSubmittername] = React.useState(null);
-  const [validRole, setValidRole] = React.useState(null);
-  const [validEmail, setValidEmail] = React.useState(null);
-  const [validCountry, setValidCountry] = React.useState(null);
-  const [validContact, setValidContact] = React.useState(null);
-  const [validState, setValidState] = React.useState(null);
-  const [validCity, setValidCity] = React.useState(null);
-  const [validAddress, setValidAddress] = React.useState(null);
-  const [validAudio, setValidAudio] = React.useState(null);
-  const [validSongTitle, setValidSongTitle] = React.useState(null);
-  const [validArtist, setValidArtist] = React.useState(null);
-  const [validArtistCategory, setValidArtistCategory] = React.useState(null);
-
-  const validateFields = () => {
-    if (
-      formFields.submittername === "" ||
-      formFields.submittername === null ||
-      formFields.submittername === undefined ||
-      formFields.submittername === " " ||
-      formFields.submittername.length < 1
-    ) {
-      setValidSubmittername(false);
-    } else {
-      setValidSubmittername(true);
+  const [formErrors, setFormErrors] = useState({});
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const phoneRegex = /^[6-9]{1}[0-9]{9}$/;
+    if (!values.submittername) {
+      errors.submittername = "Please enter your full name.";
     }
-    if (
-      formFields.role === "" ||
-      formFields.role === null ||
-      formFields.role === undefined ||
-      formFields.role === " " ||
-      formFields.role.length < 1
-    ) {
-      setValidRole(false);
-    } else {
-      setValidRole(true);
+    if (!values.email) {
+      errors.email = " Please enter a valid email.";
+    } else if (!regex.test(values.email)) {
+      errors.email = " Please enter a valid email.";
     }
-    if (
-      formFields.email === "" ||
-      formFields.email === null ||
-      formFields.email === undefined ||
-      formFields.email === " " ||
-      formFields.email.length < 1
-    ) {
-      setValidEmail(false);
-    } else {
-      setValidEmail(true);
+    if (!values.role) {
+      errors.role = "Please enter your role in the song.";
     }
-    if (
-      formFields.country === "" ||
-      formFields.country === null ||
-      formFields.country === undefined ||
-      formFields.country === " " ||
-      formFields.country.length < 1
-    ) {
-      setValidCountry(false);
-    } else {
-      setValidCountry(true);
+    if (!values.country) {
+      errors.country = "Please select your country.";
     }
-    if (
-      formFields.contact === "" ||
-      formFields.contact === null ||
-      formFields.contact === undefined ||
-      formFields.contact === " " ||
-      formFields.contact.length < 10 ||
-      formFields.contact.length > 10 ||
-      !/^[1-9]+$/.test(formFields.contact)
-    ) {
-      setValidContact(false);
-    } else {
-      setValidContact(true);
+    if (!values.state) {
+      errors.state = "Please select your state.";
+    }
+    if (!values.city) {
+      errors.city = "Please select your city.";
+    }
+    if (!values.contact) {
+      errors.contact = "Please enter your mobile number.";
+    } else if (values.contact.length < 10 || values.contact.length > 10) {
+      errors.contact = "Please enter your mobile number.";
+    } else if (!phoneRegex.test(values.contact)) {
+      errors.contact = "Please enter your mobile number.";
+    }
+    if (!values.postaladdress) {
+      errors.postaladdress = "Please enter your postal address.";
+    }
+    if (!values.audio) {
+      errors.audio = "Please upload your song.";
+    }
+    if (!values.songtitle) {
+      errors.songtitle = "Please enter your song title.";
+    }
+    if (!values.artist) {
+      errors.artist = "Please enter the song artist name.";
+    }
+    if (!values.artistCategory) {
+      errors.artistCategory = "Please pick an artist category.";
     }
 
-    if (
-      formFields.state === "" ||
-      formFields.state === null ||
-      formFields.state === undefined ||
-      formFields.state === " " ||
-      formFields.state.length < 1
-    ) {
-      setValidState(false);
-    } else {
-      setValidState(true);
-    }
-    if (
-      formFields.city === "" ||
-      formFields.city === null ||
-      formFields.city === undefined ||
-      formFields.city === " " ||
-      formFields.city.length < 1
-    ) {
-      setValidCity(false);
-    } else {
-      setValidCity(true);
-    }
-    if (
-      formFields.postaladdress === "" ||
-      formFields.postaladdress === null ||
-      formFields.postaladdress === undefined ||
-      formFields.postaladdress === " " ||
-      formFields.postaladdress.length < 1
-    ) {
-      setValidAddress(false);
-    } else {
-      setValidAddress(true);
-    }
-  };
-
-  const validateFieldsSongs = () => {
-    if (
-      formFields.audio === "" ||
-      formFields.audio === null ||
-      formFields.audio === undefined ||
-      formFields.audio === " " ||
-      formFields.audio.length < 1
-    ) {
-      setValidAudio(false);
-    } else {
-      setValidAudio(true);
-    }
-    if (
-      formFields.songtitle === "" ||
-      formFields.songtitle === null ||
-      formFields.songtitle === undefined ||
-      formFields.songtitle === " " ||
-      formFields.songtitle.length < 1
-    ) {
-      setValidSongTitle(false);
-    } else {
-      setValidSongTitle(true);
-    }
-    if (
-      formFields.artist === "" ||
-      formFields.artist === null ||
-      formFields.artist === undefined ||
-      formFields.artist === " " ||
-      formFields.artist.length < 1
-    ) {
-      setValidArtist(false);
-    } else {
-      setValidArtist(true);
-    }
-    if (
-      formFields.artistCategory === "" ||
-      formFields.artistCategory === null ||
-      formFields.artistCategory === undefined ||
-      formFields.artistCategory === " " ||
-      formFields.artistCategory.length < 1
-    ) {
-      setValidArtistCategory(false);
-    } else {
-      setValidArtistCategory(true);
-    }
+    return errors;
   };
 
   return (
@@ -181,20 +77,9 @@ export const FormFieldProvider = ({ children }) => {
       value={{
         formFields,
         setFormFields,
-        validSubmittername,
-        validRole,
-        validEmail,
-        validCountry,
-        validContact,
-        validState,
-        validCity,
-        validAddress,
-        validateFields,
-        validateFieldsSongs,
-        validArtist,
-        validAudio,
-        validArtistCategory,
-        validSongTitle,
+        validate,
+        formErrors,
+        setFormErrors,
       }}
     >
       {children}

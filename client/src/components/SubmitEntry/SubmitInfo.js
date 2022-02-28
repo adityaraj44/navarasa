@@ -1,6 +1,5 @@
 import {
   Alert,
-  AlertDescription,
   AlertIcon,
   AlertTitle,
   Box,
@@ -13,7 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "../../custom-hooks";
@@ -24,21 +23,12 @@ import { Country, State, City } from "country-state-city";
 const SubmitInfo = () => {
   const isSmall = useMediaQuery("(max-width:992px)");
   const history = useHistory();
+  const continueRef = useRef();
 
   const formContext = useContext(FormFieldContext);
-  const {
-    formFields,
-    setFormFields,
-    validSubmittername,
-    validRole,
-    validEmail,
-    validCountry,
-    validContact,
-    validState,
-    validCity,
-    validAddress,
-    validateFields,
-  } = formContext;
+  const { formFields, setFormFields } = formContext;
+
+  const [formErrors, setFormErrors] = useState({});
 
   const handleOnChange = (e) => {
     setFormFields((prevState) => ({
@@ -46,36 +36,77 @@ const SubmitInfo = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  useEffect(() => {
-    validateFields();
-  }, [validateFields]);
 
   const toast = useToast();
+
   const handleInfoContinue = (e) => {
     e.preventDefault();
 
-    if (
-      validSubmittername === true &&
-      validRole === true &&
-      validEmail === true &&
-      validCountry === true &&
-      validContact === true &&
-      validState === true &&
-      validCity === true &&
-      validAddress === true
-    ) {
-      history.push("/submitsong");
-    } else {
-      toast({
-        title: "All fields are required",
-        description: "Please fill up all the fields to proceed.",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-        position: "top",
-      });
-    }
+    setFormErrors(validate(formFields));
+
+    handleFormChange();
   };
+
+  const handleFormChange = () => {
+    const res = validate(formFields);
+
+    setTimeout(() => {
+      if (Object.keys(res).length === 0) {
+        history.push("/submitsong");
+      } else {
+        toast({
+          title: "All fields are required",
+          description: "Please fill up all the fields to proceed.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      }
+    }, 1000);
+  };
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const phoneRegex = /^[6-9]{1}[0-9]{9}$/;
+    if (!values.submittername) {
+      errors.submittername = "Please enter your full name.";
+    }
+    if (!values.email) {
+      errors.email = " Please enter a valid email.";
+    } else if (!regex.test(values.email)) {
+      errors.email = " Please enter a valid email.";
+    }
+    if (!values.role) {
+      errors.role = "Please enter your role in the song.";
+    }
+    if (!values.country) {
+      errors.country = "Please select your country.";
+    }
+    if (!values.state) {
+      errors.state = "Please select your state.";
+    }
+    if (!values.city) {
+      errors.city = "Please select your city.";
+    }
+    if (!values.contact) {
+      errors.contact = "Please enter your mobile number.";
+    } else if (values.contact.length < 10 || values.contact.length > 10) {
+      errors.contact = "Please enter your mobile number.";
+    } else if (!phoneRegex.test(values.contact)) {
+      errors.contact = "Please enter your mobile number.";
+    }
+    if (!values.postaladdress) {
+      errors.postaladdress = "Please enter your postal address.";
+    }
+
+    return errors;
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const fieldsVariant = {
     hidden: {
@@ -154,14 +185,13 @@ const SubmitInfo = () => {
                       value={formFields.submittername}
                       onChange={handleOnChange}
                     />
-                    {validSubmittername === false && (
+                    {formErrors.submittername && (
                       <FormHelperText>
                         <Alert className="mb-4 text-dark" status="error">
                           <AlertIcon />
-                          <AlertTitle mr={2}>Name required!</AlertTitle>
-                          <AlertDescription>
-                            You have to enter your name.
-                          </AlertDescription>
+                          <AlertTitle mr={2}>
+                            Please enter your full name.
+                          </AlertTitle>
                         </Alert>
                       </FormHelperText>
                     )}
@@ -187,14 +217,13 @@ const SubmitInfo = () => {
                       value={formFields.role}
                       onChange={handleOnChange}
                     />
-                    {validRole === false && (
+                    {formErrors.role && (
                       <FormHelperText>
                         <Alert className="mb-4 text-dark" status="error">
                           <AlertIcon />
-                          <AlertTitle mr={2}>Role required!</AlertTitle>
-                          <AlertDescription>
-                            You role in the song is required.
-                          </AlertDescription>
+                          <AlertTitle mr={2}>
+                            Please enter your role in the song.
+                          </AlertTitle>
                         </Alert>
                       </FormHelperText>
                     )}
@@ -220,12 +249,13 @@ const SubmitInfo = () => {
                       value={formFields.email}
                       onChange={handleOnChange}
                     />
-                    {validEmail === false && (
+                    {formErrors.email && (
                       <FormHelperText>
                         <Alert className="mb-4 text-dark" status="error">
                           <AlertIcon />
-                          <AlertTitle mr={2}>Email required!</AlertTitle>
-                          <AlertDescription>Enter your email.</AlertDescription>
+                          <AlertTitle mr={2}>
+                            Please enter a valid email.
+                          </AlertTitle>
                         </Alert>
                       </FormHelperText>
                     )}
@@ -263,16 +293,13 @@ const SubmitInfo = () => {
                               )}
                             </select>
                           </div>
-                          {validCountry === false && (
+                          {formErrors.country && (
                             <FormHelperText>
                               <Alert className="mb-4 text-dark" status="error">
                                 <AlertIcon />
                                 <AlertTitle mr={2}>
-                                  Country required!
+                                  Please select your country.
                                 </AlertTitle>
-                                <AlertDescription>
-                                  Select your country.
-                                </AlertDescription>
                               </Alert>
                             </FormHelperText>
                           )}
@@ -308,21 +335,18 @@ const SubmitInfo = () => {
                               id="contact"
                               name="contact"
                               type="tel"
-                              pattern="[1-9]{10}"
+                              pattern="^[6-9]{1}[0-9]{9}$"
                               value={formFields.contact}
                               onChange={handleOnChange}
                             />
                           </InputGroup>
-                          {validContact === false && (
+                          {formErrors.contact && (
                             <FormHelperText>
                               <Alert className="mb-4 text-dark" status="error">
                                 <AlertIcon />
                                 <AlertTitle mr={2}>
-                                  Enter your contact number!
+                                  Please enter your mobile number.
                                 </AlertTitle>
-                                <AlertDescription>
-                                  Please enter a valid contact number.
-                                </AlertDescription>
                               </Alert>
                             </FormHelperText>
                           )}
@@ -366,14 +390,13 @@ const SubmitInfo = () => {
                               })}
                             </select>
                           </div>
-                          {validState === false && (
+                          {formErrors.state && (
                             <FormHelperText>
                               <Alert className="mb-4 text-dark" status="error">
                                 <AlertIcon />
-                                <AlertTitle mr={2}>State required!</AlertTitle>
-                                <AlertDescription>
-                                  Select your state.
-                                </AlertDescription>
+                                <AlertTitle mr={2}>
+                                  Please select your state.
+                                </AlertTitle>
                               </Alert>
                             </FormHelperText>
                           )}
@@ -410,14 +433,13 @@ const SubmitInfo = () => {
                               })}
                             </select>
                           </div>
-                          {validCity === false && (
+                          {formErrors.city && (
                             <FormHelperText>
                               <Alert className="mb-4 text-dark" status="error">
                                 <AlertIcon />
-                                <AlertTitle mr={2}>City required!</AlertTitle>
-                                <AlertDescription>
-                                  Select your city.
-                                </AlertDescription>
+                                <AlertTitle mr={2}>
+                                  Please select your city.
+                                </AlertTitle>
                               </Alert>
                             </FormHelperText>
                           )}
@@ -453,14 +475,13 @@ const SubmitInfo = () => {
                             )}
                           </select>
                         </div>
-                        {validCountry === false && (
+                        {formErrors.country && (
                           <FormHelperText>
                             <Alert className="mb-4 text-dark" status="error">
                               <AlertIcon />
-                              <AlertTitle mr={2}>Country required!</AlertTitle>
-                              <AlertDescription>
-                                Select your country.
-                              </AlertDescription>
+                              <AlertTitle mr={2}>
+                                Please select your country.
+                              </AlertTitle>
                             </Alert>
                           </FormHelperText>
                         )}
@@ -505,16 +526,13 @@ const SubmitInfo = () => {
                               onChange={handleOnChange}
                             />
                           </InputGroup>
-                          {validContact === false && (
+                          {formErrors.contact && (
                             <FormHelperText>
                               <Alert className="mb-4 text-dark" status="error">
                                 <AlertIcon />
                                 <AlertTitle mr={2}>
-                                  Enter your contact number!
+                                  Please enter your mobile number.
                                 </AlertTitle>
-                                <AlertDescription>
-                                  Please enter a valid contact number.
-                                </AlertDescription>
                               </Alert>
                             </FormHelperText>
                           )}
@@ -553,14 +571,13 @@ const SubmitInfo = () => {
                             })}
                           </select>
                         </div>
-                        {validState === false && (
+                        {formErrors.state && (
                           <FormHelperText>
                             <Alert className="mb-4 text-dark" status="error">
                               <AlertIcon />
-                              <AlertTitle mr={2}>State required!</AlertTitle>
-                              <AlertDescription>
-                                Select your state.
-                              </AlertDescription>
+                              <AlertTitle mr={2}>
+                                Please select your state.
+                              </AlertTitle>
                             </Alert>
                           </FormHelperText>
                         )}
@@ -597,14 +614,13 @@ const SubmitInfo = () => {
                             })}
                           </select>
                         </div>
-                        {validCity === false && (
+                        {formErrors.city && (
                           <FormHelperText>
                             <Alert className="mb-4 text-dark" status="error">
                               <AlertIcon />
-                              <AlertTitle mr={2}>City required!</AlertTitle>
-                              <AlertDescription>
-                                Select your city.
-                              </AlertDescription>
+                              <AlertTitle mr={2}>
+                                Please select your city.
+                              </AlertTitle>
                             </Alert>
                           </FormHelperText>
                         )}
@@ -631,14 +647,13 @@ const SubmitInfo = () => {
                       value={formFields.postaladdress}
                       onChange={handleOnChange}
                     />
-                    {validAddress === false && (
+                    {formErrors.postaladdress && (
                       <FormHelperText>
                         <Alert className="mb-4 text-dark" status="error">
                           <AlertIcon />
-                          <AlertTitle mr={2}>Address required!</AlertTitle>
-                          <AlertDescription>
-                            Enter your postal address.
-                          </AlertDescription>
+                          <AlertTitle mr={2}>
+                            Please enter your postal address.
+                          </AlertTitle>
                         </Alert>
                       </FormHelperText>
                     )}
@@ -662,28 +677,9 @@ const SubmitInfo = () => {
                   </Box>
                   <Box className="mt-4 mb-4 form-control" textAlign="center">
                     <motion.button
+                      ref={continueRef}
                       type="submit"
                       onClick={handleInfoContinue}
-                      whileHover={{
-                        scale: 1.1,
-                        transition: {
-                          type: "spring",
-
-                          damping: 10,
-                          yoyo: "Infinity",
-                          duration: 0.5,
-                        },
-                      }}
-                      whileTap={{
-                        scale: 1.1,
-                        transition: {
-                          type: "spring",
-
-                          damping: 10,
-                          yoyo: "Infinity",
-                          duration: 0.5,
-                        },
-                      }}
                       className="text-white  bgPurpleLight continueBtn"
                       style={{
                         margin: "0 auto",

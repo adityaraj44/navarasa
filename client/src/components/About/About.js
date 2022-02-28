@@ -155,7 +155,7 @@ const About = () => {
             >
               Songs are a great unifier. Trending songs come in so many
               flavours. From sick beats to killer baselines, from heart
-              wrenching meladies to soulful vocals, music is practically
+              wrenching melodies to soulful vocals, music is practically
               infinite in it’s nature.
             </motion.p>
             <motion.p

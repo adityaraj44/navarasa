@@ -32,23 +32,8 @@ const SubmitSong = () => {
   const history = useHistory();
   const formContext = useContext(FormFieldContext);
   const toast = useToast();
-  const {
-    formFields,
-    setFormFields,
-    validSubmittername,
-    validRole,
-    validEmail,
-    validCountry,
-    validContact,
-    validState,
-    validCity,
-    validAddress,
-    validateFieldsSongs,
-    validArtist,
-    validAudio,
-    validArtistCategory,
-    validSongTitle,
-  } = formContext;
+  const { formFields, setFormFields, validate, formErrors, setFormErrors } =
+    formContext;
 
   const handleOnChange = (e) => {
     setFormFields({
@@ -80,16 +65,32 @@ const SubmitSong = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (
-      validAudio === true &&
-      validSongTitle === true &&
-      validArtist === true &&
-      validArtistCategory === true
-    ) {
-      history.push("/finalizeentry");
-    }
+    setFormErrors(validate(formFields));
+    handleFormChange();
   };
+
+  const handleFormChange = () => {
+    const res = validate(formFields);
+
+    setTimeout(() => {
+      if (Object.keys(res).length === 0) {
+        history.push("/finalizeentry");
+      } else {
+        toast({
+          title: "All fields are required",
+          description: "Please fill up all the fields to proceed.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      }
+    }, 1000);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const fieldsVariant = {
     hidden: {
@@ -114,30 +115,28 @@ const SubmitSong = () => {
   };
 
   useEffect(() => {
-    validateFieldsSongs();
     if (
-      validSubmittername !== true &&
-      validRole !== true &&
-      validEmail !== true &&
-      validCountry !== true &&
-      validContact !== true &&
-      validState !== true &&
-      validCity !== true &&
-      validAddress !== true
+      !formFields.submittername ||
+      !formFields.role ||
+      !formFields.email ||
+      !formFields.country ||
+      !formFields.state ||
+      !formFields.city ||
+      !formFields.postaladdress ||
+      !formFields.contact
     ) {
       history.push("/submitentry");
     }
   }, [
+    formFields.city,
+    formFields.contact,
+    formFields.country,
+    formFields.email,
+    formFields.postaladdress,
+    formFields.role,
+    formFields.state,
+    formFields.submittername,
     history,
-    validAddress,
-    validCity,
-    validContact,
-    validCountry,
-    validEmail,
-    validRole,
-    validState,
-    validSubmittername,
-    validateFieldsSongs,
   ]);
 
   return (
@@ -187,14 +186,11 @@ const SubmitSong = () => {
                     />
                   </Box>
                 </Flex>
-                {validAudio === false && (
+                {formErrors.audio && (
                   <FormHelperText>
                     <Alert className="mb-4 text-dark" status="error">
                       <AlertIcon />
-                      <AlertTitle mr={2}>Audio file required!</AlertTitle>
-                      <AlertDescription>
-                        Please select an audio file.
-                      </AlertDescription>
+                      <AlertTitle mr={2}>Please upload your song.</AlertTitle>
                     </Alert>
                   </FormHelperText>
                 )}
@@ -233,14 +229,13 @@ const SubmitSong = () => {
                   value={formFields.songtitle}
                   onChange={handleOnChange}
                 />
-                {validSongTitle === false && (
+                {formErrors.songtitle && (
                   <FormHelperText>
                     <Alert className="mb-4 text-dark" status="error">
                       <AlertIcon />
-                      <AlertTitle mr={2}>Song title required!</AlertTitle>
-                      <AlertDescription>
-                        Please enter the song title.
-                      </AlertDescription>
+                      <AlertTitle mr={2}>
+                        Please enter your song title.
+                      </AlertTitle>
                     </Alert>
                   </FormHelperText>
                 )}
@@ -267,14 +262,13 @@ const SubmitSong = () => {
                   value={formFields.artist}
                   onChange={handleOnChange}
                 />
-                {validArtist === false && (
+                {formErrors.artist && (
                   <FormHelperText>
                     <Alert className="mb-4 text-dark" status="error">
                       <AlertIcon />
-                      <AlertTitle mr={2}>Artist required!</AlertTitle>
-                      <AlertDescription>
-                        Please enter the artist.
-                      </AlertDescription>
+                      <AlertTitle mr={2}>
+                        Please enter the song artist name.
+                      </AlertTitle>
                     </Alert>
                   </FormHelperText>
                 )}
@@ -298,14 +292,13 @@ const SubmitSong = () => {
                     <option value="Collaboration">Collaboration</option>
                   </select>
                 </Box>
-                {validArtistCategory === false && (
+                {formErrors.artistCategory && (
                   <FormHelperText>
                     <Alert className="mb-4 text-dark" status="error">
                       <AlertIcon />
-                      <AlertTitle mr={2}>Artist category required!</AlertTitle>
-                      <AlertDescription>
-                        Please select artist category.
-                      </AlertDescription>
+                      <AlertTitle mr={2}>
+                        Please pick an artist category.
+                      </AlertTitle>
                     </Alert>
                   </FormHelperText>
                 )}
@@ -447,26 +440,6 @@ const SubmitSong = () => {
                 <motion.button
                   type="submit"
                   onClick={handleSubmit}
-                  whileHover={{
-                    scale: 1.1,
-                    transition: {
-                      type: "spring",
-
-                      damping: 10,
-                      yoyo: "Infinity",
-                      duration: 0.5,
-                    },
-                  }}
-                  whileTap={{
-                    scale: 1.1,
-                    transition: {
-                      type: "spring",
-
-                      damping: 10,
-                      yoyo: "Infinity",
-                      duration: 0.5,
-                    },
-                  }}
                   className="text-white form-control bgPurpleLight continueBtn"
                 >
                   Continue
