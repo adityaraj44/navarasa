@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.152b0162.css",
-    "main.js": "/static/js/main.76597d3c.js",
-    "static/media/Navarasa Promo.mp4": "/static/media/Navarasa Promo.bf7d31e1b9a862ee53f7.mp4",
+    "main.js": "/static/js/main.bbaa2544.js",
+    "static/media/Navarasa Promo.mp4": "/static/media/Navarasa Promo.1b7fdb9580f79eb78081.mp4",
     "static/media/placeholder.png": "/static/media/placeholder.cb58b2cd402fc08dc833.png",
     "static/media/banner_home.png": "/static/media/banner_home.be5e3d6f886d3082a4c6.png",
     "static/media/banner_home_mobile.png": "/static/media/banner_home_mobile.c0235f1d7b0014b149ce.png",
@@ -16,10 +16,10 @@
     "static/media/error.svg": "/static/media/error.7e72891d40c7f7a00354302bccd4de35.svg",
     "index.html": "/index.html",
     "main.152b0162.css.map": "/static/css/main.152b0162.css.map",
-    "main.76597d3c.js.map": "/static/js/main.76597d3c.js.map"
+    "main.bbaa2544.js.map": "/static/js/main.bbaa2544.js.map"
   },
   "entrypoints": [
     "static/css/main.152b0162.css",
-    "static/js/main.76597d3c.js"
+    "static/js/main.bbaa2544.js"
   ]
 }
