@@ -26,11 +26,11 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 
 // static files for production
-// __dirname = path.resolve();
-// app.use(express.static(path.join(__dirname, "/client/public")));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "/client/public/index.html"));
-// });
+__dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
 
 // The port the express app will listen on
 const port = process.env.PORT || 4000;
