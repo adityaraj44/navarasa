@@ -51,58 +51,60 @@ const AdminNavbar = () => {
             Navarasa Creative Admin Portal
           </Text>
         </Flex>
-        <Flex
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          className="nav-links text-dark"
-        >
-          <Link
-            className={`mr-3 ${
-              location.pathname === "/navarasa/admin/entries" ? "active" : ""
-            }`}
-            to="/navarasa/admin/entries"
+        {location.pathname !== "/navarasa/admin/login" && (
+          <Flex
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            className="nav-links text-dark"
           >
-            <motion.p
-              variants={linkVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+            <Link
+              className={`mr-3 ${
+                location.pathname === "/navarasa/admin/entries" ? "active" : ""
+              }`}
+              to="/navarasa/admin/entries"
             >
-              Entries
-            </motion.p>
-          </Link>
-          <Link
-            className={`mr-3 ${
-              location.pathname === "/navarasa/admin/settings" ? "active" : ""
-            }`}
-            to="/navarasa/admin/settings"
-          >
-            <motion.p
-              variants={linkVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+              <motion.p
+                variants={linkVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                Entries
+              </motion.p>
+            </Link>
+            <Link
+              className={`mr-3 ${
+                location.pathname === "/navarasa/admin/settings" ? "active" : ""
+              }`}
+              to="/navarasa/admin/settings"
             >
-              Settings
-            </motion.p>
-          </Link>
-          <Link
-            className={`mr-3 ${
-              location.pathname === "/navarasa/admin/logout" ? "active" : ""
-            }`}
-            to="/navarasa/admin/logout"
-          >
-            <motion.p
-              variants={linkVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+              <motion.p
+                variants={linkVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                Settings
+              </motion.p>
+            </Link>
+            <Link
+              className={`mr-3 ${
+                location.pathname === "/navarasa/admin/logout" ? "active" : ""
+              }`}
+              to="/navarasa/admin/logout"
             >
-              Log out
-            </motion.p>
-          </Link>
-        </Flex>
+              <motion.p
+                variants={linkVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                Log out
+              </motion.p>
+            </Link>
+          </Flex>
+        )}
       </Flex>
     </motion.div>
   );
