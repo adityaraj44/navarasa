@@ -1,22 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.152b0162.css",
-    "main.js": "/static/js/main.272f43aa.js",
+    "main.css": "/static/css/main.51f15278.css",
+    "main.js": "/static/js/main.e625b407.js",
     "static/media/Navarasa Promo.mp4": "/static/media/Navarasa Promo.1b7fdb9580f79eb78081.mp4",
     "static/media/placeholder.png": "/static/media/placeholder.cb58b2cd402fc08dc833.png",
-    "static/media/banner_home.png": "/static/media/banner_home.be5e3d6f886d3082a4c6.png",
-    "static/media/banner_home_mobile.png": "/static/media/banner_home_mobile.c0235f1d7b0014b149ce.png",
+    "static/media/banner.png": "/static/media/banner.fc8ad1533bc5d9d1f81e.png",
     "static/media/AzoSans-Thin.ttf": "/static/media/AzoSans-Thin.cee4a468b0f1f71a0546.ttf",
-    "static/media/instagram.svg": "/static/media/instagram.1792ff30fb032c94685c.png",
     "static/media/AzoSans-Thin.woff": "/static/media/AzoSans-Thin.f75af87a0c3375f203d0.woff",
-    "static/media/arroba.svg": "/static/media/arroba.6355f461cf83aaf085b4.png",
     "static/media/AzoSans-Thin.woff2": "/static/media/AzoSans-Thin.1ea0fbfd1ea0eb6bb540.woff2",
-    "static/media/youtube.svg": "/static/media/youtube.a7dfcd8b7316400f67cc.png",
-    "static/media/twitter.svg": "/static/media/twitter.28b4dce41e4e33858919.png",
     "static/media/error.svg": "/static/media/error.7e72891d40c7f7a00354302bccd4de35.svg",
+    "static/media/instagram.svg": "/static/media/instagram.6507843284814b9f800dad261d044e5e.svg",
+    "static/media/arroba.svg": "/static/media/arroba.ee615a909c0ef50d5bdc1d42950fc6a9.svg",
+    "static/media/twitter.svg": "/static/media/twitter.9a4fdfeda7a5500fe029e61c4986c773.svg",
+    "static/media/youtube.svg": "/static/media/youtube.eafe1fb9e824c422379437de00276509.svg",
+    "static/media/bronze.svg": "/static/media/bronze.bc2ad63095e37eb68974e421fadbd85c.svg",
+    "static/media/gold.svg": "/static/media/gold.f429a613e02b5c872fe5de389330cb39.svg",
+    "static/media/silver.svg": "/static/media/silver.d48eeda14fe34d748af96e0a7861293c.svg",
     "index.html": "/index.html",
-    "main.152b0162.css.map": "/static/css/main.152b0162.css.map",
-    "main.272f43aa.js.map": "/static/js/main.272f43aa.js.map"
+    "main.51f15278.css.map": "/static/css/main.51f15278.css.map",
+    "main.e625b407.js.map": "/static/js/main.e625b407.js.map"
   },
-  "entrypoints": ["static/css/main.152b0162.css", "static/js/main.272f43aa.js"]
+  "entrypoints": [
+    "static/css/main.51f15278.css",
+    "static/js/main.e625b407.js"
+  ]
 }
