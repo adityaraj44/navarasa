@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
 import NavbarHome from "./NavbarHome";
 import HomeBanner from "../Banner/HomeBanner";
 import placeholder from "../../imgs/placeholder.png";
@@ -7,11 +7,14 @@ import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "../../custom-hooks";
-import bannerImgMobile1 from "../../imgs/banner_home_mobile1.png";
 import videoLarge from "../../videos/Navarasa Promo.mp4";
+import gold from "../../imgs/gold.svg";
+import silver from "../../imgs/silver.svg";
+import bronze from "../../imgs/bronze.svg";
 
 const Home = () => {
   const isSmall = useMediaQuery("(max-width:992px)");
+  const isXs = useMediaQuery("(max-width:480px)");
 
   const inView = {
     hidden: {
@@ -99,19 +102,119 @@ const Home = () => {
                 duration: 0.6,
               },
             }}
+            style={{
+              padding: `${
+                isXs ? "65px  10px 0px 10px" : "85px  10px 0px 10px"
+              }`,
+            }}
           >
             <Box
               display="flex"
-              justifyContent="center"
-              alignItems={"center"}
-              className={`${isSmall ? "px-mobile" : "px"} home-banner-mobile`}
+              justifyContent="space-evenly"
+              flexDirection="row"
+              alignItems="center"
+              className="bgPurpleDark home-banner-mobile-content"
+              border="3px solid #DD29A6"
+              borderRadius="5px"
             >
-              <Image width="400px" alt="banner2" src={bannerImgMobile1} />
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Image
+                  width="18px"
+                  height="18px"
+                  src={gold}
+                  alt="gold_star"
+                  className="mb-1"
+                />
+                <Text
+                  className="text-purpleLight font-bold mb-1"
+                  fontSize="14px"
+                >
+                  1st Prize
+                </Text>
+                <Text
+                  className="text-yellow"
+                  fontWeight="black"
+                  fontSize="18px"
+                >
+                  Rs. 20,000
+                </Text>
+              </Box>
+              <Box
+                className="bgPink"
+                width="3px"
+                height="62px"
+                borderRadius="2px"
+              ></Box>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Image
+                  width="18px"
+                  height="18px"
+                  src={silver}
+                  alt="gold_star"
+                  className="mb-1"
+                />
+                <Text
+                  className="text-purpleLight font-bold mb-1"
+                  fontSize="14px"
+                >
+                  2nd Prize
+                </Text>
+                <Text
+                  className="text-yellow"
+                  fontWeight="black"
+                  fontSize="18px"
+                >
+                  Rs. 10,000
+                </Text>
+              </Box>
+              <Box
+                className="bgPink"
+                width="3px"
+                height="62px"
+                borderRadius="2px"
+              ></Box>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Image
+                  width="18px"
+                  height="18px"
+                  src={bronze}
+                  alt="gold_star"
+                  className="mb-1"
+                />
+                <Text
+                  className="text-purpleLight font-bold mb-1"
+                  fontSize="14px"
+                >
+                  3rd Prize
+                </Text>
+                <Text
+                  className="text-yellow"
+                  fontWeight="black"
+                  fontSize="18px"
+                >
+                  Rs. 5,000
+                </Text>
+              </Box>
             </Box>
           </motion.div>
         )}
       </motion.div>
-      <Box className={`video ${isSmall ? "px-mobile" : "px"}`}>
+      <Box className={`video ${isSmall ? "px-mobile" : "px-home"}`}>
         <motion.div
           initial={{
             opacity: 0,
@@ -180,7 +283,7 @@ const Home = () => {
 
         <Box
           fontSize="18px"
-          className={`text-white ${isSmall ? "px-mobile" : "px"}`}
+          className={`text-white ${isSmall ? "px-mobile" : "px-home"}`}
           textAlign="left"
         >
           <motion.p variants={inView} initial="hidden" whileInView="visible">
@@ -296,11 +399,7 @@ const Home = () => {
             3rd prize, Rs. 5,000/-
           </motion.p>
           <br />
-          <motion.p variants={inView} initial="hidden" whileInView="visible">
-            Shortlisted entries may be subject to a verification process. By
-            submiting your entry, you grant us permission to use your submission
-            across various media platforms for promotional purposes.
-          </motion.p>
+
           <Box marginTop="30px">
             <Link to="/submitentry">
               <motion.div

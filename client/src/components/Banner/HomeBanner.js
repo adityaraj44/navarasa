@@ -1,9 +1,10 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
 import { useMediaQuery } from "../../custom-hooks";
-import bannerImg from "../../imgs/banner_home.png";
-import bannerImgMobile from "../../imgs/banner_home_mobile.png";
+import bannerImg from "../../imgs/banner.png";
+
+import HomeBannerContent from "./HomeBannerContent";
 
 const HomeBanner = () => {
   const isSmall = useMediaQuery("(max-width:992px)");
@@ -32,16 +33,15 @@ const HomeBanner = () => {
           duration: 0.6,
         },
       }}
-      className={`home-banner ${isSmall ? "px-mobile" : "px"}`}
+      className={`home-banner ${isSmall ? "px-mobile" : ""}`}
     >
-      <Box position="relative">
-        <Image
-          className="banner-image"
-          alt="banner"
-          width={isSmall ? "450px" : "1125px"}
-          src={isSmall ? bannerImgMobile : bannerImg}
-        />
-      </Box>
+      <Image
+        className="banner-image"
+        alt="banner"
+        width={isSmall ? "450px" : "1125px"}
+        src={bannerImg}
+      />
+      <HomeBannerContent />
     </motion.div>
   );
 };

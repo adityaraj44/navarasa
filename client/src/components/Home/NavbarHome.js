@@ -3,10 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import HomeLogo from "../Logo/HomeLogo";
 import MobileHomeLogo from "../Logo/MobileHomeLogo";
-import instagram from "../../imgs/instagram.png";
-import twitter from "../../imgs/twitter.png";
-import youtube from "../../imgs/youtube.png";
-import arroba from "../../imgs/arroba.png";
+import instagram from "../../imgs/instagram.svg";
+import twitter from "../../imgs/twitter.svg";
+import youtube from "../../imgs/youtube.svg";
+import arroba from "../../imgs/arroba.svg";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "../../custom-hooks";
@@ -212,7 +212,7 @@ const NavbarHome = () => {
                 Exploring emerging creative talent in the indie-sphere
               </motion.p>
             </Box>
-            <Box className="social-links mt-4" alignSelf="flex-end">
+            <Box className="social-links" alignSelf="flex-end">
               <Flex
                 flexDirection="row"
                 flexWrap="wrap"
@@ -258,7 +258,7 @@ const NavbarHome = () => {
                       duration: 0.5,
                     },
                   }}
-                  className="social-link ml-4"
+                  className="social-link ml-3"
                   href="/"
                 >
                   <Image
@@ -292,7 +292,7 @@ const NavbarHome = () => {
                       duration: 0.5,
                     },
                   }}
-                  className="social-link ml-4"
+                  className="social-link ml-3"
                   href="/"
                 >
                   <Image
@@ -326,7 +326,7 @@ const NavbarHome = () => {
                       duration: 0.5,
                     },
                   }}
-                  className="social-link ml-4"
+                  className="social-link ml-3"
                   href="/"
                 >
                   <Image
@@ -360,7 +360,7 @@ const NavbarHome = () => {
       <Box>
         <HomeLogo />
       </Box>
-      <Box maxWidth="1125px" mx="auto" className="px">
+      <Box maxWidth="1125px" mx="auto" className="px-home">
         <Flex
           flexDirection="column"
           justifyContent="space-between"
@@ -458,8 +458,8 @@ const NavbarHome = () => {
               >
                 <Image
                   alt="instagram"
-                  width="30px"
-                  height="30px"
+                  width="40px"
+                  height="40px"
                   borderRadius="100%"
                   src={instagram}
                 />
@@ -487,13 +487,13 @@ const NavbarHome = () => {
                     duration: 0.5,
                   },
                 }}
-                className="social-link ml-4"
+                className="social-link ml-3"
                 href="/"
               >
                 <Image
                   alt="twitter"
-                  width="30px"
-                  height="30px"
+                  width="40px"
+                  height="40px"
                   borderRadius="100%"
                   src={twitter}
                 />
@@ -521,13 +521,13 @@ const NavbarHome = () => {
                     duration: 0.5,
                   },
                 }}
-                className="social-link ml-4"
+                className="social-link ml-3"
                 href="/"
               >
                 <Image
                   alt="youtube"
-                  width="30px"
-                  height="30px"
+                  width="40px"
+                  height="40px"
                   borderRadius="100%"
                   src={youtube}
                 />
@@ -555,13 +555,13 @@ const NavbarHome = () => {
                     duration: 0.5,
                   },
                 }}
-                className="social-link ml-4"
+                className="social-link ml-3"
                 href="/"
               >
                 <Image
                   alt="arroba"
-                  width="30px"
-                  height="30px"
+                  width="40px"
+                  height="40px"
                   borderRadius="100%"
                   src={arroba}
                 />

@@ -20,9 +20,9 @@ import { BiChevronLeft } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "../../custom-hooks";
-import instagram from "../../imgs/instagram.png";
-import twitter from "../../imgs/twitter.png";
-import youtube from "../../imgs/youtube.png";
+import instagram from "../../imgs/instagram.svg";
+import twitter from "../../imgs/twitter.svg";
+import youtube from "../../imgs/youtube.svg";
 import FormFieldContext from "../context/form-field-context";
 
 import SubmitEntry from "./SubmitEntry";

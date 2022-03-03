@@ -2,9 +2,9 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { BsPlayFill } from "react-icons/bs";
 import AdminNavbar from "../AdminNavbar";
-import instagram from "../../../imgs/instagram.png";
-import twitter from "../../../imgs/twitter.png";
-import youtube from "../../../imgs/youtube.png";
+import instagram from "../../../imgs/instagram.svg";
+import twitter from "../../../imgs/twitter.svg";
+import youtube from "../../../imgs/youtube.svg";
 import { Link } from "react-router-dom";
 
 const EntryDetail = () => {
