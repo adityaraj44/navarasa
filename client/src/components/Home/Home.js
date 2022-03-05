@@ -247,8 +247,10 @@ const Home = () => {
             ref={videoRef}
             src={videoLarge}
             poster={placeholder}
-            // controls={isVideoPlaying === true}
+            controls
             onEnded={() => setIsVideoPlaying(false)}
+            onPause={() => setIsVideoPlaying(false)}
+            onPlay={() => setIsVideoPlaying(true)}
           />
           {isButtonVisible === null || isButtonVisible === true ? (
             <>
@@ -400,7 +402,7 @@ const Home = () => {
           </motion.p>
           <br />
 
-          <Box marginTop="30px">
+          <Box mx="auto" maxWidth="200px" marginTop="30px">
             <Link to="/submitentry">
               <motion.div
                 className="submit-song text-yellow bgPink"
