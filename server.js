@@ -4,6 +4,8 @@ const cors = require("cors");
 const colors = require("colors");
 const morgan = require("morgan");
 const path = require("path");
+const fileUpload = require("express-fileupload");
+const { errorHandler } = require("./middlewares/errorHandler");
 
 // using dotenv to load environment variables
 dotenv.config();
@@ -19,11 +21,16 @@ app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms")
 );
 
+app.use(fileUpload());
 // parse application/x-www-form-urlencoded
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.use("/uploadentry", require("./routes/entry"));
+
+// use custom error handler
+app.use(errorHandler);
 
 // static files for production
 __dirname = path.resolve();

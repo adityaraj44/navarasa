@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.51f15278.css",
-    "main.js": "/static/js/main.e625b407.js",
+    "main.css": "/static/css/main.768b6577.css",
+    "main.js": "/static/js/main.97202541.js",
     "static/media/Navarasa Promo.mp4": "/static/media/Navarasa Promo.1b7fdb9580f79eb78081.mp4",
     "static/media/placeholder.png": "/static/media/placeholder.cb58b2cd402fc08dc833.png",
     "static/media/banner.png": "/static/media/banner.fc8ad1533bc5d9d1f81e.png",
@@ -17,11 +17,11 @@
     "static/media/gold.svg": "/static/media/gold.f429a613e02b5c872fe5de389330cb39.svg",
     "static/media/silver.svg": "/static/media/silver.d48eeda14fe34d748af96e0a7861293c.svg",
     "index.html": "/index.html",
-    "main.51f15278.css.map": "/static/css/main.51f15278.css.map",
-    "main.e625b407.js.map": "/static/js/main.e625b407.js.map"
+    "main.768b6577.css.map": "/static/css/main.768b6577.css.map",
+    "main.97202541.js.map": "/static/js/main.97202541.js.map"
   },
   "entrypoints": [
-    "static/css/main.51f15278.css",
-    "static/js/main.e625b407.js"
+    "static/css/main.768b6577.css",
+    "static/js/main.97202541.js"
   ]
 }
