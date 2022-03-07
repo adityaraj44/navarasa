@@ -1,7 +1,7 @@
 const express = require("express");
-const { uploadEntry } = require("../controllers/entryController");
+const { uploadEntry, currentEntry } = require("../controllers/entryController");
 const router = express.Router();
 
-router.post("/", uploadEntry);
+router.post("/uploadentry", uploadEntry);
 
 module.exports = router;

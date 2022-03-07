@@ -1,15 +1,35 @@
 const asyncHandler = require("express-async-handler");
 const Entry = require("../models/Entry");
-const path = require("path");
+const AWS = require("aws-sdk");
 
-// @desc    Upload audio file
-// @route   POST /uploadfile
+// using s3
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ID,
+  secretAccessKey: process.env.AWS_SECRET,
+});
+
+// @desc    Upload entry
+// @route   POST /uploadentry
 // @access  Public
 
 const uploadEntry = asyncHandler(async (req, res) => {
-  req.files.audio.mv(
-    path.resolve(__dirname, "..", "uploads", req.files.audio.name)
-  );
+  // for audio file
+
+  req.files.audio.name = `${Date.now()}-${req.files.audio.name}`;
+
+  // uploading to aws s3
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: req.files.audio.name,
+    Body: req.files.audio.data,
+  };
+
+  const data = await s3.upload(params).promise();
+  if (!data) {
+    throw new Error("Error uploading image");
+  }
+
+  const audioURI = data.Location;
 
   const {
     submittername,
@@ -29,13 +49,6 @@ const uploadEntry = asyncHandler(async (req, res) => {
     additionalinfo,
   } = req.body;
 
-  const entry = await Entry.find({
-    email: email,
-  });
-  if (entry) {
-    throw new Error("This email is already registered.");
-  }
-
   const newEntry = await Entry.create({
     submittername,
     role,
@@ -45,15 +58,19 @@ const uploadEntry = asyncHandler(async (req, res) => {
     city,
     postaladdress,
     email,
-    artist,
     songtitle,
+    audio: audioURI,
+    artist,
     artistCategory,
     instagram,
     youtube,
     twitter,
     additionalinfo,
-    audio,
   });
+
+  if (!newEntry) {
+    throw new Error("Something went wrong");
+  }
 
   res.status(200).json({
     success: true,

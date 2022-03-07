@@ -6,9 +6,13 @@ const morgan = require("morgan");
 const path = require("path");
 const fileUpload = require("express-fileupload");
 const { errorHandler } = require("./middlewares/errorHandler");
+const connectDB = require("./config/db");
 
 // using dotenv to load environment variables
 dotenv.config();
+
+// db
+connectDB();
 
 // Create a new express application instance
 const app = express();
@@ -27,7 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/uploadentry", require("./routes/entry"));
+app.use("/", require("./routes/entry"));
 
 // use custom error handler
 app.use(errorHandler);

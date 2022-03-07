@@ -3,7 +3,6 @@ import { Box, Text, Image, Flex, useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { BiChevronLeft } from "react-icons/bi";
 import { useHistory, Link } from "react-router-dom";
-import FormFieldContext from "../context/form-field-context";
 import SubmitEntry from "./SubmitEntry";
 import { useMediaQuery } from "../../custom-hooks";
 import instagram from "../../imgs/instagram.svg";
@@ -12,60 +11,27 @@ import youtube from "../../imgs/youtube.svg";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import SuccessPage from "./SuccessPage";
 import ErrorPage from "./ErrorPage";
+import ApiContext from "../context/api-context";
 
 const SubmitFinalize = () => {
   const toast = useToast();
   const isSmall = useMediaQuery("(max-width:992px)");
   const history = useHistory();
 
-  const formContext = useContext(FormFieldContext);
-
-  const { formFields } = formContext;
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const apiContext = useContext(ApiContext);
+  const { currentEntry } = apiContext;
 
   useEffect(() => {
-    if (
-      !formFields.submittername ||
-      !formFields.role ||
-      !formFields.email ||
-      !formFields.country ||
-      !formFields.state ||
-      !formFields.city ||
-      !formFields.postaladdress ||
-      !formFields.contact
-    ) {
+    if (!localStorage.getItem("currentEntryId")) {
       history.push("/submitentry");
-    } else if (
-      !formFields.songtitle ||
-      !formFields.audio ||
-      !formFields.artist ||
-      !formFields.artistCategory
-    ) {
-      history.push("/submitsong");
     }
-  }, [
-    formFields.artist,
-    formFields.artistCategory,
-    formFields.audio,
-    formFields.city,
-    formFields.contact,
-    formFields.country,
-    formFields.email,
-    formFields.postaladdress,
-    formFields.role,
-    formFields.songtitle,
-    formFields.state,
-    formFields.submittername,
-    history,
-  ]);
+    window.scrollTo(0, 0);
+  }, [history]);
 
   const isSocialMediaLinks =
-    formFields.instagram.length > 0 ||
-    formFields.youtube.length > 0 ||
-    formFields.twitter.length > 0;
+    currentEntry.instagram.length > 0 ||
+    currentEntry.youtube.length > 0 ||
+    currentEntry.twitter.length > 0;
 
   const fieldsVariant = {
     hidden: {
@@ -189,7 +155,7 @@ const SubmitFinalize = () => {
                   Full name
                 </Text>
                 <Text className="text-white" fontSize="18px">
-                  {formFields.submittername}
+                  {currentEntry.submittername}
                 </Text>
               </Box>
               <Box className="mb-4">
@@ -197,7 +163,7 @@ const SubmitFinalize = () => {
                   Role
                 </Text>
                 <Text className="text-white" fontSize="18px">
-                  {formFields.role}
+                  {currentEntry.role}
                 </Text>
               </Box>
               <Box className="mb-4">
@@ -205,7 +171,7 @@ const SubmitFinalize = () => {
                   Email address
                 </Text>
                 <Text className="text-white" fontSize="18px">
-                  {formFields.email}
+                  {currentEntry.email}
                 </Text>
               </Box>
               <Box className="mb-4">
@@ -213,7 +179,7 @@ const SubmitFinalize = () => {
                   Country
                 </Text>
                 <Text className="text-white" fontSize="18px">
-                  {formFields.country}
+                  {currentEntry.country}
                 </Text>
               </Box>
               <Box className="mb-4">
@@ -221,7 +187,7 @@ const SubmitFinalize = () => {
                   State
                 </Text>
                 <Text className="text-white" fontSize="18px">
-                  {formFields.state}
+                  {currentEntry.state}
                 </Text>
               </Box>
               <Box className="mb-4">
@@ -229,7 +195,7 @@ const SubmitFinalize = () => {
                   City
                 </Text>
                 <Text className="text-white" fontSize="18px">
-                  {formFields.city}
+                  {currentEntry.city}
                 </Text>
               </Box>
               <Box className="mb-4">
@@ -237,7 +203,7 @@ const SubmitFinalize = () => {
                   Contact number
                 </Text>
                 <Text className="text-white" fontSize="18px">
-                  {`+91 ${formFields.contact}`}
+                  {`+91 ${currentEntry.contact}`}
                 </Text>
               </Box>
               <Box className="mb-4">
@@ -245,7 +211,7 @@ const SubmitFinalize = () => {
                   Postal address
                 </Text>
                 <Text className="text-white" fontSize="18px">
-                  {formFields.postaladdress}
+                  {currentEntry.postaladdress}
                 </Text>
               </Box>
               <Text fontSize="18px" className="text-yellow font-bold mt-4 mb-4">
@@ -265,7 +231,7 @@ const SubmitFinalize = () => {
                     className="text-white mb-4"
                     fontSize="16px"
                   >
-                    {formFields.audio.name}
+                    {currentEntry.songtitle}
                   </Text>
                   <Flex
                     flexDirection="row"
@@ -293,16 +259,9 @@ const SubmitFinalize = () => {
                           setCurrentTime(audioRef.current.currentTime)
                         }
                         onEnded={() => setIsPlaying(false)}
+                        preload="metadata"
                       >
-                        <source
-                          src={
-                            formFields.audio !== ""
-                              ? window.webkitURL.createObjectURL(
-                                  formFields.audio
-                                )
-                              : ""
-                          }
-                        />
+                        <source src={currentEntry.audio} />
                       </audio>
                       {isPlaying ? (
                         <BsPauseFill
@@ -373,7 +332,7 @@ const SubmitFinalize = () => {
                   Artist
                 </Text>
                 <Text className="text-white" fontSize="18px">
-                  {formFields.artist}
+                  {currentEntry.artist}
                 </Text>
                 <Text
                   fontSize="16px"
@@ -386,7 +345,7 @@ const SubmitFinalize = () => {
                   borderRadius="2px"
                   className="text-yellow font-bold bgPinkLight mt-1"
                 >
-                  {formFields.artistCategory}
+                  {currentEntry.artistCategory}
                 </Text>
               </Box>
               {isSocialMediaLinks && (
@@ -397,7 +356,7 @@ const SubmitFinalize = () => {
                   >
                     Social media link
                   </Text>
-                  {formFields.instagram.length > 0 && (
+                  {currentEntry.instagram.length > 0 && (
                     <Box textAlign="center" className="mb-4">
                       <Image
                         width="30px"
@@ -408,11 +367,11 @@ const SubmitFinalize = () => {
                         className="mb-2"
                       />
                       <Text className="text-yellow" fontSize="16px">
-                        {formFields.instagram}
+                        {currentEntry.instagram}
                       </Text>
                     </Box>
                   )}
-                  {formFields.youtube.length > 0 && (
+                  {currentEntry.youtube.length > 0 && (
                     <Box className="mb-4">
                       <Image
                         width="30px"
@@ -423,11 +382,11 @@ const SubmitFinalize = () => {
                         className="mb-2"
                       />
                       <Text className="text-yellow" fontSize="16px">
-                        {formFields.youtube}
+                        {currentEntry.youtube}
                       </Text>
                     </Box>
                   )}
-                  {formFields.twitter.length > 0 && (
+                  {currentEntry.twitter.length > 0 && (
                     <Box className="mb-4">
                       <Image
                         width="30px"
@@ -438,13 +397,13 @@ const SubmitFinalize = () => {
                         className="mb-2"
                       />
                       <Text className="text-yellow" fontSize="16px">
-                        {formFields.twitter}
+                        {currentEntry.twitter}
                       </Text>
                     </Box>
                   )}
                 </>
               )}
-              {formFields.additionalinfo.length > 0 && (
+              {currentEntry.additionalinfo.length > 0 && (
                 <>
                   <Text
                     className="text-purpleLight font-bold mb-4"
@@ -458,7 +417,7 @@ const SubmitFinalize = () => {
                       whiteSpace: "pre-wrap",
                     }}
                   >
-                    {formFields.additionalinfo}
+                    {currentEntry.additionalinfo}
                   </Text>
                 </>
               )}

@@ -16,6 +16,7 @@ import Login from "./components/Admin/Auth/Login";
 import AllEntries from "./components/Admin/Entries/AllEntries";
 import EntryDetail from "./components/Admin/Entries/EntryDetail";
 import EditEntry from "./components/Admin/Entries/EditEntry";
+import { ApiProvider } from "./components/context/api-context";
 
 const App = () => {
   const location = useLocation();
@@ -23,37 +24,39 @@ const App = () => {
   return (
     <ChakraProvider>
       <FormFieldProvider>
-        <AnimatePresence exitBeforeEnter>
-          <Switch location={location} key={location.pathname}>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/aboutus">
-              <About />
-            </Route>
-            <Route exact path="/submitentry">
-              <SubmitInfo />
-            </Route>
-            <Route exact path="/submitsong">
-              <SubmitSong />
-            </Route>
-            <Route exact path="/finalizeentry">
-              <SubmitFinalize />
-            </Route>
-            <Route exact path="/navarasa/admin/login">
-              <Login />
-            </Route>
-            <Route exact path="/navarasa/admin/entries">
-              <AllEntries />
-            </Route>
-            <Route exact path="/navarasa/admin/entries/entry/:id">
-              <EntryDetail />
-            </Route>
-            <Route exact path="/navarasa/admin/entries/editentry/:id">
-              <EditEntry />
-            </Route>
-          </Switch>
-        </AnimatePresence>
+        <ApiProvider>
+          <AnimatePresence exitBeforeEnter>
+            <Switch location={location} key={location.pathname}>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/aboutus">
+                <About />
+              </Route>
+              <Route exact path="/submitentry">
+                <SubmitInfo />
+              </Route>
+              <Route exact path="/submitsong">
+                <SubmitSong />
+              </Route>
+              <Route exact path="/finalizeentry">
+                <SubmitFinalize />
+              </Route>
+              <Route exact path="/navarasa/admin/login">
+                <Login />
+              </Route>
+              <Route exact path="/navarasa/admin/entries">
+                <AllEntries />
+              </Route>
+              <Route exact path="/navarasa/admin/entries/entry/:id">
+                <EntryDetail />
+              </Route>
+              <Route exact path="/navarasa/admin/entries/editentry/:id">
+                <EditEntry />
+              </Route>
+            </Switch>
+          </AnimatePresence>
+        </ApiProvider>
       </FormFieldProvider>
       <Footer />
     </ChakraProvider>

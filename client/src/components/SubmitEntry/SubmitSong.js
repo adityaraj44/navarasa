@@ -10,12 +10,13 @@ import {
   FormLabel,
   Image,
   Input,
+  Spinner,
   Text,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiChevronLeft } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -23,6 +24,7 @@ import { useMediaQuery } from "../../custom-hooks";
 import instagram from "../../imgs/instagram.svg";
 import twitter from "../../imgs/twitter.svg";
 import youtube from "../../imgs/youtube.svg";
+import ApiContext from "../context/api-context";
 import FormFieldContext from "../context/form-field-context";
 
 import SubmitEntry from "./SubmitEntry";
@@ -34,6 +36,9 @@ const SubmitSong = () => {
   const toast = useToast();
   const { formFields, setFormFields, validate, formErrors, setFormErrors } =
     formContext;
+
+  const apiContext = useContext(ApiContext);
+  const { submitEntry } = apiContext;
 
   const handleOnChange = (e) => {
     setFormFields({
@@ -63,29 +68,32 @@ const SubmitSong = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormErrors(validate(formFields));
-    handleFormChange();
+    await handleFormChange();
   };
 
-  const handleFormChange = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleFormChange = async () => {
     const res = validate(formFields);
 
-    setTimeout(() => {
-      if (Object.keys(res).length === 0) {
-        history.push("/finalizeentry");
-      } else {
-        toast({
-          title: "All fields are required",
-          description: "Please fill up all the fields to proceed.",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-          position: "top",
-        });
-      }
-    }, 1000);
+    if (Object.keys(res).length === 0) {
+      setIsLoading(true);
+      await submitEntry(formFields);
+      setIsLoading(false);
+      history.push("/finalizeentry");
+    } else {
+      toast({
+        title: "All fields are required",
+        description: "Please fill up all the fields to proceed.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+    }
   };
 
   useEffect(() => {
@@ -141,314 +149,345 @@ const SubmitSong = () => {
 
   return (
     <>
-      <SubmitEntry />
-      <Box className="bgPurple">
-        <Box maxWidth="1125px" mx="auto">
-          <motion.div
-            variants={fieldsVariant}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <Box
-              mx="auto"
-              maxWidth="900px"
-              className={isSmall ? "px-mobile" : "px"}
-            >
-              <Text fontSize="16px" className="text-purpleLight font-bold mb-4">
-                Upload song
-              </Text>
-              <FormControl>
-                <Flex
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  className="audio-input-container bgPurpleDark mb-4"
-                >
-                  <Box fontSize="16px">
-                    <p className="text-white">Pick an audio file to upload</p>{" "}
-                    <p className="text-white">25 MB size limit</p>
-                  </Box>
-                  <Box className="form-control">
-                    <label
-                      htmlFor="audio"
-                      className="text-white bgPinkLight audio-input-label"
-                    >
-                      {formFields.audio !== "" ? "Change" : "Browse"}
-                    </label>
-                    <input
-                      onChange={handleOnFileInput}
-                      type="file"
-                      name="audio"
-                      id="audio"
-                      hidden
-                      accept="audio/*"
-                    />
-                  </Box>
-                </Flex>
-                {formErrors.audio && (
-                  <FormHelperText>
-                    <Alert className="mb-4 text-dark" status="error">
-                      <AlertIcon />
-                      <AlertTitle mr={2}>Please upload your song.</AlertTitle>
-                    </Alert>
-                  </FormHelperText>
-                )}
-                {formFields.audio !== "" && (
-                  <FormHelperText>
-                    <Alert className="mb-4 text-dark" status="info">
-                      <AlertIcon />
-
-                      <AlertDescription>
-                        {formFields.audio.name}
-                      </AlertDescription>
-                    </Alert>
-                  </FormHelperText>
-                )}
-              </FormControl>
-
-              <FormControl className="form-control">
-                <FormLabel
-                  className="form-label text-purpleLight"
-                  fontWeight="bold"
-                  fontSize="16px"
-                  htmlFor="songtitle"
-                >
-                  Song title
-                </FormLabel>
-                <Input
-                  className="input bgWhite mt-2 mb-4 text-grey"
-                  borderRadius="2px"
-                  size="md"
-                  isRequired
-                  placeholder="Navarasa Naadi"
-                  fontSize="18px"
-                  id="songtitle"
-                  name="songtitle"
-                  type="text"
-                  value={formFields.songtitle}
-                  onChange={handleOnChange}
-                />
-                {formErrors.songtitle && (
-                  <FormHelperText>
-                    <Alert className="mb-4 text-dark" status="error">
-                      <AlertIcon />
-                      <AlertTitle mr={2}>
-                        Please enter your song title.
-                      </AlertTitle>
-                    </Alert>
-                  </FormHelperText>
-                )}
-              </FormControl>
-              <FormControl className="form-control">
-                <FormLabel
-                  className="form-label text-purpleLight"
-                  fontWeight="bold"
-                  fontSize="16px"
-                  htmlFor="artist"
-                >
-                  Artist
-                </FormLabel>
-                <Input
-                  className="input bgWhite mt-2 mb-4 text-grey"
-                  borderRadius="2px"
-                  size="md"
-                  isRequired
-                  placeholder="Navarasa Creative feat. Ashok"
-                  fontSize="18px"
-                  id="artist"
-                  name="artist"
-                  type="text"
-                  value={formFields.artist}
-                  onChange={handleOnChange}
-                />
-                {formErrors.artist && (
-                  <FormHelperText>
-                    <Alert className="mb-4 text-dark" status="error">
-                      <AlertIcon />
-                      <AlertTitle mr={2}>
-                        Please enter the song artist name.
-                      </AlertTitle>
-                    </Alert>
-                  </FormHelperText>
-                )}
-              </FormControl>
-              <FormControl>
-                <Box className="select-wrapper form-control" fontSize="18px">
-                  <select
-                    className="text-white bgPinkLight select mt-2 mb-4"
-                    name="artistCategory"
-                    id="artistCategory"
-                    placeholder="Pick an artist category"
-                    value={formFields.artistCategory}
-                    onChange={handleOnChange}
-                    required
-                  >
-                    <option value="">Pick an artist category</option>
-                    <option value="Composer">Composer</option>
-                    <option value="Solo Artist">Solo Artist</option>
-                    <option value="Musician">Musician</option>
-                    <option value="Band">Band</option>
-                    <option value="Collaboration">Collaboration</option>
-                  </select>
-                </Box>
-                {formErrors.artistCategory && (
-                  <FormHelperText>
-                    <Alert className="mb-4 text-dark" status="error">
-                      <AlertIcon />
-                      <AlertTitle mr={2}>
-                        Please pick an artist category.
-                      </AlertTitle>
-                    </Alert>
-                  </FormHelperText>
-                )}
-              </FormControl>
-
-              <FormControl className="form-control">
-                <FormLabel
-                  className="form-label text-purpleLight"
-                  fontWeight="bold"
-                  fontSize="16px"
-                  htmlFor="socialmedialinks"
-                >
-                  Social media links [optional]
-                </FormLabel>
-                <Flex
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  className="mt-4 mb-4"
-                >
-                  <Image
-                    alt="instagram"
-                    width="30px"
-                    height="30px"
-                    borderRadius="100%"
-                    src={instagram}
-                  />
-
-                  <Input
-                    className="input bgWhite ml-4 text-grey"
-                    borderRadius="2px"
-                    size="md"
-                    placeholder="Instagram profile link"
-                    fontSize="18px"
-                    id="instagram"
-                    name="instagram"
-                    type="url"
-                    value={formFields.instagram}
-                    onChange={handleOnChange}
-                  />
-                </Flex>
-                <Flex
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  className="mt-4 mb-4"
-                >
-                  <Image
-                    alt="youtube"
-                    width="30px"
-                    height="30px"
-                    borderRadius="100%"
-                    src={youtube}
-                  />
-
-                  <Input
-                    className="input bgWhite ml-4 text-grey"
-                    borderRadius="2px"
-                    size="md"
-                    placeholder="Youtube channel link"
-                    fontSize="18px"
-                    id="youtube"
-                    name="youtube"
-                    type="url"
-                    value={formFields.youtube}
-                    onChange={handleOnChange}
-                  />
-                </Flex>
-                <Flex
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  className="mt-4 mb-4"
-                >
-                  <Image
-                    alt="twitter"
-                    width="30px"
-                    height="30px"
-                    borderRadius="100%"
-                    src={twitter}
-                  />
-
-                  <Input
-                    className="input bgWhite ml-4 text-grey"
-                    borderRadius="2px"
-                    size="md"
-                    placeholder="Twitter profile link"
-                    fontSize="18px"
-                    id="twitter"
-                    name="twitter"
-                    type="url"
-                    value={formFields.twitter}
-                    onChange={handleOnChange}
-                  />
-                </Flex>
-              </FormControl>
-              <FormControl className="form-control">
-                <FormLabel
-                  className="form-label text-purpleLight"
-                  fontWeight="bold"
-                  fontSize="16px"
-                  htmlFor="additionalinfo"
-                >
-                  Additional info [optional]
-                </FormLabel>
-                <Textarea
-                  className="input bgWhite mt-2 mb-4 text-grey"
-                  borderRadius="2px"
-                  size="md"
-                  placeholder="More information you’d like to share about the song, the musicians involved or your musical journey."
-                  fontSize="18px"
-                  id="additionalinfo"
-                  name="additionalinfo"
-                  type="text"
-                  rows="7"
-                  value={formFields.additionalinfo}
-                  onChange={handleOnChange}
-                />
-              </FormControl>
-              <Flex
-                className="mt-4 mb-4 font-bold text-white"
-                flexDirection="row"
-                justifyContent="space-between"
-                alignItems="center"
-                fontSize="16px"
-              >
-                <Flex
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <BiChevronLeft
-                    display="inline"
-                    fontSize="16px"
-                    className="text-white"
-                  />
-                  <Link to="/submitentry">Back</Link>
-                </Flex>
-                <motion.button
-                  type="submit"
-                  onClick={handleSubmit}
-                  className="text-white form-control bgPurpleLight continueBtn"
-                >
-                  Continue
-                </motion.button>
-              </Flex>
-            </Box>
-          </motion.div>
+      {isLoading ? (
+        <Box
+          width="100vw"
+          height="100vh"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          className="bgPurple"
+        >
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="#fad01c"
+            size="xl"
+          />
         </Box>
-      </Box>
+      ) : (
+        <>
+          <SubmitEntry />
+          <Box className="bgPurple">
+            <Box maxWidth="1125px" mx="auto">
+              <motion.div
+                variants={fieldsVariant}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                <Box
+                  mx="auto"
+                  maxWidth="900px"
+                  className={isSmall ? "px-mobile" : "px"}
+                >
+                  <Text
+                    fontSize="16px"
+                    className="text-purpleLight font-bold mb-4"
+                  >
+                    Upload song
+                  </Text>
+                  <FormControl>
+                    <Flex
+                      flexDirection="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      className="audio-input-container bgPurpleDark mb-4"
+                    >
+                      <Box fontSize="16px">
+                        <p className="text-white">
+                          Pick an audio file to upload
+                        </p>
+                        <p className="text-white">25 MB size limit</p>
+                      </Box>
+                      <Box className="form-control">
+                        <label
+                          htmlFor="audio"
+                          className="text-white bgPinkLight audio-input-label"
+                        >
+                          {formFields.audio !== "" ? "Change" : "Browse"}
+                        </label>
+                        <input
+                          onChange={handleOnFileInput}
+                          type="file"
+                          name="audio"
+                          id="audio"
+                          hidden
+                          accept="audio/*"
+                        />
+                      </Box>
+                    </Flex>
+                    {formErrors.audio && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please upload your song.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
+                    {formFields.audio !== "" && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="info">
+                          <AlertIcon />
+
+                          <AlertDescription>
+                            {formFields.audio.name}
+                          </AlertDescription>
+                        </Alert>
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+
+                  <FormControl className="form-control">
+                    <FormLabel
+                      className="form-label text-purpleLight"
+                      fontWeight="bold"
+                      fontSize="16px"
+                      htmlFor="songtitle"
+                    >
+                      Song title
+                    </FormLabel>
+                    <Input
+                      className="input bgWhite mt-2 mb-4 text-grey"
+                      borderRadius="2px"
+                      size="md"
+                      isRequired
+                      placeholder="Navarasa Naadi"
+                      fontSize="18px"
+                      id="songtitle"
+                      name="songtitle"
+                      type="text"
+                      value={formFields.songtitle}
+                      onChange={handleOnChange}
+                    />
+                    {formErrors.songtitle && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please enter your song title.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                  <FormControl className="form-control">
+                    <FormLabel
+                      className="form-label text-purpleLight"
+                      fontWeight="bold"
+                      fontSize="16px"
+                      htmlFor="artist"
+                    >
+                      Artist
+                    </FormLabel>
+                    <Input
+                      className="input bgWhite mt-2 mb-4 text-grey"
+                      borderRadius="2px"
+                      size="md"
+                      isRequired
+                      placeholder="Navarasa Creative feat. Ashok"
+                      fontSize="18px"
+                      id="artist"
+                      name="artist"
+                      type="text"
+                      value={formFields.artist}
+                      onChange={handleOnChange}
+                    />
+                    {formErrors.artist && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please enter the song artist name.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                  <FormControl>
+                    <Box
+                      className="select-wrapper form-control"
+                      fontSize="18px"
+                    >
+                      <select
+                        className="text-white bgPinkLight select mt-2 mb-4"
+                        name="artistCategory"
+                        id="artistCategory"
+                        placeholder="Pick an artist category"
+                        value={formFields.artistCategory}
+                        onChange={handleOnChange}
+                        required
+                      >
+                        <option value="">Pick an artist category</option>
+                        <option value="Composer">Composer</option>
+                        <option value="Solo Artist">Solo Artist</option>
+                        <option value="Musician">Musician</option>
+                        <option value="Band">Band</option>
+                        <option value="Collaboration">Collaboration</option>
+                      </select>
+                    </Box>
+                    {formErrors.artistCategory && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please pick an artist category.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+
+                  <FormControl className="form-control">
+                    <FormLabel
+                      className="form-label text-purpleLight"
+                      fontWeight="bold"
+                      fontSize="16px"
+                      htmlFor="socialmedialinks"
+                    >
+                      Social media links [optional]
+                    </FormLabel>
+                    <Flex
+                      flexDirection="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      className="mt-4 mb-4"
+                    >
+                      <Image
+                        alt="instagram"
+                        width="30px"
+                        height="30px"
+                        borderRadius="100%"
+                        src={instagram}
+                      />
+
+                      <Input
+                        className="input bgWhite ml-4 text-grey"
+                        borderRadius="2px"
+                        size="md"
+                        placeholder="Instagram profile link"
+                        fontSize="18px"
+                        id="instagram"
+                        name="instagram"
+                        type="url"
+                        value={formFields.instagram}
+                        onChange={handleOnChange}
+                      />
+                    </Flex>
+                    <Flex
+                      flexDirection="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      className="mt-4 mb-4"
+                    >
+                      <Image
+                        alt="youtube"
+                        width="30px"
+                        height="30px"
+                        borderRadius="100%"
+                        src={youtube}
+                      />
+
+                      <Input
+                        className="input bgWhite ml-4 text-grey"
+                        borderRadius="2px"
+                        size="md"
+                        placeholder="Youtube channel link"
+                        fontSize="18px"
+                        id="youtube"
+                        name="youtube"
+                        type="url"
+                        value={formFields.youtube}
+                        onChange={handleOnChange}
+                      />
+                    </Flex>
+                    <Flex
+                      flexDirection="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      className="mt-4 mb-4"
+                    >
+                      <Image
+                        alt="twitter"
+                        width="30px"
+                        height="30px"
+                        borderRadius="100%"
+                        src={twitter}
+                      />
+
+                      <Input
+                        className="input bgWhite ml-4 text-grey"
+                        borderRadius="2px"
+                        size="md"
+                        placeholder="Twitter profile link"
+                        fontSize="18px"
+                        id="twitter"
+                        name="twitter"
+                        type="url"
+                        value={formFields.twitter}
+                        onChange={handleOnChange}
+                      />
+                    </Flex>
+                  </FormControl>
+                  <FormControl className="form-control">
+                    <FormLabel
+                      className="form-label text-purpleLight"
+                      fontWeight="bold"
+                      fontSize="16px"
+                      htmlFor="additionalinfo"
+                    >
+                      Additional info [optional]
+                    </FormLabel>
+                    <Textarea
+                      className="input bgWhite mt-2 mb-4 text-grey"
+                      borderRadius="2px"
+                      size="md"
+                      placeholder="More information you’d like to share about the song, the musicians involved or your musical journey."
+                      fontSize="18px"
+                      id="additionalinfo"
+                      name="additionalinfo"
+                      type="text"
+                      rows="7"
+                      value={formFields.additionalinfo}
+                      onChange={handleOnChange}
+                    />
+                  </FormControl>
+                  <Flex
+                    className="mt-4 mb-4 font-bold text-white"
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    fontSize="16px"
+                  >
+                    <Flex
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <BiChevronLeft
+                        display="inline"
+                        fontSize="16px"
+                        className="text-white"
+                      />
+                      <Link to="/submitentry">Back</Link>
+                    </Flex>
+                    <motion.button
+                      type="submit"
+                      onClick={handleSubmit}
+                      className="text-white form-control bgPurpleLight continueBtn"
+                    >
+                      Continue
+                    </motion.button>
+                  </Flex>
+                </Box>
+              </motion.div>
+            </Box>
+          </Box>
+        </>
+      )}
     </>
   );
 };
