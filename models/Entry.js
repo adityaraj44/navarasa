@@ -13,7 +13,6 @@ const EntrySchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-     
     },
     country: {
       type: String,
@@ -70,6 +69,9 @@ const EntrySchema = new mongoose.Schema(
     isSubmitted: {
       type: Boolean,
       default: false,
+    },
+    refId: {
+      type: String,
     },
   },
   { timestamps: true }

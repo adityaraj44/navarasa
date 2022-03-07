@@ -251,6 +251,9 @@ const Home = () => {
             onEnded={() => setIsVideoPlaying(false)}
             onPause={() => setIsVideoPlaying(false)}
             onPlay={() => setIsVideoPlaying(true)}
+            style={{
+              maxWidth: "968px",
+            }}
           />
           {isButtonVisible === null || isButtonVisible === true ? (
             <>

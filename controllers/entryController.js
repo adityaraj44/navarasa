@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Entry = require("../models/Entry");
 const AWS = require("aws-sdk");
+const voucherCodes = require("voucher-code-generator");
 
 // using s3
 const s3 = new AWS.S3({
@@ -78,6 +79,33 @@ const uploadEntry = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc    Finalize entry
+// @route   PUT /finalizeentry/:id
+// @access  Public
+
+const finalizeEntry = asyncHandler(async (req, res) => {
+  const entry = await Entry.findById(req.params.id);
+
+  if (!entry) {
+    throw new Error("Entry not found");
+  }
+
+  entry.isSubmitted = true;
+  let generatedCode = voucherCodes.generate({
+    pattern: "####-####-####",
+    charset: voucherCodes.charset("numbers"),
+    count: 1,
+  });
+  entry.refId = generatedCode[0];
+  await entry.save();
+
+  res.status(200).json({
+    success: true,
+    entry,
+  });
+});
+
 module.exports = {
   uploadEntry,
+  finalizeEntry,
 };

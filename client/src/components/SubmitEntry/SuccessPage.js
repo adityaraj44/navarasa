@@ -4,8 +4,12 @@ import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import masthead from "../../imgs/placeholder.png";
 import { useMediaQuery } from "../../custom-hooks";
+import ApiContext from "../context/api-context";
 
 const SuccessPage = () => {
+  const apiContext = React.useContext(ApiContext);
+  const { refId } = apiContext;
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -144,7 +148,7 @@ const SuccessPage = () => {
                 Your submission Ref ID is
               </Text>
               <Text fontSize="40px" className="text-white font-bold">
-                #8562-8453-4361
+                {`#${refId}`}
               </Text>
               <Text fontSize="18px" className="text-white mt-2">
                 A confirmation receipt has been sent to the email address you

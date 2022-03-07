@@ -9,6 +9,10 @@ const host = "http://localhost:4000";
 export const ApiProvider = ({ children }) => {
   const toast = useToast();
   const [currentEntry, setCurrentEntry] = useState({});
+  const [refId, setRefId] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const submitEntry = async (formValues) => {
     try {
@@ -35,6 +39,7 @@ export const ApiProvider = ({ children }) => {
       if (res.data.success) {
         localStorage.setItem("currentEntryId", res.data.newEntry._id);
         setCurrentEntry(res.data.newEntry);
+
         toast({
           title: "Success",
           description: "Entry saved successfully!",
@@ -56,8 +61,53 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const finalizeEntry = async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.put(`${host}/finalizeentry/${currentEntry._id}`);
+
+      if (res.data.success) {
+        localStorage.removeItem("currentEntryId");
+        setCurrentEntry({});
+        setRefId(res.data.entry.refId);
+        setIsSuccess(true);
+        setIsLoading(false);
+
+        toast({
+          title: "Success",
+          description: "You have been successfully registered!",
+          status: "success",
+          duration: 2000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setIsError(true);
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 2000,
+        position: "top",
+        isClosable: true,
+      });
+    }
+  };
+
   return (
-    <ApiContext.Provider value={{ submitEntry, currentEntry }}>
+    <ApiContext.Provider
+      value={{
+        submitEntry,
+        currentEntry,
+        finalizeEntry,
+        isLoading,
+        isError,
+        isSuccess,
+        refId,
+      }}
+    >
       {children}
     </ApiContext.Provider>
   );
