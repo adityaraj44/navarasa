@@ -2,7 +2,7 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
-import masthead from "../../imgs/placeholder.png";
+import masthead from "../../imgs/aboutsuccess.png";
 import { useMediaQuery } from "../../custom-hooks";
 import ApiContext from "../context/api-context";
 

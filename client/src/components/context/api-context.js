@@ -81,6 +81,9 @@ export const ApiProvider = ({ children }) => {
           position: "top",
           isClosable: true,
         });
+      } else {
+        setIsLoading(false);
+        setIsError(true);
       }
     } catch (error) {
       setIsLoading(false);
