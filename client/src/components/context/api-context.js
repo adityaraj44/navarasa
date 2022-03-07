@@ -4,7 +4,7 @@ import { useToast } from "@chakra-ui/react";
 
 const ApiContext = createContext();
 
-const host = "https://navarasa-creative.herokuapp.com/";
+const host = "https://navarasa-creative.herokuapp.com";
 // const host = "http://localhost:4000";
 
 export const ApiProvider = ({ children }) => {

@@ -214,7 +214,11 @@ const Home = () => {
           </motion.div>
         )}
       </motion.div>
-      <Box className={`video ${isSmall ? "px-mobile" : "px-home"}`}>
+      <Box
+        maxWidth="968px"
+        mx="auto"
+        className={`video ${isSmall ? "px-mobile" : "px-home"}`}
+      >
         <motion.div
           initial={{
             opacity: 0,
@@ -244,6 +248,7 @@ const Home = () => {
           onBlur={() => setIsButtonVisible(false)}
         >
           <video
+            preload="auto"
             ref={videoRef}
             src={videoLarge}
             poster={placeholder}
@@ -251,9 +256,6 @@ const Home = () => {
             onEnded={() => setIsVideoPlaying(false)}
             onPause={() => setIsVideoPlaying(false)}
             onPlay={() => setIsVideoPlaying(true)}
-            style={{
-              maxWidth: "968px",
-            }}
           />
           {isButtonVisible === null || isButtonVisible === true ? (
             <>
