@@ -16,3 +16,11 @@ export const useMediaQuery = (query) => {
   }, [query]);
   return matches;
 };
+
+export const dateFormat = (date) => {
+  const init = date.slice(0, 10);
+  const day = init.split("-")[2];
+  const month = init.split("-")[1];
+  const year = init.split("-")[0];
+  return `${day}-${month}-${year}`;
+};

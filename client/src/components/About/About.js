@@ -1,7 +1,7 @@
 import { Box, Image } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "../Navbar/Navbar";
-import masthead from "../../imgs/aboutsuccess.png";
+import masthead from "../../imgs/aboutsuccess.JPG";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "../../custom-hooks";
 

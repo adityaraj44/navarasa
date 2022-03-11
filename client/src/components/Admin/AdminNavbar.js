@@ -1,13 +1,13 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import GeneralLogo from "../Logo/GeneralLogo";
 
 const AdminNavbar = () => {
   const location = useLocation();
-
+  const history = useHistory();
   const linkVariants = {
     hidden: {
       opacity: 0,
@@ -88,11 +88,13 @@ const AdminNavbar = () => {
                 Settings
               </motion.p>
             </Link>
-            <Link
-              className={`mr-3 ${
-                location.pathname === "/navarasa/admin/logout" ? "active" : ""
-              }`}
-              to="/navarasa/admin/logout"
+            <Box
+              cursor={"pointer"}
+              className={`mr-3`}
+              onClick={() => {
+                localStorage.removeItem("navarasa-auth-token");
+                history.push("/navarasa/admin/login");
+              }}
             >
               <motion.p
                 variants={linkVariants}
@@ -102,7 +104,7 @@ const AdminNavbar = () => {
               >
                 Log out
               </motion.p>
-            </Link>
+            </Box>
           </Flex>
         )}
       </Flex>

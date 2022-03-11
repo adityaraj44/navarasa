@@ -17,6 +17,9 @@ import AllEntries from "./components/Admin/Entries/AllEntries";
 import EntryDetail from "./components/Admin/Entries/EntryDetail";
 import EditEntry from "./components/Admin/Entries/EditEntry";
 import { ApiProvider } from "./components/context/api-context";
+import PublicRoute from "./components/PublicRoute";
+import PrivateRoute from "./components/PrivateRoute";
+import { AudioProvider } from "./components/context/audio-player-context";
 
 const App = () => {
   const location = useLocation();
@@ -25,37 +28,42 @@ const App = () => {
     <ChakraProvider>
       <FormFieldProvider>
         <ApiProvider>
-          <AnimatePresence exitBeforeEnter>
-            <Switch location={location} key={location.pathname}>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route exact path="/aboutus">
-                <About />
-              </Route>
-              <Route exact path="/submitentry">
-                <SubmitInfo />
-              </Route>
-              <Route exact path="/submitsong">
-                <SubmitSong />
-              </Route>
-              <Route exact path="/finalizeentry">
-                <SubmitFinalize />
-              </Route>
-              <Route exact path="/navarasa/admin/login">
-                <Login />
-              </Route>
-              <Route exact path="/navarasa/admin/entries">
-                <AllEntries />
-              </Route>
-              <Route exact path="/navarasa/admin/entries/entry/:id">
-                <EntryDetail />
-              </Route>
-              <Route exact path="/navarasa/admin/entries/editentry/:id">
-                <EditEntry />
-              </Route>
-            </Switch>
-          </AnimatePresence>
+          <AudioProvider>
+            <AnimatePresence exitBeforeEnter>
+              <Switch location={location} key={location.pathname}>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route exact path="/aboutus">
+                  <About />
+                </Route>
+                <Route exact path="/submitentry">
+                  <SubmitInfo />
+                </Route>
+                <Route exact path="/submitsong">
+                  <SubmitSong />
+                </Route>
+                <Route exact path="/finalizeentry">
+                  <SubmitFinalize />
+                </Route>
+                <PublicRoute exact path="/navarasa/admin/login">
+                  <Login />
+                </PublicRoute>
+                <PrivateRoute exact path="/navarasa/admin/entries">
+                  <AllEntries />
+                </PrivateRoute>
+                <PrivateRoute exact path="/navarasa/admin/entries/entry/:id">
+                  <EntryDetail />
+                </PrivateRoute>
+                <PrivateRoute
+                  exact
+                  path="/navarasa/admin/entries/editentry/:id"
+                >
+                  <EditEntry />
+                </PrivateRoute>
+              </Switch>
+            </AnimatePresence>
+          </AudioProvider>
         </ApiProvider>
       </FormFieldProvider>
       <Footer />

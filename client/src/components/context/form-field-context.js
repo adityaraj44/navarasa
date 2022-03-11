@@ -3,6 +3,10 @@ import React, { createContext, useState } from "react";
 const FormFieldContext = createContext();
 
 export const FormFieldProvider = ({ children }) => {
+  const [authFields, setAuthFields] = useState({
+    username: "",
+    password: "",
+  });
   const [formFields, setFormFields] = useState({
     submittername: "",
     role: "",
@@ -22,6 +26,8 @@ export const FormFieldProvider = ({ children }) => {
     additionalinfo: "",
   });
   const [formErrors, setFormErrors] = useState({});
+  const [authErrors, setAuthErrors] = useState({});
+
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -72,6 +78,22 @@ export const FormFieldProvider = ({ children }) => {
     return errors;
   };
 
+  const authValidate = (values) => {
+    const errors = {};
+
+    if (!values.username) {
+      errors.username = "Please enter username";
+    }
+
+    if (!values.password) {
+      errors.password = "Please enter your password.";
+    } else if (values.password.length < 6) {
+      errors.password = "Password must be at least 6 characters long.";
+    }
+
+    return errors;
+  };
+
   return (
     <FormFieldContext.Provider
       value={{
@@ -80,6 +102,11 @@ export const FormFieldProvider = ({ children }) => {
         validate,
         formErrors,
         setFormErrors,
+        authFields,
+        setAuthFields,
+        authValidate,
+        authErrors,
+        setAuthErrors,
       }}
     >
       {children}

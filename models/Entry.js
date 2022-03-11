@@ -70,6 +70,10 @@ const EntrySchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isShortlisted: {
+      type: Boolean,
+      default: false,
+    },
     refId: {
       type: String,
     },

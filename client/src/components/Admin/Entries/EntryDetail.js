@@ -1,13 +1,108 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import React from "react";
-import { BsPlayFill } from "react-icons/bs";
+import React, { useState, useContext, useEffect, useRef } from "react";
+import { Box, Flex, Image, Spinner, Text } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import AdminNavbar from "../AdminNavbar";
 import instagram from "../../../imgs/instagram.svg";
 import twitter from "../../../imgs/twitter.svg";
 import youtube from "../../../imgs/youtube.svg";
 import { Link } from "react-router-dom";
+import ApiContext from "../../context/api-context";
+import { dateFormat } from "../../../custom-hooks";
 
 const EntryDetail = () => {
+  const { id } = useParams();
+  const apiContext = useContext(ApiContext);
+  const {
+    entries,
+    entryDetail,
+    getEntryDetail,
+    isLoading,
+    shortlistEntry,
+    deleteEntry,
+  } = apiContext;
+
+  useEffect(() => {
+    getEntryDetail(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entries]);
+
+  const handleShortlist = async () => {
+    await shortlistEntry(entryDetail._id);
+  };
+  const handleDelete = async () => {
+    await deleteEntry(entryDetail._id);
+  };
+
+  // audio player
+  const audioRef = useRef();
+  const progressBarRef = useRef();
+  const animationRef = useRef();
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  const calculateTime = (secs) => {
+    const minutes = Math.floor(secs / 60);
+    const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const seconds = Math.floor(secs % 60);
+    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${returnedMinutes}:${returnedSeconds}`;
+  };
+
+  const handlePlay = () => {
+    const prevValue = isPlaying;
+    setIsPlaying(!prevValue);
+    if (!prevValue) {
+      audioRef.current.play();
+      animationRef.current = requestAnimationFrame(whilePlaying);
+    } else {
+      audioRef.current.pause();
+      cancelAnimationFrame(animationRef.current);
+    }
+  };
+
+  const whilePlaying = () => {
+    progressBarRef.current.value = audioRef.current.currentTime;
+    changePlayerCurrentTime();
+    animationRef.current = requestAnimationFrame(whilePlaying);
+  };
+
+  const changeRange = () => {
+    audioRef.current.currentTime = progressBarRef.current.value;
+    changePlayerCurrentTime();
+  };
+
+  const changePlayerCurrentTime = () => {
+    progressBarRef.current.style.setProperty(
+      "--seek-before-width",
+      `${(progressBarRef.current.value / duration) * 100}%`
+    );
+    setCurrentTime(progressBarRef.current.value);
+  };
+
+  if (isLoading === true || entryDetail === null) {
+    return (
+      <Box
+        width="100vw"
+        height="100vh"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        className="bgPurple"
+      >
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="#fad01c"
+          size="xl"
+        />
+      </Box>
+    );
+  }
+
   return (
     <>
       <AdminNavbar />
@@ -21,7 +116,7 @@ const EntryDetail = () => {
             padding="20px 0px"
           >
             <Text className="text-white font-bold" fontSize="16px">
-              Ref ID #20220414ABDCS
+              Ref ID #{entryDetail.refId}
             </Text>
             <Box className="form-control">
               <button
@@ -37,6 +132,7 @@ const EntryDetail = () => {
                 }}
                 className="text-white font-bold"
                 type="button"
+                onClick={handleDelete}
               >
                 Delete
               </button>
@@ -53,7 +149,9 @@ const EntryDetail = () => {
                 className="text-white bgPurpleLight font-bold"
                 type="button"
               >
-                <Link to="/navarasa/admin/entries/editentry/:id">
+                <Link
+                  to={`/navarasa/admin/entries/editentry/${entryDetail._id}`}
+                >
                   Edit details
                 </Link>
               </button>
@@ -68,8 +166,9 @@ const EntryDetail = () => {
                 }}
                 className="text-yellow bgPink font-bold"
                 type="button"
+                onClick={handleShortlist}
               >
-                Shortlist
+                {entryDetail.isShortlisted ? "Remove" : "Shortlist"}
               </button>
             </Box>
           </Flex>
@@ -84,7 +183,7 @@ const EntryDetail = () => {
                 Date submitted
               </Text>
               <Text fontSize="18px" className="text-white ">
-                04-02-2022
+                {dateFormat(entryDetail.createdAt)}
               </Text>
             </Box>
             <Box margin="0px 90px 0px 0px">
@@ -92,7 +191,7 @@ const EntryDetail = () => {
                 Full name
               </Text>
               <Text fontSize="18px" className="text-white ">
-                Aditya Raj
+                {entryDetail.submittername}
               </Text>
             </Box>
             <Box margin="0px 90px 0px 0px">
@@ -100,7 +199,7 @@ const EntryDetail = () => {
                 Role
               </Text>
               <Text fontSize="18px" className="text-white ">
-                Composer
+                {entryDetail.role}
               </Text>
             </Box>
             <Box margin="0px 90px 0px 0px">
@@ -108,7 +207,7 @@ const EntryDetail = () => {
                 Country
               </Text>
               <Text fontSize="18px" className="text-white ">
-                India
+                {entryDetail.country}
               </Text>
             </Box>
             <Box margin="0px 90px 0px 0px">
@@ -116,7 +215,7 @@ const EntryDetail = () => {
                 State
               </Text>
               <Text fontSize="18px" className="text-white ">
-                Tamil Nadu
+                {entryDetail.state}
               </Text>
             </Box>
             <Box>
@@ -124,7 +223,7 @@ const EntryDetail = () => {
                 City
               </Text>
               <Text fontSize="18px" className="text-white ">
-                Chennai
+                {entryDetail.city}
               </Text>
             </Box>
           </Flex>
@@ -140,7 +239,7 @@ const EntryDetail = () => {
                 Email address
               </Text>
               <Text fontSize="18px" className="text-white ">
-                contact@adityaraj.com
+                {entryDetail.email}
               </Text>
             </Box>
             <Box margin="0px 90px 0px 0px">
@@ -148,7 +247,7 @@ const EntryDetail = () => {
                 Contact
               </Text>
               <Text fontSize="18px" className="text-white ">
-                +91 5656565656
+                +91 {entryDetail.contact}
               </Text>
             </Box>
             <Box margin="0px 90px 0px 0px">
@@ -156,7 +255,7 @@ const EntryDetail = () => {
                 Postal address
               </Text>
               <Text fontSize="18px" className="text-white ">
-                42 Varsham Street, Chennai 400750
+                {entryDetail.postaladdress}
               </Text>
             </Box>
           </Flex>
@@ -169,15 +268,18 @@ const EntryDetail = () => {
               padding="20px 30px"
             >
               <Text className="text-white font-bold" fontSize="16px">
-                Music name
+                {entryDetail.songtitle}
               </Text>
               <Box>
                 <Text
                   display="inline"
                   className="text-purpleLight font-bold"
                   fontSize="14px"
+                  cursor="pointer"
                 >
-                  Download audio file
+                  <a href={entryDetail.audio} download>
+                    Download audio file
+                  </a>
                 </Text>
               </Box>
             </Flex>
@@ -199,13 +301,35 @@ const EntryDetail = () => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <BsPlayFill
-                  style={{
-                    width: "16px",
-                    height: "16px",
-                  }}
-                  className="play-icon text-white"
+                <audio
+                  ref={audioRef}
+                  onLoadedData={() => setDuration(audioRef.current.duration)}
+                  onTimeUpdate={() =>
+                    setCurrentTime(audioRef.current.currentTime)
+                  }
+                  onEnded={() => setIsPlaying(false)}
+                  preload="metadata"
+                  src={entryDetail.audio}
                 />
+                {isPlaying ? (
+                  <BsPauseFill
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                    }}
+                    onClick={handlePlay}
+                    className="play-icon text-white"
+                  />
+                ) : (
+                  <BsPlayFill
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                    }}
+                    onClick={handlePlay}
+                    className="play-icon text-white"
+                  />
+                )}
               </Box>
 
               <Box className="text-white font-bold ml-4">
@@ -214,7 +338,7 @@ const EntryDetail = () => {
                     fontSize: "12px",
                   }}
                 >
-                  00:00
+                  {calculateTime(currentTime)}
                 </p>
               </Box>
 
@@ -226,11 +350,14 @@ const EntryDetail = () => {
                 flexGrow={1}
               >
                 <input
+                  ref={progressBarRef}
                   type="range"
                   className="progressBar"
                   name="range"
                   id="range"
                   defaultValue={0}
+                  max={Math.floor(duration)}
+                  onChange={changeRange}
                 />
               </Box>
 
@@ -239,7 +366,9 @@ const EntryDetail = () => {
                 justifySelf="end"
                 className="text-white font-bold"
               >
-                <p style={{ fontSize: "12px" }}>05:39</p>
+                <p style={{ fontSize: "12px" }}>
+                  {duration && !isNaN(duration) && calculateTime(duration)}
+                </p>
               </Box>
             </Flex>
           </Box>
@@ -250,7 +379,7 @@ const EntryDetail = () => {
               Song title
             </Text>
             <Text fontSize="18px" className="text-white ">
-              Navarasa Naadi
+              {entryDetail.songtitle}
             </Text>
           </Box>
           <Box margin="0px 0px 30px 0px">
@@ -258,7 +387,7 @@ const EntryDetail = () => {
               Artist
             </Text>
             <Text fontSize="18px" className="text-white ">
-              Navarasa Creative feat. Ashok
+              {entryDetail.artist}
             </Text>
           </Box>
           <Box margin="0px 0px 30px 0px">
@@ -272,91 +401,96 @@ const EntryDetail = () => {
               borderRadius="2px"
               className="text-yellow font-bold bgPinkLight mt-1"
             >
-              Artist collaboration
+              {entryDetail.artistCategory}
             </Text>
           </Box>
-          <Box margin="0px 0px 30px 0px">
-            <Text fontSize="16px" className="text-purpleLight font-bold">
-              Social media links
-            </Text>
-            <Flex
-              flexDirection="row"
-              justifyContent="start"
-              alignItems="center"
-              className="mt-4 mb-4"
-            >
-              <Image
-                alt="instagram"
-                width="30px"
-                height="30px"
-                borderRadius="100%"
-                src={instagram}
-              />
-
-              <Text fontSize={"18px"} className="text-yellow ml-4">
-                instagram.com/username
+          {(entryDetail.instagram ||
+            entryDetail.twitter ||
+            entryDetail.youtube) && (
+            <Box margin="0px 0px 30px 0px">
+              <Text fontSize="16px" className="text-purpleLight font-bold">
+                Social media links
               </Text>
-            </Flex>
-            <Flex
-              flexDirection="row"
-              justifyContent="start"
-              alignItems="center"
-              className="mt-4 mb-4"
-            >
-              <Image
-                alt="youtube"
-                width="30px"
-                height="30px"
-                borderRadius="100%"
-                src={youtube}
-              />
+              {entryDetail.instagram && (
+                <Flex
+                  flexDirection="row"
+                  justifyContent="start"
+                  alignItems="center"
+                  className="mt-4 mb-4"
+                >
+                  <Image
+                    alt="instagram"
+                    width="30px"
+                    height="30px"
+                    borderRadius="100%"
+                    src={instagram}
+                  />
 
-              <Text fontSize={"18px"} className="text-yellow ml-4">
-                youtube.com/username
-              </Text>
-            </Flex>
-            <Flex
-              flexDirection="row"
-              justifyContent="start"
-              alignItems="center"
-              className="mt-4 mb-4"
-            >
-              <Image
-                alt="twitter"
-                width="30px"
-                height="30px"
-                borderRadius="100%"
-                src={twitter}
-              />
+                  <Text fontSize={"18px"} className="text-yellow ml-4">
+                    {entryDetail.instagram}
+                  </Text>
+                </Flex>
+              )}
+              {entryDetail.youtube && (
+                <Flex
+                  flexDirection="row"
+                  justifyContent="start"
+                  alignItems="center"
+                  className="mt-4 mb-4"
+                >
+                  <Image
+                    alt="youtube"
+                    width="30px"
+                    height="30px"
+                    borderRadius="100%"
+                    src={youtube}
+                  />
 
-              <Text fontSize={"18px"} className="text-yellow ml-4">
-                twitter.com/username
+                  <Text fontSize={"18px"} className="text-yellow ml-4">
+                    {entryDetail.youtube}
+                  </Text>
+                </Flex>
+              )}
+
+              {entryDetail.twitter && (
+                <Flex
+                  flexDirection="row"
+                  justifyContent="start"
+                  alignItems="center"
+                  className="mt-4 mb-4"
+                >
+                  <Image
+                    alt="twitter"
+                    width="30px"
+                    height="30px"
+                    borderRadius="100%"
+                    src={twitter}
+                  />
+
+                  <Text fontSize={"18px"} className="text-yellow ml-4">
+                    {entryDetail.twitter}
+                  </Text>
+                </Flex>
+              )}
+            </Box>
+          )}
+
+          {entryDetail.additionalinfo && (
+            <Box>
+              <Text fontSize="16px" className="text-purpleLight font-bold">
+                Additional info
               </Text>
-            </Flex>
-          </Box>
-          <Box>
-            <Text fontSize="16px" className="text-purpleLight font-bold">
-              Additional info
-            </Text>
-            <Text fontSize="18px" className="text-white ">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-              nec eros vitae purus efficitur euismod. Ut neque est, tincidunt eu
-              nibh dapibus, posuere ornare eros. In tincidunt, elit ut rutrum
-              finibus, dui velit vehicula dolor, a volutpat arcu arcu sit amet
-              diam. Maecenas interdum leo sed lectus hendrerit interdum. Sed et
-              tempus nibh. Fusce vel tincidunt lorem. Aliquam at nisl
-              consectetur, mollis arcu euismod, tincidunt ex.
-            </Text>
-            <br />
-            <Text fontSize="18px" className="text-white">
-              Pellentesque dictum massa a eros cursus, sit amet ultricies tellus
-              laoreet. Etiam condimentum lacinia dictum. Phasellus non dolor id
-              mauris cursus viverra. Integer vel tristique augue. Etiam nec
-              eleifend massa. Nunc tempus ullamcorper lacus, et ultrices metus
-              lobortis at. Cras tempus, quam eu semper bibendum, turpis elit
-              facilisis justo, at pretium est nulla non dolor.
-            </Text>
-          </Box>
+              <Text
+                fontSize="18px"
+                className="text-white"
+                style={{
+                  whiteSpace: "pre-wrap",
+                }}
+              >
+                {entryDetail.additionalinfo}
+              </Text>
+            </Box>
+          )}
         </Box>
       </Box>
     </>

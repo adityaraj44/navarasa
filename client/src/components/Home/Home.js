@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Box, Image, Text } from "@chakra-ui/react";
 import NavbarHome from "./NavbarHome";
 import HomeBanner from "../Banner/HomeBanner";
-import placeholder from "../../imgs/placeholder.png";
+import placeholder from "../../imgs/placeholder.JPG";
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";

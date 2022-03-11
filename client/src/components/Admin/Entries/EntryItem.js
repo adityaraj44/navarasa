@@ -1,9 +1,39 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import React from "react";
-import { BsPlayFill } from "react-icons/bs";
+import React, { useContext } from "react";
+import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import ApiContext from "../../context/api-context";
+import AudioContext from "../../context/audio-player-context";
 
-const EntryItem = () => {
+const EntryItem = ({ entry }) => {
+  const apiContext = useContext(ApiContext);
+  const { shortlistEntry } = apiContext;
+
+  const audioContext = useContext(AudioContext);
+  const {
+    audioRef,
+    isPlaying,
+    handlePlay,
+    setDuration,
+    setCurrentTime,
+    setIsPlaying,
+    calculateTime,
+    duration,
+    setCurrentPlaying,
+  } = audioContext;
+
+  const dateFormat = (date) => {
+    const init = date.slice(0, 10);
+    const day = init.split("-")[2];
+    const month = init.split("-")[1];
+    const year = init.split("-")[0];
+    return `${day}-${month}-${year}`;
+  };
+
+  const handleShortlist = async () => {
+    await shortlistEntry(entry._id);
+  };
+
   return (
     <>
       <Flex
@@ -14,7 +44,7 @@ const EntryItem = () => {
       >
         <Box className="tableElem" width="100px">
           <Text fontSize="14px" className="font-bold text-white">
-            22-05-2021
+            {dateFormat(entry.createdAt)}
           </Text>
         </Box>
         <Box
@@ -29,7 +59,7 @@ const EntryItem = () => {
             className="font-bold text-white"
             wordBreak="break-all"
           >
-            Aditya Raj
+            {entry.submittername}
           </Text>
         </Box>
         <Box
@@ -40,7 +70,7 @@ const EntryItem = () => {
         ></Box>
         <Box className="tableElem" width="150px">
           <Text fontSize="14px" className="font-bold text-white">
-            #1235-4684-1452
+            #{entry.refId}
           </Text>
         </Box>
         <Box
@@ -51,7 +81,7 @@ const EntryItem = () => {
         ></Box>
         <Box className="tableElem" width="350px">
           <Text fontSize="14px" className="font-bold text-white">
-            Brown Munde
+            {entry.songtitle}
           </Text>
         </Box>
         <Box
@@ -68,6 +98,7 @@ const EntryItem = () => {
           width="100px"
         >
           <Box
+            onClick={() => setCurrentPlaying(entry)}
             className="bgPinkLight"
             width="30px"
             height="30px"
@@ -78,16 +109,36 @@ const EntryItem = () => {
             marginRight="8px"
             cursor="pointer"
           >
-            <BsPlayFill
-              style={{
-                width: "15px",
-                height: "15px",
-              }}
-              className="text-white"
+            <audio
+              ref={audioRef}
+              onLoadedData={() => setDuration(audioRef.current.duration)}
+              onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
+              onEnded={() => setIsPlaying(false)}
+              preload="metadata"
+              src={entry.audio}
             />
+            {isPlaying ? (
+              <BsPauseFill
+                style={{
+                  width: "15px",
+                  height: "15px",
+                }}
+                className="text-white"
+                onClick={handlePlay}
+              />
+            ) : (
+              <BsPlayFill
+                style={{
+                  width: "15px",
+                  height: "15px",
+                }}
+                className="text-white"
+                onClick={handlePlay}
+              />
+            )}
           </Box>
           <Text fontSize="14px" className="font-bold text-white">
-            04:59
+            {duration && !isNaN(duration) && calculateTime(duration)}
           </Text>
         </Box>
         <Box
@@ -108,11 +159,12 @@ const EntryItem = () => {
             marginRight="20px"
             fontSize="14px"
             className="font-bold text-yellow"
+            onClick={handleShortlist}
           >
-            Shortlist
+            {entry.isShortlisted ? "Remove" : "Shortlist"}
           </Text>
           <Link
-            to="/navarasa/admin/entries/entry/:id"
+            to={`/navarasa/admin/entries/entry/${entry._id}`}
             cursor="pointer"
             fontSize="14px"
             className="font-bold text-pink"
