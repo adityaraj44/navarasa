@@ -35,6 +35,15 @@ const uploadEntry = asyncHandler(async (req, res) => {
 
   const audioURI = data.Location;
 
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const returnedMonth = month < 10 ? `0${month}` : month;
+  const returnedDay = day < 10 ? `0${day}` : day;
+
+  const dateSubmitted = `${returnedDay}-${returnedMonth}-${year}`;
+
   const {
     submittername,
     role,
@@ -70,6 +79,7 @@ const uploadEntry = asyncHandler(async (req, res) => {
     youtube,
     twitter,
     additionalinfo,
+    dateSubmitted: dateSubmitted,
   });
 
   if (!newEntry) {

@@ -8,7 +8,6 @@ import twitter from "../../../imgs/twitter.svg";
 import youtube from "../../../imgs/youtube.svg";
 import { Link } from "react-router-dom";
 import ApiContext from "../../context/api-context";
-import { dateFormat } from "../../../custom-hooks";
 
 const EntryDetail = () => {
   const { id } = useParams();
@@ -183,7 +182,7 @@ const EntryDetail = () => {
                 Date submitted
               </Text>
               <Text fontSize="18px" className="text-white ">
-                {dateFormat(entryDetail.createdAt)}
+                {entryDetail.dateSubmitted}
               </Text>
             </Box>
             <Box margin="0px 90px 0px 0px">

@@ -60,7 +60,9 @@ const AdminNavbar = () => {
           >
             <Link
               className={`mr-3 ${
-                location.pathname === "/navarasa/admin/entries" ? "active" : ""
+                location.pathname.includes("/navarasa/admin/entries")
+                  ? "active"
+                  : ""
               }`}
               to="/navarasa/admin/entries"
             >

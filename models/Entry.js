@@ -77,6 +77,9 @@ const EntrySchema = new mongoose.Schema(
     refId: {
       type: String,
     },
+    dateSubmitted: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

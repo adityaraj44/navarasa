@@ -19,14 +19,6 @@ const EntryItem = ({ entry }) => {
   const audioRef = useRef(null);
   const [duration, setDuration] = useState(0);
 
-  const dateFormat = (date) => {
-    const init = date.slice(0, 10);
-    const day = init.split("-")[2];
-    const month = init.split("-")[1];
-    const year = init.split("-")[0];
-    return `${day}-${month}-${year}`;
-  };
-
   const calculateTime = (secs) => {
     const minutes = Math.floor(secs / 60);
     const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
@@ -49,7 +41,7 @@ const EntryItem = ({ entry }) => {
       >
         <Box className="tableElem" width="100px">
           <Text fontSize="14px" className="font-bold text-white">
-            {dateFormat(entry.createdAt)}
+            {entry.dateSubmitted}
           </Text>
         </Box>
         <Box

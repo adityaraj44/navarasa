@@ -158,20 +158,29 @@ const SubmitSong = () => {
           alignItems="center"
           className="bgPurple"
         >
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="#fad01c"
-            size="xl"
-          />
-          <Text
-            display="block"
-            textAlign="center"
-            className="mt-4 text-white font-bold"
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
           >
-            Uploading your song now.
-          </Text>
+            <Spinner
+              display="block"
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="#fad01c"
+              size="xl"
+              marginBottom="10px"
+            />
+            <Text
+              display="block"
+              textAlign="center"
+              className="mt-4 text-white font-bold"
+            >
+              Uploading your song now.
+            </Text>
+          </Box>
         </Box>
       ) : (
         <>

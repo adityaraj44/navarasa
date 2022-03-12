@@ -25,6 +25,7 @@ export const FormFieldProvider = ({ children }) => {
     twitter: "",
     additionalinfo: "",
   });
+
   const [formErrors, setFormErrors] = useState({});
   const [authErrors, setAuthErrors] = useState({});
 
