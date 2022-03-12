@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import React, { useContext } from "react";
-import { BsPauseFill, BsPlayFill } from "react-icons/bs";
+import React, { useContext, useRef, useState } from "react";
+import { BsPlayFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import ApiContext from "../../context/api-context";
 import AudioContext from "../../context/audio-player-context";
@@ -10,17 +10,14 @@ const EntryItem = ({ entry }) => {
   const { shortlistEntry } = apiContext;
 
   const audioContext = useContext(AudioContext);
-  const {
-    audioRef,
-    isPlaying,
-    handlePlay,
-    setDuration,
-    setCurrentTime,
-    setIsPlaying,
-    calculateTime,
-    duration,
-    setCurrentPlaying,
-  } = audioContext;
+  const { setCurrentPlaying } = audioContext;
+
+  const handleCurrentPlaying = () => {
+    setCurrentPlaying(entry);
+  };
+
+  const audioRef = useRef(null);
+  const [duration, setDuration] = useState(0);
 
   const dateFormat = (date) => {
     const init = date.slice(0, 10);
@@ -28,6 +25,14 @@ const EntryItem = ({ entry }) => {
     const month = init.split("-")[1];
     const year = init.split("-")[0];
     return `${day}-${month}-${year}`;
+  };
+
+  const calculateTime = (secs) => {
+    const minutes = Math.floor(secs / 60);
+    const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const seconds = Math.floor(secs % 60);
+    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${returnedMinutes}:${returnedSeconds}`;
   };
 
   const handleShortlist = async () => {
@@ -98,7 +103,7 @@ const EntryItem = ({ entry }) => {
           width="100px"
         >
           <Box
-            onClick={() => setCurrentPlaying(entry)}
+            onClick={handleCurrentPlaying}
             className="bgPinkLight"
             width="30px"
             height="30px"
@@ -112,30 +117,17 @@ const EntryItem = ({ entry }) => {
             <audio
               ref={audioRef}
               onLoadedData={() => setDuration(audioRef.current.duration)}
-              onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
-              onEnded={() => setIsPlaying(false)}
               preload="metadata"
               src={entry.audio}
             />
-            {isPlaying ? (
-              <BsPauseFill
-                style={{
-                  width: "15px",
-                  height: "15px",
-                }}
-                className="text-white"
-                onClick={handlePlay}
-              />
-            ) : (
-              <BsPlayFill
-                style={{
-                  width: "15px",
-                  height: "15px",
-                }}
-                className="text-white"
-                onClick={handlePlay}
-              />
-            )}
+
+            <BsPlayFill
+              style={{
+                width: "15px",
+                height: "15px",
+              }}
+              className="text-white"
+            />
           </Box>
           <Text fontSize="14px" className="font-bold text-white">
             {duration && !isNaN(duration) && calculateTime(duration)}

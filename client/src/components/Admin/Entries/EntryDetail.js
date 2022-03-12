@@ -290,6 +290,7 @@ const EntryDetail = () => {
               padding="0px 30px 20px 30px"
             >
               <Box
+                onClick={handlePlay}
                 className="bgPinkLight"
                 display="flex"
                 style={{
@@ -317,7 +318,6 @@ const EntryDetail = () => {
                       width: "16px",
                       height: "16px",
                     }}
-                    onClick={handlePlay}
                     className="play-icon text-white"
                   />
                 ) : (
@@ -326,7 +326,6 @@ const EntryDetail = () => {
                       width: "16px",
                       height: "16px",
                     }}
-                    onClick={handlePlay}
                     className="play-icon text-white"
                   />
                 )}

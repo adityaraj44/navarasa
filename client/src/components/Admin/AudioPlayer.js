@@ -11,6 +11,7 @@ const AudioPlayer = () => {
 
   const audioContext = useContext(AudioContext);
   const {
+    audioRef,
     isPlaying,
     handlePlay,
     changeRange,
@@ -20,6 +21,9 @@ const AudioPlayer = () => {
     currentTime,
     currentPlaying,
     setCurrentPlaying,
+    setDuration,
+    setIsPlaying,
+    setCurrentTime,
   } = audioContext;
 
   const handleShortlist = async () => {
@@ -93,6 +97,7 @@ const AudioPlayer = () => {
         padding="0px 30px 20px 30px"
       >
         <Box
+          onClick={handlePlay}
           className="bgPinkLight"
           display="flex"
           style={{
@@ -104,13 +109,20 @@ const AudioPlayer = () => {
           alignItems="center"
           justifyContent="center"
         >
+          <audio
+            ref={audioRef}
+            onLoadedData={() => setDuration(audioRef.current.duration)}
+            onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
+            onEnded={() => setIsPlaying(false)}
+            preload="metadata"
+            src={currentPlaying.audio}
+          />
           {isPlaying ? (
             <BsPauseFill
               style={{
                 width: "16px",
                 height: "16px",
               }}
-              onClick={handlePlay}
               className="play-icon text-white"
             />
           ) : (
@@ -119,7 +131,6 @@ const AudioPlayer = () => {
                 width: "16px",
                 height: "16px",
               }}
-              onClick={handlePlay}
               className="play-icon text-white"
             />
           )}

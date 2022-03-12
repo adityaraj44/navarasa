@@ -165,6 +165,13 @@ const SubmitSong = () => {
             color="#fad01c"
             size="xl"
           />
+          <Text
+            display="block"
+            textAlign="center"
+            className="mt-4 text-white font-bold"
+          >
+            Uploading your song now.
+          </Text>
         </Box>
       ) : (
         <>
