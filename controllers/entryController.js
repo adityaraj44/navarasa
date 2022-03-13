@@ -5,7 +5,7 @@ const voucherCodes = require("voucher-code-generator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
+const Settings = require("../models/Settings");
 // using s3
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ID,
@@ -187,6 +187,181 @@ const deleteEntry = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc    Edit entry
+// @route   PUT /admin/entries/entry/editentry/:id
+// @access  Private
+
+const editEntry = asyncHandler(async (req, res) => {
+  const entry = await Entry.findById(req.params.id);
+  if (!entry) {
+    throw new Error("Entry not found");
+  }
+
+  const {
+    dateSubmitted,
+    submittername,
+    role,
+    contact,
+    country,
+    state,
+    city,
+    postaladdress,
+    email,
+    artist,
+    songtitle,
+    artistCategory,
+    instagram,
+    youtube,
+    twitter,
+    additionalinfo,
+    audio,
+  } = req.body;
+
+  if (entry.audio === audio) {
+    entry.dateSubmitted = dateSubmitted;
+    entry.submittername = submittername;
+    entry.role = role;
+    entry.contact = contact;
+    entry.country = country;
+    entry.state = state;
+    entry.city = city;
+    entry.postaladdress = postaladdress;
+    entry.email = email;
+    entry.artist = artist;
+    entry.songtitle = songtitle;
+    entry.artistCategory = artistCategory;
+    entry.instagram = instagram;
+    entry.youtube = youtube;
+    entry.twitter = twitter;
+    entry.additionalinfo = additionalinfo;
+
+    await entry.save();
+
+    res.status(200).json({
+      success: true,
+      entry,
+    });
+  } else {
+    req.files.audio.name = `${Date.now()}-${req.files.audio.name}`;
+
+    // uploading to aws s3
+    const params = {
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: req.files.audio.name,
+      Body: req.files.audio.data,
+    };
+
+    const data = await s3.upload(params).promise();
+    if (!data) {
+      throw new Error("Error uploading image");
+    }
+
+    const audioURI = data.Location;
+
+    entry.dateSubmitted = dateSubmitted;
+    entry.submittername = submittername;
+    entry.role = role;
+    entry.contact = contact;
+    entry.country = country;
+    entry.state = state;
+    entry.city = city;
+    entry.postaladdress = postaladdress;
+    entry.email = email;
+    entry.artist = artist;
+    entry.songtitle = songtitle;
+    entry.artistCategory = artistCategory;
+    entry.instagram = instagram;
+    entry.youtube = youtube;
+    entry.twitter = twitter;
+    entry.additionalinfo = additionalinfo;
+    entry.audio = audioURI;
+    await entry.save();
+
+    res.status(200).json({
+      success: true,
+      entry,
+    });
+  }
+});
+
+// @desc    Get Settings
+// @route   GET /admin/settings/
+// @access  Public
+
+const getSettings = asyncHandler(async (req, res) => {
+  const homeDetail = await Settings.findOne({
+    value: 2022,
+  });
+
+  if (!homeDetail) {
+    throw new Error("Not found");
+  }
+
+  res.status(200).json({
+    success: true,
+    homeDetail,
+  });
+});
+
+// @desc    Settings
+// @route   PUT /admin/settings/:id
+// @access  Private
+
+const editSettings = asyncHandler(async (req, res) => {
+  const {
+    details,
+    competitionPeriod,
+    entryFee,
+    eligibility,
+    isFee,
+    firstPrize,
+    secondPrize,
+    thirdPrize,
+    password,
+  } = req.body;
+  const homeDetail = await Settings.findOne({
+    value: 2022,
+  });
+
+  if (!homeDetail) {
+    throw new Error("Something went wrong. Please try again!");
+  }
+
+  const admin = await User.findById(req.params.id);
+
+  if (!admin) {
+    throw new Error("Not authorized");
+  }
+
+  if (admin.role !== "superadmin") {
+    throw new Error("Not authorized");
+  }
+
+  const isMatch = await bcrypt.compare(password, admin.password);
+
+  if (!isMatch) {
+    return res.json({
+      success: false,
+      message: "Incorrect password!",
+    });
+  } else {
+    homeDetail.details = details;
+    homeDetail.competitionPeriod = competitionPeriod;
+    homeDetail.entryFee = entryFee;
+    homeDetail.eligibility = eligibility;
+    homeDetail.isFee = isFee;
+    homeDetail.firstPrize = firstPrize;
+    homeDetail.secondPrize = secondPrize;
+    homeDetail.thirdPrize = thirdPrize;
+    await homeDetail.save();
+
+    res.status(200).json({
+      success: true,
+      homeDetail,
+    });
+  }
+});
+
 // @desc    Admin login
 // @route   POST /admin/login
 // @access  Private
@@ -241,4 +416,7 @@ module.exports = {
   shortlistEntry,
   getEntry,
   deleteEntry,
+  editEntry,
+  getSettings,
+  editSettings,
 };

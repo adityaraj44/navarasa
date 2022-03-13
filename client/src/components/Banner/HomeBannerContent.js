@@ -5,7 +5,7 @@ import gold from "../../imgs/gold.svg";
 import silver from "../../imgs/silver.svg";
 import bronze from "../../imgs/bronze.svg";
 
-const HomeBannerContent = () => {
+const HomeBannerContent = ({ homeDetail }) => {
   const isSmall = useMediaQuery("(max-width:992px)");
   const isXs = useMediaQuery("(max-width:480px)");
 
@@ -108,7 +108,7 @@ const HomeBannerContent = () => {
             1st Prize
           </Text>
           <Text className="text-yellow" fontWeight="black" fontSize="22px">
-            Rs. 20,000
+            Rs. {homeDetail.firstPrize.toLocaleString("en-IN")}
           </Text>
         </Box>
         <Box
@@ -128,7 +128,7 @@ const HomeBannerContent = () => {
             2nd Prize
           </Text>
           <Text className="text-yellow" fontWeight="black" fontSize="22px">
-            Rs. 10,000
+            Rs. {homeDetail.secondPrize.toLocaleString("en-IN")}
           </Text>
         </Box>
         <Box
@@ -148,7 +148,7 @@ const HomeBannerContent = () => {
             3rd Prize
           </Text>
           <Text className="text-yellow" fontWeight="black" fontSize="22px">
-            Rs. 5,000
+            Rs. {homeDetail.thirdPrize.toLocaleString("en-IN")}
           </Text>
         </Box>
       </Box>

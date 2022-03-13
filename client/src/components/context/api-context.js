@@ -18,6 +18,7 @@ export const ApiProvider = ({ children }) => {
   const [isError, setIsError] = useState(false);
   const [entries, setEntries] = useState([]);
   const [entryDetail, setEntryDetail] = useState(null);
+  const [homeDetail, setHomeDetail] = useState(null);
 
   const submitEntry = async (formValues) => {
     try {
@@ -188,8 +189,8 @@ export const ApiProvider = ({ children }) => {
         }
       );
       if (res.data.success) {
-        setIsLoading(false);
         history.push("/navarasa/admin/entries");
+        setIsLoading(false);
         toast({
           title: "Success",
           description: "Entry deleted successfully!",
@@ -237,6 +238,145 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const editEntry = async (id, values) => {
+    setIsLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("dateSubmitted", values.dateSubmitted);
+      formData.append("submittername", values.submittername);
+      formData.append("role", values.role);
+      formData.append("contact", values.contact);
+      formData.append("country", values.country);
+      formData.append("state", values.state);
+      formData.append("city", values.city);
+      formData.append("postaladdress", values.postaladdress);
+      formData.append("email", values.email);
+      formData.append("songtitle", values.songtitle);
+      if (values.newAudio) {
+        formData.append("audio", values.newAudio);
+      } else {
+        formData.append("audio", values.audio);
+      }
+      formData.append("artist", values.artist);
+      formData.append("artistCategory", values.artistCategory);
+      formData.append("instagram", values.instagram);
+      formData.append("youtube", values.youtube);
+      formData.append("twitter", values.twitter);
+      formData.append("additionalinfo", values.additionalinfo);
+      const res = await axios.put(
+        `${host}/admin/entries/entry/editentry/${id}`,
+        formData,
+        {
+          headers: {
+            "navarasa-auth-token": localStorage.getItem("navarasa-auth-token"),
+          },
+        }
+      );
+      if (res.data.success) {
+        await getEntries();
+        toast({
+          title: "Success",
+          description: "Entry edited successfully!",
+          status: "success",
+          duration: 2000,
+          position: "top",
+          isClosable: true,
+        });
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 2000,
+        position: "top",
+        isClosable: true,
+      });
+    }
+  };
+
+  const getSettings = async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`${host}/settings`);
+
+      if (res.data.success) {
+        setHomeDetail(res.data.homeDetail);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 2000,
+        position: "top",
+        isClosable: true,
+      });
+    }
+  };
+
+  const editSettings = async (values, password) => {
+    setIsLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("details", values.details);
+      formData.append("competitionPeriod", values.competitionPeriod);
+      formData.append("eligibility", values.eligibility);
+      formData.append("isFee", values.isFee);
+      formData.append("entryFee", values.entryFee);
+      formData.append("firstPrize", values.firstPrize);
+      formData.append("secondPrize", values.secondPrize);
+      formData.append("thirdPrize", values.thirdPrize);
+      formData.append("password", password);
+      const res = await axios.put(
+        `${host}/admin/settings/${localStorage.getItem("adminId")}`,
+        formData,
+        {
+          headers: {
+            "navarasa-auth-token": localStorage.getItem("navarasa-auth-token"),
+          },
+        }
+      );
+      if (res.data.success) {
+        setHomeDetail(res.data.homeDetail);
+        toast({
+          title: "Success",
+          description: "Details edited successfully!",
+          status: "success",
+          duration: 2000,
+          position: "top",
+          isClosable: true,
+        });
+        await getSettings();
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+        toast({
+          title: "Error",
+          description: res.data.message,
+          status: "error",
+          duration: 2000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      setIsLoading(false);
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 2000,
+        position: "top",
+        isClosable: true,
+      });
+    }
+  };
+
   const loginAdmin = async (formValues) => {
     try {
       const res = await axios.post(`${host}/admin/login`, formValues);
@@ -245,6 +385,8 @@ export const ApiProvider = ({ children }) => {
         localStorage.setItem("navarasa-auth-token", res.data.token);
 
         if (res.data.isNew) {
+          localStorage.setItem("role", res.data.newAdmin.role);
+          localStorage.setItem("adminId", res.data.newAdmin._id);
           toast({
             title: "Success",
             description: "You have been successfully registered as an admin!",
@@ -254,6 +396,8 @@ export const ApiProvider = ({ children }) => {
             isClosable: true,
           });
         } else {
+          localStorage.setItem("role", res.data.admin.role);
+          localStorage.setItem("adminId", res.data.admin._id);
           toast({
             title: "Success",
             description: "You have been successfully logged in!",
@@ -303,6 +447,10 @@ export const ApiProvider = ({ children }) => {
         getEntryDetail,
         entryDetail,
         deleteEntry,
+        editEntry,
+        editSettings,
+        getSettings,
+        homeDetail,
       }}
     >
       {children}

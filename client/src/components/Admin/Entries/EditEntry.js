@@ -1,7 +1,12 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Box,
   Flex,
   FormControl,
+  FormHelperText,
   FormLabel,
   Image,
   Input,
@@ -9,31 +14,143 @@ import {
   Spinner,
   Text,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import ApiContext from "../../context/api-context";
 import AdminNavbar from "../AdminNavbar";
 import { Country, State, City } from "country-state-city";
 import instagram from "../../../imgs/instagram.svg";
 import twitter from "../../../imgs/twitter.svg";
 import youtube from "../../../imgs/youtube.svg";
-import FormFieldContext from "../../context/form-field-context";
 
 const EditEntry = () => {
+  const history = useHistory();
   const { id } = useParams();
-
+  const toast = useToast();
   // api context
   const apiContext = useContext(ApiContext);
-  const { entries, getEntryDetail, isLoading, entryDetail } = apiContext;
+  const { entries, getEntryDetail, isLoading, entryDetail, editEntry } =
+    apiContext;
 
-  // fields context
-  const formContext = useContext(FormFieldContext);
+  const [entry, setEntry] = useState(null);
+  const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
     getEntryDetail(id);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entries]);
+
+  useEffect(() => {
+    if (entryDetail !== null) {
+      setEntry(entryDetail);
+    }
+  }, [entryDetail]);
+
+  // onchange handlers
+  const onChange = (e) => {
+    setEntry({ ...entry, [e.target.name]: e.target.value });
+  };
+
+  const onFileChange = (e) => {
+    let file = e.target.files[0];
+    if (file) {
+      if (file.size > 25000000) {
+        toast({
+          title: "Size limit",
+          description: "File size should not exceed 25 MB.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      } else {
+        setEntry({ ...entry, newAudio: file });
+      }
+    }
+  };
+
+  const handleContinue = async (e) => {
+    e.preventDefault();
+    setFormErrors(validate(entry));
+
+    await handleFormChange();
+  };
+
+  const handleFormChange = async () => {
+    const res = validate(entry);
+    if (Object.keys(res).length === 0) {
+      await editEntry(id, entry);
+    } else {
+      toast({
+        title: "All fields are required",
+        description: "Please fill up all the fields to continue.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  };
+
+  // form fields validation
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const phoneRegex = /^[6-9]{1}[0-9]{9}$/;
+    if (!values.dateSubmitted) {
+      errors.dateSubmitted = "Please enter a valid date.";
+    }
+    if (!values.submittername) {
+      errors.submittername = "Please enter your full name.";
+    }
+    if (!values.email) {
+      errors.email = " Please enter a valid email.";
+    } else if (!regex.test(values.email)) {
+      errors.email = " Please enter a valid email.";
+    }
+    if (!values.role) {
+      errors.role = "Please enter your role in the song.";
+    }
+    if (!values.country) {
+      errors.country = "Please select your country.";
+    }
+    if (!values.state) {
+      errors.state = "Please select your state.";
+    }
+    if (!values.city) {
+      errors.city = "Please select your city.";
+    }
+    if (!values.contact) {
+      errors.contact = "Please enter your mobile number.";
+    } else if (values.contact.length < 10 || values.contact.length > 10) {
+      errors.contact = "Please enter your mobile number.";
+    } else if (!phoneRegex.test(values.contact)) {
+      errors.contact = "Please enter your mobile number.";
+    }
+    if (!values.postaladdress) {
+      errors.postaladdress = "Please enter your postal address.";
+    }
+
+    if (!values.songtitle) {
+      errors.songtitle = "Please enter your song title.";
+    }
+    if (!values.artist) {
+      errors.artist = "Please enter the song artist name.";
+    }
+    if (!values.artistCategory) {
+      errors.artistCategory = "Please pick an artist category.";
+    }
+
+    return errors;
+  };
+
+  const handleExit = () => {
+    setEntry(entryDetail);
+    history.push(`/navarasa/admin/entries/entry/${id}`);
+  };
 
   // countries-states-cities
   const country = Country.getCountryByCode("IN");
@@ -64,7 +181,7 @@ const EditEntry = () => {
 
   return (
     <>
-      {isLoading || entryDetail === null ? (
+      {isLoading || entry === null ? (
         <Box
           width="100vw"
           height="100vh"
@@ -87,7 +204,7 @@ const EditEntry = () => {
           <Box className="bgPurple">
             <Box mx="auto" maxWidth="1400px" padding="60px 100px 100px 100px">
               <Text fontSize="16px" className="font-bold text-white ">
-                Ref ID #{entryDetail.refId}
+                Ref ID #{entry.refId}
               </Text>
               <Flex
                 direction="row"
@@ -113,8 +230,19 @@ const EditEntry = () => {
                       id="dateSubmitted"
                       name="dateSubmitted"
                       type="text"
-                      value={entryDetail.dateSubmitted}
+                      value={entry.dateSubmitted}
+                      onChange={onChange}
                     />
+                    {formErrors.dateSubmitted && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            {formErrors.dateSubmitted}
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
                 <Box className="ml-4">
@@ -136,8 +264,19 @@ const EditEntry = () => {
                       id="submittername"
                       name="submittername"
                       type="text"
-                      value={entryDetail.submittername}
+                      value={entry.submittername}
+                      onChange={onChange}
                     />
+                    {formErrors.submittername && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please enter full name.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
                 <Box className="ml-4">
@@ -159,8 +298,19 @@ const EditEntry = () => {
                       id="role"
                       name="role"
                       type="text"
-                      value={entryDetail.role}
+                      value={entry.role}
+                      onChange={onChange}
                     />
+                    {formErrors.role && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please enter role in the song.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
               </Flex>
@@ -187,7 +337,8 @@ const EditEntry = () => {
                         style={{
                           width: "250px",
                         }}
-                        value={entryDetail.country}
+                        value={entry.country}
+                        onChange={onChange}
                       >
                         <option value="">Select country</option>
                         {country && (
@@ -197,6 +348,14 @@ const EditEntry = () => {
                         )}
                       </select>
                     </div>
+                    {formErrors.country && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>Please select country.</AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
                 <Box className="ml-4">
@@ -216,12 +375,13 @@ const EditEntry = () => {
                         style={{
                           width: "250px",
                         }}
-                        value={entryDetail.state}
+                        value={entry.state}
+                        onChange={onChange}
                       >
                         <option value="">Select state</option>
                         {updatedStates(
-                          entryDetail.country !== ""
-                            ? entryDetail.country.split(",")[1]
+                          entry.country !== ""
+                            ? entry.country.split(",")[1]
                             : null
                         ).map((updatedState) => {
                           return (
@@ -235,6 +395,14 @@ const EditEntry = () => {
                         })}
                       </select>
                     </div>
+                    {formErrors.state && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>Please select state.</AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
                 <Box className="ml-4">
@@ -254,12 +422,13 @@ const EditEntry = () => {
                         style={{
                           width: "250px",
                         }}
-                        value={entryDetail.city}
+                        value={entry.city}
+                        onChange={onChange}
                       >
                         <option value="">Select city</option>
                         {updatedCities(
-                          entryDetail.country.split(",")[1],
-                          entryDetail.state.split(",")[1]
+                          entry.country.split(",")[1],
+                          entry.state.split(",")[1]
                         ).map((updatedCity) => {
                           return (
                             <option
@@ -272,6 +441,14 @@ const EditEntry = () => {
                         })}
                       </select>
                     </div>
+                    {formErrors.city && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>Please select city.</AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
               </Flex>
@@ -299,8 +476,19 @@ const EditEntry = () => {
                       id="email"
                       name="email"
                       type="email"
-                      value={entryDetail.email}
+                      value={entry.email}
+                      onChange={onChange}
                     />
+                    {formErrors.email && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please enter a valid email.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
                 <Box className="ml-4">
@@ -335,9 +523,20 @@ const EditEntry = () => {
                         name="contact"
                         type="tel"
                         pattern="[1-9]{10}"
-                        value={entryDetail.contact}
+                        value={entry.contact}
+                        onChange={onChange}
                       />
                     </InputGroup>
+                    {formErrors.contact && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please enter a mobile number.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
                 <Box display="flex" flexGrow="1" className="ml-4">
@@ -359,8 +558,19 @@ const EditEntry = () => {
                       id="postaladdress"
                       name="postaladdress"
                       type="text"
-                      value={entryDetail.postaladdress}
+                      value={entry.postaladdress}
+                      onChange={onChange}
                     />
+                    {formErrors.postaladdress && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please enter a postal address.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
               </Flex>
@@ -373,7 +583,7 @@ const EditEntry = () => {
                     className="audio-input-container bgPurpleDark mb-4"
                   >
                     <Box fontSize="16px">
-                      <p className="text-white">{entryDetail.audio}</p>
+                      <p className="text-white">{entry.audio}</p>
                       <p
                         style={{
                           fontSize: "12px",
@@ -387,7 +597,7 @@ const EditEntry = () => {
                         onLoadedData={() =>
                           setDuration(audioRef.current.duration)
                         }
-                        src={entryDetail.audio}
+                        src={entry.audio}
                         preload="metadata"
                       />
                     </Box>
@@ -407,9 +617,21 @@ const EditEntry = () => {
                         id="audio"
                         hidden
                         accept="audio/*"
+                        onChange={onFileChange}
                       />
                     </Box>
                   </Flex>
+                  {entry.newAudio && (
+                    <FormHelperText>
+                      <Alert className="mb-4 text-dark" status="info">
+                        <AlertIcon />
+
+                        <AlertDescription>
+                          New file selected: {entry.newAudio.name}
+                        </AlertDescription>
+                      </Alert>
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Box>
               <Flex
@@ -437,8 +659,19 @@ const EditEntry = () => {
                       id="songtitle"
                       name="songtitle"
                       type="text"
-                      value={entryDetail.songtitle}
+                      value={entry.songtitle}
+                      onChange={onChange}
                     />
+                    {formErrors.songtitle && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please enter song title.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
                 <Box display="flex" flexGrow="1" className="ml-4">
@@ -460,8 +693,19 @@ const EditEntry = () => {
                       id="artist"
                       name="artist"
                       type="text"
-                      value={entryDetail.artist}
+                      value={entry.artist}
+                      onChange={onChange}
                     />
+                    {formErrors.artist && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please enter the song artist name.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
                 <Box className="ml-4">
@@ -482,7 +726,8 @@ const EditEntry = () => {
                         name="artistCategory"
                         id="artistCategory"
                         placeholder="Pick an artist category"
-                        value={entryDetail.artistCategory}
+                        value={entry.artistCategory}
+                        onChange={onChange}
                         required
                         style={{
                           width: "250px",
@@ -496,13 +741,21 @@ const EditEntry = () => {
                         <option value="Collaboration">Collaboration</option>
                       </select>
                     </Box>
+                    {formErrors.artistCategory && (
+                      <FormHelperText>
+                        <Alert className="mb-4 text-dark" status="error">
+                          <AlertIcon />
+                          <AlertTitle mr={2}>
+                            Please pick an artist category.
+                          </AlertTitle>
+                        </Alert>
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Box>
               </Flex>
               <Box className="mt-4">
-                {(entryDetail.instagram ||
-                  entryDetail.twitter ||
-                  entryDetail.youtube) && (
+                {(entry.instagram || entry.twitter || entry.youtube) && (
                   <FormControl className="form-control">
                     <FormLabel
                       className="form-label text-purpleLight"
@@ -512,7 +765,7 @@ const EditEntry = () => {
                     >
                       Social media links
                     </FormLabel>
-                    {entryDetail.instagram && (
+                    {entry.instagram && (
                       <Flex
                         flexDirection="row"
                         justifyContent="space-between"
@@ -536,11 +789,12 @@ const EditEntry = () => {
                           id="instagram"
                           name="instagram"
                           type="url"
-                          value={entryDetail.instagram}
+                          value={entry.instagram}
+                          onChange={onChange}
                         />
                       </Flex>
                     )}
-                    {entryDetail.youtube && (
+                    {entry.youtube && (
                       <Flex
                         flexDirection="row"
                         justifyContent="space-between"
@@ -564,11 +818,12 @@ const EditEntry = () => {
                           id="youtube"
                           name="youtube"
                           type="url"
-                          value={entryDetail.youtube}
+                          value={entry.youtube}
+                          onChange={onChange}
                         />
                       </Flex>
                     )}
-                    {entryDetail.twitter && (
+                    {entry.twitter && (
                       <Flex
                         flexDirection="row"
                         justifyContent="space-between"
@@ -592,7 +847,8 @@ const EditEntry = () => {
                           id="twitter"
                           name="twitter"
                           type="url"
-                          value={entryDetail.twitter}
+                          value={entry.twitter}
+                          onChange={onChange}
                         />
                       </Flex>
                     )}
@@ -600,7 +856,7 @@ const EditEntry = () => {
                 )}
               </Box>
               <Box className="mt-4">
-                {entryDetail.additionalinfo && (
+                {entry.additionalinfo && (
                   <FormControl className="form-control">
                     <FormLabel
                       className="form-label text-purpleLight"
@@ -620,7 +876,8 @@ const EditEntry = () => {
                       name="additionalinfo"
                       type="text"
                       rows="10"
-                      value={entryDetail.additionalinfo}
+                      value={entry.additionalinfo}
+                      onChange={onChange}
                     />
                   </FormControl>
                 )}
@@ -635,6 +892,7 @@ const EditEntry = () => {
                     cursor="pointer"
                     fontSize="16px"
                     className="text-white font-bold"
+                    onClick={handleExit}
                   >
                     Exit without saving changes
                   </Text>
@@ -649,6 +907,7 @@ const EditEntry = () => {
                     }}
                     className="text-white form-control bgPurpleLight font-bold"
                     type="button"
+                    onClick={handleContinue}
                   >
                     Save changes
                   </button>

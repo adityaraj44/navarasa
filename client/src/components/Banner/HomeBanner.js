@@ -6,7 +6,7 @@ import bannerImg from "../../imgs/banner.png";
 
 import HomeBannerContent from "./HomeBannerContent";
 
-const HomeBanner = () => {
+const HomeBanner = ({ homeDetail }) => {
   const isSmall = useMediaQuery("(max-width:992px)");
   return (
     <motion.div
@@ -41,7 +41,7 @@ const HomeBanner = () => {
         width={isSmall ? "450px" : "1125px"}
         src={bannerImg}
       />
-      <HomeBannerContent />
+      <HomeBannerContent homeDetail={homeDetail} />
     </motion.div>
   );
 };

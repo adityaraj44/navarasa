@@ -75,26 +75,32 @@ const AdminNavbar = () => {
                 Entries
               </motion.p>
             </Link>
-            <Link
-              className={`mr-3 ${
-                location.pathname === "/navarasa/admin/settings" ? "active" : ""
-              }`}
-              to="/navarasa/admin/settings"
-            >
-              <motion.p
-                variants={linkVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
+            {localStorage.getItem("role") === "superadmin" && (
+              <Link
+                className={`mr-3 ${
+                  location.pathname === "/navarasa/admin/settings"
+                    ? "active"
+                    : ""
+                }`}
+                to="/navarasa/admin/settings"
               >
-                Settings
-              </motion.p>
-            </Link>
+                <motion.p
+                  variants={linkVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  Settings
+                </motion.p>
+              </Link>
+            )}
             <Box
               cursor={"pointer"}
               className={`mr-3`}
               onClick={() => {
                 localStorage.removeItem("navarasa-auth-token");
+                localStorage.removeItem("role");
+                localStorage.removeItem("adminId");
                 history.push("/navarasa/admin/login");
               }}
             >

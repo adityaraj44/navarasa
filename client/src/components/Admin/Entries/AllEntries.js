@@ -22,6 +22,49 @@ const AllEntries = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [sortByDate, setSortByDate] = useState(false);
+  const [sortByTitle, setSortByTitle] = useState(false);
+  const [sortByName, setSortByName] = useState(false);
+
+  const handleSortByDate = () => {
+    const prev = sortByDate;
+    if (prev) {
+      setSortByDate(false);
+      setSortByName(false);
+      setSortByTitle(false);
+    } else {
+      setSortByDate(true);
+      setSortByTitle(false);
+      setSortByName(false);
+    }
+  };
+
+  const handleSortByTitle = () => {
+    const prev = sortByTitle;
+    if (prev) {
+      setSortByDate(false);
+      setSortByTitle(false);
+      setSortByName(false);
+    } else {
+      setSortByDate(false);
+      setSortByTitle(true);
+      setSortByName(false);
+    }
+  };
+
+  const handleSortByName = () => {
+    const prev = sortByName;
+    if (prev) {
+      setSortByDate(false);
+      setSortByTitle(false);
+      setSortByName(false);
+    } else {
+      setSortByDate(false);
+      setSortByTitle(false);
+      setSortByName(true);
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -103,9 +146,23 @@ const AllEntries = () => {
                         width: "120px",
                       }}
                     >
-                      <span>
-                        <TriangleUpIcon fontSize="10px" className="mr-2" />
-                      </span>
+                      {sortByDate ? (
+                        <span>
+                          <TriangleDownIcon
+                            onClick={handleSortByDate}
+                            fontSize="10px"
+                            className="mr-2"
+                          />
+                        </span>
+                      ) : (
+                        <span>
+                          <TriangleUpIcon
+                            onClick={handleSortByDate}
+                            fontSize="10px"
+                            className="mr-2"
+                          />
+                        </span>
+                      )}
                       Date
                     </button>
                     <button
@@ -115,9 +172,23 @@ const AllEntries = () => {
                         width: "270px",
                       }}
                     >
-                      <span>
-                        <TriangleDownIcon fontSize="10px" className="mr-2" />
-                      </span>
+                      {sortByName ? (
+                        <span>
+                          <TriangleDownIcon
+                            onClick={handleSortByName}
+                            fontSize="10px"
+                            className="mr-2"
+                          />
+                        </span>
+                      ) : (
+                        <span>
+                          <TriangleUpIcon
+                            onClick={handleSortByName}
+                            fontSize="10px"
+                            className="mr-2"
+                          />
+                        </span>
+                      )}
                       Submitter
                     </button>
                     <button
@@ -127,9 +198,6 @@ const AllEntries = () => {
                         width: "170px",
                       }}
                     >
-                      <span>
-                        <TriangleDownIcon fontSize="10px" className="mr-2" />
-                      </span>
                       Ref ID
                     </button>
                     <button
@@ -139,6 +207,23 @@ const AllEntries = () => {
                         width: "370px",
                       }}
                     >
+                      {sortByTitle ? (
+                        <span>
+                          <TriangleDownIcon
+                            onClick={handleSortByTitle}
+                            fontSize="10px"
+                            className="mr-2"
+                          />
+                        </span>
+                      ) : (
+                        <span>
+                          <TriangleUpIcon
+                            onClick={handleSortByTitle}
+                            fontSize="10px"
+                            className="mr-2"
+                          />
+                        </span>
+                      )}
                       Song title
                     </button>
                   </Flex>

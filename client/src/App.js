@@ -20,6 +20,8 @@ import { ApiProvider } from "./components/context/api-context";
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import { AudioProvider } from "./components/context/audio-player-context";
+import RoleBasedAuth from "./components/RoleBasedAuth";
+import Settings from "./components/Admin/Entries/Settings";
 
 const App = () => {
   const location = useLocation();
@@ -61,6 +63,9 @@ const App = () => {
                 >
                   <EditEntry />
                 </PrivateRoute>
+                <RoleBasedAuth exact path="/navarasa/admin/settings">
+                  <Settings />
+                </RoleBasedAuth>
               </Switch>
             </AnimatePresence>
           </AudioProvider>
