@@ -443,6 +443,7 @@ export const ApiProvider = ({ children }) => {
         loginAdmin,
         getEntries,
         entries,
+        setEntries,
         shortlistEntry,
         getEntryDetail,
         entryDetail,

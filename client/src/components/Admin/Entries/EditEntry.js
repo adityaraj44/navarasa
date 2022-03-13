@@ -755,132 +755,125 @@ const EditEntry = () => {
                 </Box>
               </Flex>
               <Box className="mt-4">
-                {(entry.instagram || entry.twitter || entry.youtube) && (
-                  <FormControl className="form-control">
-                    <FormLabel
-                      className="form-label text-purpleLight"
-                      fontWeight="bold"
-                      fontSize="16px"
-                      htmlFor="socialmedialinks"
-                    >
-                      Social media links
-                    </FormLabel>
-                    {entry.instagram && (
-                      <Flex
-                        flexDirection="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        className="mt-4 mb-4"
-                      >
-                        <Image
-                          alt="instagram"
-                          width="30px"
-                          height="30px"
-                          borderRadius="100%"
-                          src={instagram}
-                        />
+                <FormControl className="form-control">
+                  <FormLabel
+                    className="form-label text-purpleLight"
+                    fontWeight="bold"
+                    fontSize="16px"
+                    htmlFor="socialmedialinks"
+                  >
+                    Social media links
+                  </FormLabel>
 
-                        <Input
-                          className="input bgWhite ml-4 text-grey"
-                          borderRadius="2px"
-                          size="md"
-                          placeholder="Instagram profile link"
-                          fontSize="18px"
-                          id="instagram"
-                          name="instagram"
-                          type="url"
-                          value={entry.instagram}
-                          onChange={onChange}
-                        />
-                      </Flex>
-                    )}
-                    {entry.youtube && (
-                      <Flex
-                        flexDirection="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        className="mt-4 mb-4"
-                      >
-                        <Image
-                          alt="youtube"
-                          width="30px"
-                          height="30px"
-                          borderRadius="100%"
-                          src={youtube}
-                        />
+                  <Flex
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    className="mt-4 mb-4"
+                  >
+                    <Image
+                      alt="instagram"
+                      width="30px"
+                      height="30px"
+                      borderRadius="100%"
+                      src={instagram}
+                    />
 
-                        <Input
-                          className="input bgWhite ml-4 text-grey"
-                          borderRadius="2px"
-                          size="md"
-                          placeholder="Youtube channel link"
-                          fontSize="18px"
-                          id="youtube"
-                          name="youtube"
-                          type="url"
-                          value={entry.youtube}
-                          onChange={onChange}
-                        />
-                      </Flex>
-                    )}
-                    {entry.twitter && (
-                      <Flex
-                        flexDirection="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        className="mt-4 mb-4"
-                      >
-                        <Image
-                          alt="twitter"
-                          width="30px"
-                          height="30px"
-                          borderRadius="100%"
-                          src={twitter}
-                        />
-
-                        <Input
-                          className="input bgWhite ml-4 text-grey"
-                          borderRadius="2px"
-                          size="md"
-                          placeholder="Twitter profile link"
-                          fontSize="18px"
-                          id="twitter"
-                          name="twitter"
-                          type="url"
-                          value={entry.twitter}
-                          onChange={onChange}
-                        />
-                      </Flex>
-                    )}
-                  </FormControl>
-                )}
-              </Box>
-              <Box className="mt-4">
-                {entry.additionalinfo && (
-                  <FormControl className="form-control">
-                    <FormLabel
-                      className="form-label text-purpleLight"
-                      fontWeight="bold"
-                      fontSize="16px"
-                      htmlFor="additionalinfo"
-                    >
-                      Additional info
-                    </FormLabel>
-                    <Textarea
-                      className="input bgWhite mt-2 mb-4 text-grey"
+                    <Input
+                      className="input bgWhite ml-4 text-grey"
                       borderRadius="2px"
                       size="md"
-                      placeholder="More information you’d like to share about the song, the musicians involved or your musical journey."
+                      placeholder="Instagram profile link"
                       fontSize="18px"
-                      id="additionalinfo"
-                      name="additionalinfo"
-                      type="text"
-                      rows="10"
-                      value={entry.additionalinfo}
+                      id="instagram"
+                      name="instagram"
+                      type="url"
+                      value={entry.instagram}
                       onChange={onChange}
                     />
-                  </FormControl>
-                )}
+                  </Flex>
+
+                  <Flex
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    className="mt-4 mb-4"
+                  >
+                    <Image
+                      alt="youtube"
+                      width="30px"
+                      height="30px"
+                      borderRadius="100%"
+                      src={youtube}
+                    />
+
+                    <Input
+                      className="input bgWhite ml-4 text-grey"
+                      borderRadius="2px"
+                      size="md"
+                      placeholder="Youtube channel link"
+                      fontSize="18px"
+                      id="youtube"
+                      name="youtube"
+                      type="url"
+                      value={entry.youtube}
+                      onChange={onChange}
+                    />
+                  </Flex>
+
+                  <Flex
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    className="mt-4 mb-4"
+                  >
+                    <Image
+                      alt="twitter"
+                      width="30px"
+                      height="30px"
+                      borderRadius="100%"
+                      src={twitter}
+                    />
+
+                    <Input
+                      className="input bgWhite ml-4 text-grey"
+                      borderRadius="2px"
+                      size="md"
+                      placeholder="Twitter profile link"
+                      fontSize="18px"
+                      id="twitter"
+                      name="twitter"
+                      type="url"
+                      value={entry.twitter}
+                      onChange={onChange}
+                    />
+                  </Flex>
+                </FormControl>
+              </Box>
+              <Box className="mt-4">
+                <FormControl className="form-control">
+                  <FormLabel
+                    className="form-label text-purpleLight"
+                    fontWeight="bold"
+                    fontSize="16px"
+                    htmlFor="additionalinfo"
+                  >
+                    Additional info
+                  </FormLabel>
+                  <Textarea
+                    className="input bgWhite mt-2 mb-4 text-grey"
+                    borderRadius="2px"
+                    size="md"
+                    placeholder="More information you’d like to share about the song, the musicians involved or your musical journey."
+                    fontSize="18px"
+                    id="additionalinfo"
+                    name="additionalinfo"
+                    type="text"
+                    rows="10"
+                    value={entry.additionalinfo}
+                    onChange={onChange}
+                  />
+                </FormControl>
               </Box>
               <Box className="mt-4">
                 <Flex

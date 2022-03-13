@@ -12,57 +12,122 @@ const AllEntries = () => {
   const [isSelected, setIsSelected] = useState();
 
   const apiContext = useContext(ApiContext);
-  const { entries, getEntries, isLoading } = apiContext;
+  const { entries, setEntries, getEntries, isLoading } = apiContext;
 
   const audioContext = useContext(AudioContext);
   const { currentPlaying } = audioContext;
 
   useEffect(() => {
     getEntries();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [sortByDate, setSortByDate] = useState(false);
+  const [sortByDate, setSortByDate] = useState(true);
   const [sortByTitle, setSortByTitle] = useState(false);
   const [sortByName, setSortByName] = useState(false);
 
   const handleSortByDate = () => {
     const prev = sortByDate;
+    setSortByDate(!prev);
+    setSortByTitle(false);
+    setSortByName(false);
+    var newEntries = [];
     if (prev) {
-      setSortByDate(false);
-      setSortByName(false);
-      setSortByTitle(false);
+      Object.assign(newEntries, entries);
+      newEntries.sort((a, b) => {
+        const aDate = new Date(a.createdAt);
+        const bDate = new Date(b.createdAt);
+        if (aDate > bDate) {
+          return 1;
+        }
+        if (aDate < bDate) {
+          return -1;
+        }
+        return 0;
+      });
     } else {
-      setSortByDate(true);
-      setSortByTitle(false);
-      setSortByName(false);
+      Object.assign(newEntries, entries);
+      newEntries.sort((a, b) => {
+        const aDate = new Date(a.createdAt);
+        const bDate = new Date(b.createdAt);
+        if (aDate > bDate) {
+          return -1;
+        }
+        if (aDate < bDate) {
+          return 1;
+        }
+        return 0;
+      });
     }
+
+    setEntries(newEntries);
   };
 
   const handleSortByTitle = () => {
     const prev = sortByTitle;
+    setSortByTitle(!prev);
+    setSortByDate(false);
+    setSortByName(false);
+    var newEntries = [];
     if (prev) {
-      setSortByDate(false);
-      setSortByTitle(false);
-      setSortByName(false);
+      Object.assign(newEntries, entries);
+      newEntries.sort((a, b) => {
+        if (a.songtitle > b.songtitle) {
+          return -1;
+        }
+        if (a.songtitle < b.songtitle) {
+          return 1;
+        }
+        return 0;
+      });
     } else {
-      setSortByDate(false);
-      setSortByTitle(true);
-      setSortByName(false);
+      Object.assign(newEntries, entries);
+      newEntries.sort((a, b) => {
+        if (a.songtitle > b.songtitle) {
+          return 1;
+        }
+        if (a.songtitle < b.songtitle) {
+          return -1;
+        }
+        return 0;
+      });
     }
+
+    setEntries(newEntries);
   };
 
   const handleSortByName = () => {
     const prev = sortByName;
+    setSortByName(!prev);
+    setSortByDate(false);
+    setSortByTitle(false);
+    var newEntries = [];
     if (prev) {
-      setSortByDate(false);
-      setSortByTitle(false);
-      setSortByName(false);
+      Object.assign(newEntries, entries);
+      newEntries.sort((a, b) => {
+        if (a.submittername > b.submittername) {
+          return -1;
+        }
+        if (a.submittername < b.submittername) {
+          return 1;
+        }
+        return 0;
+      });
     } else {
-      setSortByDate(false);
-      setSortByTitle(false);
-      setSortByName(true);
+      Object.assign(newEntries, entries);
+      newEntries.sort((a, b) => {
+        if (a.submittername > b.submittername) {
+          return 1;
+        }
+        if (a.submittername < b.submittername) {
+          return -1;
+        }
+        return 0;
+      });
     }
+
+    setEntries(newEntries);
   };
 
   return (

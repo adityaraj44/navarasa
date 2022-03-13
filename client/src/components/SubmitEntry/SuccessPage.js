@@ -161,10 +161,6 @@ const SuccessPage = () => {
                   <a href="mailto:contact@navarasacreative.com">
                     contact@navarasacreative.com
                   </a>
-                </span>{" "}
-                or via{" "}
-                <span className="text-yellow">
-                  <a href="/">Whatsapp</a>
                 </span>
               </Text>
             </Box>
