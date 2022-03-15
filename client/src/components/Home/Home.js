@@ -7,7 +7,6 @@ import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "../../custom-hooks";
-import videoLarge from "../../videos/Navarasa Promo.mp4";
 import gold from "../../imgs/gold.svg";
 import silver from "../../imgs/silver.svg";
 import bronze from "../../imgs/bronze.svg";
@@ -279,7 +278,7 @@ const Home = () => {
               <video
                 preload="none"
                 ref={videoRef}
-                src={videoLarge}
+                src="https://navarasa.s3.ap-south-1.amazonaws.com/Navarasa+Promo.mp4"
                 poster={placeholder}
                 controls
                 onEnded={() => setIsVideoPlaying(false)}
