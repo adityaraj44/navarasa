@@ -170,7 +170,6 @@ const EntryDetail = () => {
                       <AlertDialogFooter display="flex" flexWrap="wrap">
                         <button
                           style={{
-                            backgroundColor: "#ffffff",
                             fontSize: "14px",
                             width: "120px",
                             height: "40px",
@@ -179,11 +178,11 @@ const EntryDetail = () => {
                             border: "none",
                             marginRight: "20px",
                           }}
-                          className="text-dark font-bold"
+                          className="text-white bgPurpleLight font-bold"
                           type="button"
                           onClick={closeAlert}
                         >
-                          Delete
+                          Cancel
                         </button>
                         <button
                           style={{
