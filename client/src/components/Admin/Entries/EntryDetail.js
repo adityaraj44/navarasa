@@ -118,42 +118,51 @@ const EntryDetail = () => {
               Ref ID #{entryDetail.refId}
             </Text>
             <Box className="form-control">
-              <button
-                style={{
-                  backgroundColor: "#BD2E36",
-                  fontSize: "14px",
-                  width: "120px",
-                  height: "40px",
-                  borderRadius: "3px",
-                  outline: "none",
-                  border: "none",
-                  marginRight: "20px",
-                }}
-                className="text-white font-bold"
-                type="button"
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-              <button
-                style={{
-                  fontSize: "14px",
-                  width: "120px",
-                  height: "40px",
-                  borderRadius: "3px",
-                  outline: "none",
-                  border: "none",
-                  marginRight: "20px",
-                }}
-                className="text-white bgPurpleLight font-bold"
-                type="button"
-              >
-                <Link
-                  to={`/navarasa/admin/entries/editentry/${entryDetail._id}`}
+              {localStorage.getItem("role") === "superadmin" ? (
+                <button
+                  style={{
+                    backgroundColor: "#BD2E36",
+                    fontSize: "14px",
+                    width: "120px",
+                    height: "40px",
+                    borderRadius: "3px",
+                    outline: "none",
+                    border: "none",
+                    marginRight: "20px",
+                  }}
+                  className="text-white font-bold"
+                  type="button"
+                  onClick={handleDelete}
                 >
-                  Edit details
-                </Link>
-              </button>
+                  Delete
+                </button>
+              ) : (
+                ""
+              )}
+              {localStorage.getItem("role") === "superadmin" ? (
+                <button
+                  style={{
+                    fontSize: "14px",
+                    width: "120px",
+                    height: "40px",
+                    borderRadius: "3px",
+                    outline: "none",
+                    border: "none",
+                    marginRight: "20px",
+                  }}
+                  className="text-white bgPurpleLight font-bold"
+                  type="button"
+                >
+                  <Link
+                    to={`/navarasa/admin/entries/editentry/${entryDetail._id}`}
+                  >
+                    Edit details
+                  </Link>
+                </button>
+              ) : (
+                ""
+              )}
+
               <button
                 style={{
                   fontSize: "14px",

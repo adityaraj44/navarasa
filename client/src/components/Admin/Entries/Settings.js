@@ -89,8 +89,10 @@ const Settings = () => {
     if (!values.eligibility) {
       errors.eligibility = "Eligibility is required";
     }
-    if (!values.entryFee) {
-      errors.entryFee = "Entry Fee is required";
+    if (values.isFee === true) {
+      if (!values.entryFee) {
+        errors.entryFee = "Entry Fee is required";
+      }
     }
     if (!values.firstPrize) {
       errors.firstPrize = "First Prize is required";

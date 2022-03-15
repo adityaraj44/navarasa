@@ -68,7 +68,7 @@ const Login = () => {
       await loginAdmin(authFields);
       setIsLoading(false);
       if (localStorage.getItem("navarasa-auth-token")) {
-        history.push("/notes");
+        history.push("/navarasa/admin/entries");
       }
     } else {
       toast({

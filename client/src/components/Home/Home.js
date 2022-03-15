@@ -277,7 +277,7 @@ const Home = () => {
               onBlur={() => setIsButtonVisible(false)}
             >
               <video
-                preload="auto"
+                preload="none"
                 ref={videoRef}
                 src={videoLarge}
                 poster={placeholder}
@@ -370,21 +370,28 @@ const Home = () => {
                 {homeDetail.competitionPeriod}
               </motion.p>
               <br />
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-                className="font-bold"
-              >
-                Entry fee:
-              </motion.p>
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-              >
-                Rs. {homeDetail.entryFee.toLocaleString("en-IN")}/-
-              </motion.p>
+              <Box>
+                {homeDetail.isFee === true && (
+                  <>
+                    <motion.p
+                      variants={inView}
+                      initial="hidden"
+                      whileInView="visible"
+                      className="font-bold"
+                    >
+                      Entry fee:
+                    </motion.p>
+                    <motion.p
+                      variants={inView}
+                      initial="hidden"
+                      whileInView="visible"
+                    >
+                      Rs. {homeDetail.entryFee.toLocaleString("en-IN")}/-
+                    </motion.p>
+                  </>
+                )}
+              </Box>
+
               <br />
               <motion.p
                 variants={inView}

@@ -116,6 +116,7 @@ const AudioPlayer = () => {
             onEnded={() => setIsPlaying(false)}
             preload="metadata"
             src={currentPlaying.audio}
+            autoPlay={isPlaying}
           />
           {isPlaying ? (
             <BsPauseFill

@@ -8,7 +8,7 @@ export const AudioProvider = ({ children }) => {
   const progressBarRef = useRef();
   const animationRef = useRef();
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 

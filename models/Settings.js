@@ -15,8 +15,7 @@ const SettingsSchema = new mongoose.Schema(
       required: true,
     },
     entryFee: {
-      type: Number,
-      required: true,
+      type: String,
     },
     isFee: {
       type: Boolean,

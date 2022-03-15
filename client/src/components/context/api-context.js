@@ -5,8 +5,8 @@ import { useHistory } from "react-router-dom";
 
 const ApiContext = createContext();
 
-const host = "https://navarasa-creative.herokuapp.com";
-// const host = "http://localhost:4000";
+// const host = "https://navarasa-creative.herokuapp.com";
+const host = "http://localhost:4000";
 
 export const ApiProvider = ({ children }) => {
   const history = useHistory();
@@ -383,30 +383,16 @@ export const ApiProvider = ({ children }) => {
 
       if (res.data.success) {
         localStorage.setItem("navarasa-auth-token", res.data.token);
-
-        if (res.data.isNew) {
-          localStorage.setItem("role", res.data.newAdmin.role);
-          localStorage.setItem("adminId", res.data.newAdmin._id);
-          toast({
-            title: "Success",
-            description: "You have been successfully registered as an admin!",
-            status: "success",
-            duration: 2000,
-            position: "top",
-            isClosable: true,
-          });
-        } else {
-          localStorage.setItem("role", res.data.admin.role);
-          localStorage.setItem("adminId", res.data.admin._id);
-          toast({
-            title: "Success",
-            description: "You have been successfully logged in!",
-            status: "success",
-            duration: 2000,
-            position: "top",
-            isClosable: true,
-          });
-        }
+        localStorage.setItem("role", res.data.admin.role);
+        localStorage.setItem("adminId", res.data.admin._id);
+        toast({
+          title: "Success",
+          description: "You have been successfully logged in!",
+          status: "success",
+          duration: 2000,
+          position: "top",
+          isClosable: true,
+        });
       } else {
         toast({
           title: "Error",

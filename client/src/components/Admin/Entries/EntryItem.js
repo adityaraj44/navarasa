@@ -10,11 +10,20 @@ const EntryItem = ({ entry }) => {
   const { shortlistEntry } = apiContext;
 
   const audioContext = useContext(AudioContext);
-  const { setCurrentPlaying } = audioContext;
+  const { handlePlay, currentPlaying, setCurrentPlaying } = audioContext;
 
   const handleCurrentPlaying = () => {
     setCurrentPlaying(entry);
+    // startPlaying();
   };
+
+  // const startPlaying = () => {
+  //   setTimeout(() => {
+  //     if (currentPlaying !== null) {
+  //       handlePlay();
+  //     }
+  //   }, 500);
+  // };
 
   const audioRef = useRef(null);
   const [duration, setDuration] = useState(0);
