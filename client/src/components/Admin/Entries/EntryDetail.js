@@ -1,5 +1,17 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
-import { Box, Flex, Image, Spinner, Text } from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogOverlay,
+  Box,
+  Flex,
+  Image,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import AdminNavbar from "../AdminNavbar";
@@ -8,9 +20,11 @@ import twitter from "../../../imgs/twitter.svg";
 import youtube from "../../../imgs/youtube.svg";
 import { Link } from "react-router-dom";
 import ApiContext from "../../context/api-context";
+import { useOpenAlertState } from "../../../custom-hooks";
 
 const EntryDetail = () => {
   const { id } = useParams();
+  const { isAlertOpen, openAlert, closeAlert } = useOpenAlertState();
   const apiContext = useContext(ApiContext);
   const {
     entries,
@@ -31,6 +45,7 @@ const EntryDetail = () => {
   };
   const handleDelete = async () => {
     await deleteEntry(entryDetail._id);
+    closeAlert();
   };
 
   // audio player
@@ -132,7 +147,7 @@ const EntryDetail = () => {
                   }}
                   className="text-white font-bold"
                   type="button"
-                  onClick={handleDelete}
+                  onClick={openAlert}
                 >
                   Delete
                 </button>
@@ -140,25 +155,76 @@ const EntryDetail = () => {
                 ""
               )}
               {localStorage.getItem("role") === "superadmin" ? (
-                <button
-                  style={{
-                    fontSize: "14px",
-                    width: "120px",
-                    height: "40px",
-                    borderRadius: "3px",
-                    outline: "none",
-                    border: "none",
-                    marginRight: "20px",
-                  }}
-                  className="text-white bgPurpleLight font-bold"
-                  type="button"
-                >
-                  <Link
-                    to={`/navarasa/admin/entries/editentry/${entryDetail._id}`}
+                <>
+                  <AlertDialog
+                    motionPreset="slideInRight"
+                    onClose={closeAlert}
+                    isOpen={isAlertOpen}
+                    isCentered
                   >
-                    Edit details
-                  </Link>
-                </button>
+                    <AlertDialogOverlay />
+
+                    <AlertDialogContent>
+                      <AlertDialogCloseButton />
+                      <AlertDialogBody>Are you sure?</AlertDialogBody>
+                      <AlertDialogFooter display="flex" flexWrap="wrap">
+                        <button
+                          style={{
+                            backgroundColor: "#ffffff",
+                            fontSize: "14px",
+                            width: "120px",
+                            height: "40px",
+                            borderRadius: "3px",
+                            outline: "none",
+                            border: "none",
+                            marginRight: "20px",
+                          }}
+                          className="text-dark font-bold"
+                          type="button"
+                          onClick={closeAlert}
+                        >
+                          Delete
+                        </button>
+                        <button
+                          style={{
+                            backgroundColor: "#BD2E36",
+                            fontSize: "14px",
+                            width: "120px",
+                            height: "40px",
+                            borderRadius: "3px",
+                            outline: "none",
+                            border: "none",
+                            marginRight: "20px",
+                          }}
+                          className="text-white font-bold"
+                          type="button"
+                          onClick={handleDelete}
+                        >
+                          Delete
+                        </button>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                  <button
+                    style={{
+                      fontSize: "14px",
+                      width: "120px",
+                      height: "40px",
+                      borderRadius: "3px",
+                      outline: "none",
+                      border: "none",
+                      marginRight: "20px",
+                    }}
+                    className="text-white bgPurpleLight font-bold"
+                    type="button"
+                  >
+                    <Link
+                      to={`/navarasa/admin/entries/editentry/${entryDetail._id}`}
+                    >
+                      Edit details
+                    </Link>
+                  </button>
+                </>
               ) : (
                 ""
               )}

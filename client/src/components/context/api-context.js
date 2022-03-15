@@ -45,10 +45,11 @@ export const ApiProvider = ({ children }) => {
       if (res.data.success) {
         localStorage.setItem("currentEntryId", res.data.newEntry._id);
         setCurrentEntry(res.data.newEntry);
-
+        setIsSuccess(false);
         toast({
           title: "Success",
-          description: "Entry saved successfully!",
+          description:
+            "Song uploaded successfully, please confirm your entry details.",
           status: "success",
           duration: 2000,
           position: "top",
@@ -56,6 +57,7 @@ export const ApiProvider = ({ children }) => {
         });
       }
     } catch (error) {
+      setIsSuccess(false);
       toast({
         title: "Error",
         description: error.message,
@@ -75,13 +77,14 @@ export const ApiProvider = ({ children }) => {
       if (res.data.success) {
         localStorage.removeItem("currentEntryId");
         setCurrentEntry({});
+
         setRefId(res.data.entry.refId);
         setIsSuccess(true);
         setIsLoading(false);
 
         toast({
           title: "Success",
-          description: "You have been successfully registered!",
+          description: "Your entry has been submitted successfully.",
           status: "success",
           duration: 2000,
           position: "top",

@@ -19,7 +19,7 @@ const SubmitFinalize = () => {
   const isSmall = useMediaQuery("(max-width:992px)");
   const history = useHistory();
   const formContext = useContext(FormFieldContext);
-  const { formFields } = formContext;
+  const { formFields, setFormFields } = formContext;
   const apiContext = useContext(ApiContext);
   const { currentEntry, finalizeEntry, isLoading, isSuccess, isError } =
     apiContext;
@@ -128,6 +128,24 @@ const SubmitFinalize = () => {
   const handleChecked = async () => {
     if (isChecked === true) {
       await finalizeEntry();
+      setFormFields({
+        submittername: "",
+        role: "",
+        email: "",
+        country: "",
+        contact: "",
+        state: "",
+        city: "",
+        postaladdress: "",
+        audio: "",
+        songtitle: "",
+        artist: "",
+        artistCategory: "",
+        instagram: "",
+        youtube: "",
+        twitter: "",
+        additionalinfo: "",
+      });
     } else {
       toast({
         title: "Please accept the terms and conditions",

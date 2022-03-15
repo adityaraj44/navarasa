@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(
@@ -23,4 +23,13 @@ export const dateFormat = (date) => {
   const month = init.split("-")[1];
   const year = init.split("-")[0];
   return `${day}-${month}-${year}`;
+};
+
+export const useOpenAlertState = () => {
+  const [isAlertOpen, setIsAlertopen] = useState(false);
+
+  const openAlert = useCallback(() => setIsAlertopen(true), []);
+  const closeAlert = useCallback(() => setIsAlertopen(false), []);
+
+  return { openAlert, closeAlert, isAlertOpen };
 };

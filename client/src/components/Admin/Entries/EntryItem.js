@@ -10,7 +10,7 @@ const EntryItem = ({ entry }) => {
   const { shortlistEntry } = apiContext;
 
   const audioContext = useContext(AudioContext);
-  const { handlePlay, currentPlaying, setCurrentPlaying } = audioContext;
+  const { setCurrentPlaying } = audioContext;
 
   const handleCurrentPlaying = () => {
     setCurrentPlaying(entry);
