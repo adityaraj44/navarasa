@@ -1,9 +1,12 @@
 import { Box, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useMediaQuery } from "../custom-hooks";
 import Navbar from "./Navbar/Navbar";
 
 const Terms = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const isSmall = useMediaQuery("(max-width:992px)");
   return (
     <>
