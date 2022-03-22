@@ -198,7 +198,7 @@ const NavbarHome = () => {
                 exit="exit"
                 className="nav-heading text-pink mt-4 mb-2"
               >
-                Navarasa Creative
+                Adinova Creative
               </motion.p>
             </Box>
             <Box>
@@ -427,7 +427,7 @@ const NavbarHome = () => {
               exit="exit"
               className="nav-heading text-pink mt-4 mb-1"
             >
-              Navarasa Creative
+              Adinova Creative
             </motion.p>
           </Box>
           <Box>

@@ -78,7 +78,7 @@ const AudioPlayer = () => {
           >
             {currentPlaying.isShortlisted ? "Remove" : "Shortlist"}
           </Text>
-          <Link to={`/navarasa/admin/entries/entry/${currentPlaying._id}`}>
+          <Link to={`/adinova/admin/entries/entry/${currentPlaying._id}`}>
             <Text
               display="inline"
               className="text-pink font-bold ml-3"

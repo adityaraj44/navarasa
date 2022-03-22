@@ -192,7 +192,7 @@ export const ApiProvider = ({ children }) => {
         }
       );
       if (res.data.success) {
-        history.push("/navarasa/admin/entries");
+        history.push("/adinova/admin/entries");
         setIsLoading(false);
         toast({
           title: "Success",

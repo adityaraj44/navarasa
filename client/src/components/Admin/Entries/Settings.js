@@ -108,7 +108,7 @@ const Settings = () => {
 
   const handleExit = () => {
     setSettingsData(null);
-    history.push("/navarasa/admin/entries");
+    history.push("/adinova/admin/entries");
   };
 
   return (
@@ -144,9 +144,9 @@ const Settings = () => {
               </Text>
               <Text fontSize="18px" className="text-white mt-4">
                 This page allows changes to the competition details which are
-                displayed on Navarasa Creative’s home page. Please be careful
-                and double check the changes made to this page. Changes once
-                saved, will be updated to the live website.
+                displayed on adinova Creative’s home page. Please be careful and
+                double check the changes made to this page. Changes once saved,
+                will be updated to the live website.
               </Text>
               <Box className="mt-4">
                 <FormControl>

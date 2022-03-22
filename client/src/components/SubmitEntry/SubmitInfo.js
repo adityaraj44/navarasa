@@ -664,7 +664,7 @@ const SubmitInfo = () => {
                       competitions and your personal data will not be used for
                       any other purposes. Read our{" "}
                       <Link
-                        to="/"
+                        to="/privacypolicy"
                         className="font-bold"
                         style={{
                           textDecoration: "underline",

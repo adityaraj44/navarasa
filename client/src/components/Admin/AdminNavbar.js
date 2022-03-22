@@ -48,10 +48,10 @@ const AdminNavbar = () => {
             fontSize="25px"
             fontWeight="bold"
           >
-            Navarasa Creative Admin Portal
+            Adinova Creative Admin Portal
           </Text>
         </Flex>
-        {location.pathname !== "/navarasa/admin/login" && (
+        {location.pathname !== "/adinova/admin/login" && (
           <Flex
             direction="row"
             justifyContent="center"
@@ -60,11 +60,11 @@ const AdminNavbar = () => {
           >
             <Link
               className={`mr-3 ${
-                location.pathname.includes("/navarasa/admin/entries")
+                location.pathname.includes("/adinova/admin/entries")
                   ? "active"
                   : ""
               }`}
-              to="/navarasa/admin/entries"
+              to="/adinova/admin/entries"
             >
               <motion.p
                 variants={linkVariants}
@@ -78,11 +78,11 @@ const AdminNavbar = () => {
             {localStorage.getItem("role") === "superadmin" && (
               <Link
                 className={`mr-3 ${
-                  location.pathname === "/navarasa/admin/settings"
+                  location.pathname === "/adinova/admin/settings"
                     ? "active"
                     : ""
                 }`}
-                to="/navarasa/admin/settings"
+                to="/adinova/admin/settings"
               >
                 <motion.p
                   variants={linkVariants}
@@ -101,7 +101,7 @@ const AdminNavbar = () => {
                 localStorage.removeItem("navarasa-auth-token");
                 localStorage.removeItem("role");
                 localStorage.removeItem("adminId");
-                history.push("/navarasa/admin/login");
+                history.push("/adinova/admin/login");
               }}
             >
               <motion.p

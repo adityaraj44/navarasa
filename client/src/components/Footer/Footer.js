@@ -4,7 +4,7 @@ import instagram from "../../imgs/instagram.svg";
 import twitter from "../../imgs/twitter.svg";
 import youtube from "../../imgs/youtube.svg";
 import arroba from "../../imgs/arroba.svg";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
   const location = useLocation();
@@ -55,11 +55,11 @@ const Footer = () => {
               </Flex>
             </Box>
             <Box className="mt-4 text-dark" fontWeight="bold">
-              <a href="/">Privacy Policy</a> |{" "}
-              <a href="/">Terms & Conditions</a>
+              <Link to="/privacypolicy">Privacy Policy</Link> |{" "}
+              <Link to="/termsandconditions">Terms & Conditions</Link>
             </Box>
             <Box fontWeight="bold" className="mb-4 text-dark footer-text">
-              <Text>© Copyright Navarasa 2022</Text>
+              <Text>© Copyright Adinova 2022</Text>
             </Box>
           </Flex>
         </Box>

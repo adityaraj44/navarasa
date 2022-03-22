@@ -218,7 +218,7 @@ const EntryDetail = () => {
                     type="button"
                   >
                     <Link
-                      to={`/navarasa/admin/entries/editentry/${entryDetail._id}`}
+                      to={`/adinova/admin/entries/editentry/${entryDetail._id}`}
                     >
                       Edit details
                     </Link>

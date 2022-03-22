@@ -149,7 +149,7 @@ const EditEntry = () => {
 
   const handleExit = () => {
     setEntry(entryDetail);
-    history.push(`/navarasa/admin/entries/entry/${id}`);
+    history.push(`/adinova/admin/entries/entry/${id}`);
   };
 
   // countries-states-cities

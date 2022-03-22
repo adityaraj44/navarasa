@@ -22,6 +22,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import { AudioProvider } from "./components/context/audio-player-context";
 import RoleBasedAuth from "./components/RoleBasedAuth";
 import Settings from "./components/Admin/Entries/Settings";
+import Terms from "./components/Terms";
+import Privacy from "./components/Privacy";
 
 const App = () => {
   const location = useLocation();
@@ -48,24 +50,27 @@ const App = () => {
                 <Route exact path="/finalizeentry">
                   <SubmitFinalize />
                 </Route>
-                <PublicRoute exact path="/navarasa/admin/login">
+                <PublicRoute exact path="/adinova/admin/login">
                   <Login />
                 </PublicRoute>
-                <PrivateRoute exact path="/navarasa/admin/entries">
+                <PrivateRoute exact path="/adinova/admin/entries">
                   <AllEntries />
                 </PrivateRoute>
-                <PrivateRoute exact path="/navarasa/admin/entries/entry/:id">
+                <PrivateRoute exact path="/adinova/admin/entries/entry/:id">
                   <EntryDetail />
                 </PrivateRoute>
-                <PrivateRoute
-                  exact
-                  path="/navarasa/admin/entries/editentry/:id"
-                >
+                <PrivateRoute exact path="/adinova/admin/entries/editentry/:id">
                   <EditEntry />
                 </PrivateRoute>
-                <RoleBasedAuth exact path="/navarasa/admin/settings">
+                <RoleBasedAuth exact path="/adinova/admin/settings">
                   <Settings />
                 </RoleBasedAuth>
+                <Route exact path="/privacypolicy">
+                  <Privacy />
+                </Route>
+                <Route exact path="/termsandconditions">
+                  <Terms />
+                </Route>
               </Switch>
             </AnimatePresence>
           </AudioProvider>

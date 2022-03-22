@@ -340,15 +340,12 @@ const Home = () => {
                 whileInView="visible"
               >
                 For more information, please read the{" "}
-                <span>
-                  <a
-                    style={{
-                      textDecoration: "underline",
-                    }}
-                    href="/"
-                  >
-                    Terms & Conditions
-                  </a>
+                <span
+                  style={{
+                    textDecoration: "underline",
+                  }}
+                >
+                  <Link to="/termsandconditions">Terms & Conditions</Link>
                 </span>
                 .
               </motion.p>

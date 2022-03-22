@@ -157,7 +157,7 @@ const EntryItem = ({ entry }) => {
             {entry.isShortlisted ? "Remove" : "Shortlist"}
           </Text>
           <Link
-            to={`/navarasa/admin/entries/entry/${entry._id}`}
+            to={`/adinova/admin/entries/entry/${entry._id}`}
             cursor="pointer"
             fontSize="14px"
             className="font-bold text-pink"

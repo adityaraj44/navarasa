@@ -95,7 +95,7 @@ const About = () => {
               whileInView="visible"
               className="text-white"
             >
-              Navarasa Creative is an initiative to get involved with the
+              Adinova Creative is an initiative to get involved with the
               abundant creative talent in the indie-sphere. We are starting our
               journey with Tamil Music as it has been an integral part of our
               youth and continues to be a source of inspiration in our daily

@@ -24,7 +24,7 @@ const HomeBannerContent = ({ homeDetail }) => {
             className={`text-yellow font-bold ${isXs ? "mb-1" : "mb-2"}`}
             fontSize={isXs ? "16px" : "20px"}
           >
-            Navarasa Creative
+            Adinova Creative
           </Text>
           <Text
             lineHeight="28px"
@@ -64,7 +64,7 @@ const HomeBannerContent = ({ homeDetail }) => {
     >
       <Box textAlign="center">
         <Text className="text-yellow font-bold mb-2" fontSize="25px">
-          Navarasa Creative
+          Adinova Creative
         </Text>
         <Text
           lineHeight="50px"

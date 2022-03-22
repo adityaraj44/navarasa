@@ -6,7 +6,7 @@ const RoleBasedAuth = ({ children, ...routeProps }) => {
     !localStorage.getItem("role") ||
     localStorage.getItem("role") !== "superadmin"
   ) {
-    return <Redirect exact to="/navarasa/admin/login" />;
+    return <Redirect exact to="/adinova/admin/login" />;
   }
 
   return <Route {...routeProps}>{children}</Route>;
