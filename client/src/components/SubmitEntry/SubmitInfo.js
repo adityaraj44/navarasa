@@ -660,7 +660,7 @@ const SubmitInfo = () => {
                   </FormControl>
                   <Box className="mt-4 mb-4">
                     <p className="text-purpleLight form-info">
-                      We will only contact you regarding Navarasa Creative’s
+                      We will only contact you regarding Adinova Creative’s
                       competitions and your personal data will not be used for
                       any other purposes. Read our{" "}
                       <Link

@@ -271,7 +271,7 @@ const SubmitSong = () => {
                       borderRadius="2px"
                       size="md"
                       isRequired
-                      placeholder="Navarasa Naadi"
+                      placeholder="Adinova Naadi"
                       fontSize="18px"
                       id="songtitle"
                       name="songtitle"

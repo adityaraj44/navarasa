@@ -148,8 +148,8 @@ const ErrorPage = () => {
               If you continue to have trouble submitting your entry, please
               contact us via email at{" "}
               <span className="text-yellow">
-                <a href="mailto:contact@navarasacreative.com">
-                  contact@navarasacreative.com
+                <a href="mailto:contact@adinovacreative.com">
+                  contact@adinovacreative.com
                 </a>
               </span>
             </Text>

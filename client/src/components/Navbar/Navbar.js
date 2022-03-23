@@ -295,7 +295,7 @@ const Navbar = () => {
             exit="exit"
           >
             <Text className="nav-heading-general text-pink mt-2">
-              Navarasa Creative
+              Adinova Creative
             </Text>
           </motion.div>
         </Flex>
@@ -547,7 +547,7 @@ const Navbar = () => {
                 exit="exit"
               >
                 <Text className="nav-heading-general text-pink mt-3">
-                  Navarasa Creative
+                  Adinova Creative
                 </Text>
               </motion.div>
             </Flex>

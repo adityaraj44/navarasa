@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Settings = require("../models/Settings");
+const nodeMailer = require("nodemailer");
 // using s3
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ID,
@@ -111,6 +112,47 @@ const finalizeEntry = asyncHandler(async (req, res) => {
   });
   entry.refId = generatedCode[0];
   await entry.save();
+  let transporter = nodeMailer.createTransport({
+    host: "smtp.zoho.com",
+    secure: true,
+    port: 465,
+    auth: {
+      user: process.env.USER,
+      pass: process.env.PASSWORD,
+    },
+  });
+
+  const mailList = [`${entry.email}`, "contact@adinovacreative.com"];
+
+  mailList.forEach((email) => {
+    if (email === "contact@adinovacreative.com") {
+      const mailOptions = {
+        from: "contact@adinovacreative.com", // sender address
+        to: "contact@adinovacreative.com",
+        subject: "New submission recieved!", // Subject line
+        html: `<p>Ref Id:</p><br /><strong>#${entry.refId}</strong>`, // plain text body
+      };
+
+      transporter.sendMail(mailOptions, function (err, info) {
+        if (err) {
+          throw new Error(err);
+        }
+      });
+    } else {
+      const mailOptionsUser = {
+        from: "contact@adinovacreative.com", // sender address
+        to: email,
+        subject: "We recieved your submission!", // Subject line
+        html: `<p>Your refid is</p><br /><strong>#${entry.refId}</strong>`, // plain text body
+      };
+
+      transporter.sendMail(mailOptionsUser, function (err, info) {
+        if (err) {
+          throw new Error(err);
+        }
+      });
+    }
+  });
 
   res.status(200).json({
     success: true,
