@@ -5,9 +5,9 @@ import { useHistory } from "react-router-dom";
 
 const ApiContext = createContext();
 
-const host = "https://navarasa-creative.herokuapp.com";
+// const host = "https://navarasa-creative.herokuapp.com";
 // const host = "http://localhost:4000";
-// const host = "https://adinovacreative.com"
+const host = "https://adinovacreative.com";
 
 export const ApiProvider = ({ children }) => {
   const history = useHistory();
