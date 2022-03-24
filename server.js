@@ -28,7 +28,9 @@ app.use(
 app.use(fileUpload());
 // parse application/x-www-form-urlencoded
 app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb" }));
+app.use(
+  express.urlencoded({ limit: "50mb", extended: true, parameterLimit: "50000" })
+);
 
 // Routes
 app.use("/", require("./routes/entry"));
