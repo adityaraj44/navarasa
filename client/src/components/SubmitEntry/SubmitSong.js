@@ -304,7 +304,7 @@ const SubmitSong = () => {
                       borderRadius="2px"
                       size="md"
                       isRequired
-                      placeholder="Navarasa Creative feat. Ashok"
+                      placeholder="Adinova Creative feat. Ashok"
                       fontSize="18px"
                       id="artist"
                       name="artist"

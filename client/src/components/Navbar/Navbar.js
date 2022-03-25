@@ -124,11 +124,7 @@ const Navbar = () => {
               <Link
                 to="/aboutus"
                 className={`${
-                  location.pathname === "/aboutus" ||
-                  location.pathname === "/privacypolicy" ||
-                  location.pathname === "/termsandconditions"
-                    ? "active"
-                    : ""
+                  location.pathname === "/aboutus" ? "active" : ""
                 }`}
               >
                 <motion.p
@@ -522,11 +518,7 @@ const Navbar = () => {
                   <Link
                     to="/aboutus"
                     className={`${
-                      location.pathname === "/aboutus" ||
-                      location.pathname === "/privacypolicy" ||
-                      location.pathname === "/termsandconditions"
-                        ? "active"
-                        : ""
+                      location.pathname === "/aboutus" ? "active" : ""
                     }`}
                   >
                     <motion.p

@@ -113,7 +113,9 @@ const Privacy = () => {
                   color: "#fad01c",
                 }}
               >
-                <a href="mailto:adinovacreative.com">adinovacreative.com</a>
+                <a href="mailto:contact@adinovacreative.com">
+                  contact@adinovacreative.com
+                </a>
               </span>
               . Thank you.
             </Text>

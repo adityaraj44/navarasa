@@ -1,13 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.0778e03b.css",
-    "main.js": "/static/js/main.098ccefd.js",
+    "main.js": "/static/js/main.75f73716.js",
     "static/media/banner.png": "/static/media/banner.fc8ad1533bc5d9d1f81e.png",
     "static/media/aboutsuccess.JPG": "/static/media/aboutsuccess.3ba1c47af78d9297a54f.JPG",
     "static/media/placeholder.JPG": "/static/media/placeholder.3ba1c47af78d9297a54f.JPG",
     "static/media/AzoSans-Thin.ttf": "/static/media/AzoSans-Thin.cee4a468b0f1f71a0546.ttf",
     "static/media/AzoSans-Thin.woff": "/static/media/AzoSans-Thin.f75af87a0c3375f203d0.woff",
     "static/media/AzoSans-Thin.woff2": "/static/media/AzoSans-Thin.1ea0fbfd1ea0eb6bb540.woff2",
+    "static/media/logo.png": "/static/media/logo.d746f510993544979821.png",
     "static/media/error.svg": "/static/media/error.7e72891d40c7f7a00354302bccd4de35.svg",
     "static/media/instagram.svg": "/static/media/instagram.6507843284814b9f800dad261d044e5e.svg",
     "static/media/arroba.svg": "/static/media/arroba.ee615a909c0ef50d5bdc1d42950fc6a9.svg",
@@ -18,10 +19,10 @@
     "static/media/silver.svg": "/static/media/silver.d48eeda14fe34d748af96e0a7861293c.svg",
     "index.html": "/index.html",
     "main.0778e03b.css.map": "/static/css/main.0778e03b.css.map",
-    "main.098ccefd.js.map": "/static/js/main.098ccefd.js.map"
+    "main.75f73716.js.map": "/static/js/main.75f73716.js.map"
   },
   "entrypoints": [
     "static/css/main.0778e03b.css",
-    "static/js/main.098ccefd.js"
+    "static/js/main.75f73716.js"
   ]
 }

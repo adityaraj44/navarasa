@@ -665,6 +665,7 @@ const SubmitInfo = () => {
                       any other purposes. Read our{" "}
                       <Link
                         to="/privacypolicy"
+                        target="_blank"
                         className="font-bold"
                         style={{
                           textDecoration: "underline",

@@ -534,7 +534,8 @@ const SubmitFinalize = () => {
                       >
                         I have read and agree to all the{" "}
                         <Link
-                          to="/"
+                          to="/termsandconditions"
+                          target="_blank"
                           style={{
                             textDecoration: "underline",
                           }}

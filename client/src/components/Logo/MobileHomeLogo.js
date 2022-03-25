@@ -1,5 +1,7 @@
+import { Image } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
+import logo from "../../imgs/logo.png";
 
 const MobileLogo = () => {
   return (
@@ -26,7 +28,7 @@ const MobileLogo = () => {
       }}
       className="home-logo"
     >
-      <svg
+      {/* <svg
         width="72"
         height="72"
         viewBox="0 0 72 72"
@@ -41,7 +43,8 @@ const MobileLogo = () => {
           d="M20.7885 48H26.9625V33.006L36.7905 48H43.2165V22.8H37.0845V37.752L27.2985 22.8H20.7885V48ZM38.6385 39.306V23.976H41.6625V44.01L38.6385 39.306ZM22.3425 46.824V26.622L25.4085 31.452V46.824H22.3425Z"
           fill="#FAD01C"
         />
-      </svg>
+      </svg> */}
+      <Image src={logo} alt="logo" width="72px" height="72px" />
     </motion.div>
   );
 };

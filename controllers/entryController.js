@@ -113,7 +113,7 @@ const finalizeEntry = asyncHandler(async (req, res) => {
   entry.refId = generatedCode[0];
   await entry.save();
   let transporter = nodeMailer.createTransport({
-    host: "smtp.zoho.com",
+    host: "smtppro.zoho.in",
     secure: true,
     port: 465,
     auth: {
@@ -142,7 +142,7 @@ const finalizeEntry = asyncHandler(async (req, res) => {
       const mailOptionsUser = {
         from: "contact@adinovacreative.com", // sender address
         to: email,
-        subject: "We recieved your submission!", // Subject line
+        subject: "We have received your Indie Music Competition entry!", // Subject line
         html: `<p>Your refid is</p><br /><strong>#${entry.refId}</strong>`, // plain text body
       };
 

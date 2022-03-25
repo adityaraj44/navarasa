@@ -58,8 +58,8 @@ const Terms = () => {
               <li>
                 The participant must submit their personal information, upload
                 their song along with the song information via the submission
-                form at www.website.com, before the deadline stated on the
-                hompage of the website.
+                form at https://adinovacreative.com/submitentry, before the
+                deadline stated on the hompage of the website.
               </li>
               <li>
                 Any submission containing offensive content, as judged by the
@@ -211,7 +211,9 @@ const Terms = () => {
                   color: "#fad01c",
                 }}
               >
-                <a href="mailto:adinovacreative.com">adinovacreative.com</a>
+                <a href="mailto:contact@adinovacreative.com">
+                  contact@adinovacreative.com
+                </a>
               </span>
               . Thank you.
             </Text>
