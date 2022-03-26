@@ -113,12 +113,12 @@ const finalizeEntry = asyncHandler(async (req, res) => {
   entry.refId = generatedCode[0];
   await entry.save();
   let transporter = nodeMailer.createTransport({
-    host: "smtppro.zoho.in",
+    host: "smtppro.zoho.com",
     secure: true,
     port: 465,
     auth: {
-      user: process.env.USER,
-      pass: process.env.PASSWORD,
+      user: "contact@adinovacreative.com",
+      pass: "Adi!123bdAts8",
     },
   });
 
@@ -416,23 +416,11 @@ const adminLogin = asyncHandler(async (req, res) => {
   const admin = await User.findOne({ username: lowercaseUsername });
 
   if (!admin) {
-    // return res.json({
-    //   success: false,
-    //   error: "Invalid credentials",
-    // });
-    // hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const newAdmin = await User.create({
-      username: lowercaseUsername,
-      password: hashedPassword,
+    return res.json({
+      success: false,
+      error: "Invalid credentials",
     });
-    token = jwt.sign({ id: newAdmin.id }, process.env.JWT_SECRET);
-    res.status(200).json({
-      success: true,
-      admin: newAdmin,
-      token: token,
-    });
+
   } else {
     const isMatch = await bcrypt.compare(password, admin.password);
 
