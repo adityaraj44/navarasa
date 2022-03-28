@@ -5,7 +5,7 @@ import MobileLogo from "../Logo/MobileLogo";
 import instagram from "../../imgs/instagram.svg";
 import twitter from "../../imgs/twitter.svg";
 import youtube from "../../imgs/youtube.svg";
-import arroba from "../../imgs/arroba.svg";
+import arroba from "../../imgs/telegram.png";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "../../custom-hooks";
@@ -170,7 +170,8 @@ const Navbar = () => {
                   },
                 }}
                 className="social-link  ml-4"
-                href="/"
+                href="https://www.instagram.com/adinovacreative"
+                target="_blank"
               >
                 <Image
                   alt="instagram"
@@ -204,7 +205,8 @@ const Navbar = () => {
                   },
                 }}
                 className="social-link ml-4"
-                href="/"
+                href="https://twitter.com/adinovacreative"
+                target="_blank"
               >
                 <Image
                   alt="twitter"
@@ -238,7 +240,8 @@ const Navbar = () => {
                   },
                 }}
                 className="social-link ml-4"
-                href="/"
+                href="https://www.youtube.com/channel/UC_JxeDKSWSR_p55PYyitPHQ"
+                target="_blank"
               >
                 <Image
                   alt="youtube"
@@ -272,10 +275,11 @@ const Navbar = () => {
                   },
                 }}
                 className="social-link  ml-4"
-                href="/"
+                href="https://t.me/adinovacommunity"
+                target="_blank"
               >
                 <Image
-                  alt="arroba"
+                  alt="telegram"
                   width="40px"
                   height="40px"
                   borderRadius="100%"
@@ -353,7 +357,8 @@ const Navbar = () => {
                   },
                 }}
                 className="social-link  ml-4"
-                href="/"
+                href="https://www.instagram.com/adinovacreative"
+                target="_blank"
               >
                 <Image
                   alt="instagram"
@@ -387,7 +392,8 @@ const Navbar = () => {
                   },
                 }}
                 className="social-link ml-4"
-                href="/"
+                href="https://twitter.com/adinovacreative"
+                target="_blank"
               >
                 <Image
                   alt="twitter"
@@ -421,7 +427,8 @@ const Navbar = () => {
                   },
                 }}
                 className="social-link ml-4"
-                href="/"
+                href="https://www.youtube.com/channel/UC_JxeDKSWSR_p55PYyitPHQ"
+                target="_blank"
               >
                 <Image
                   alt="youtube"
@@ -455,10 +462,11 @@ const Navbar = () => {
                   },
                 }}
                 className="social-link  ml-4"
-                href="/"
+                href="https://t.me/adinovacommunity"
+                target="_blank"
               >
                 <Image
-                  alt="arroba"
+                  alt="telegram"
                   width="30px"
                   height="30px"
                   borderRadius="100%"

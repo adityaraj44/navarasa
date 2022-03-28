@@ -6,7 +6,7 @@ import MobileHomeLogo from "../Logo/MobileHomeLogo";
 import instagram from "../../imgs/instagram.svg";
 import twitter from "../../imgs/twitter.svg";
 import youtube from "../../imgs/youtube.svg";
-import arroba from "../../imgs/arroba.svg";
+import arroba from "../../imgs/telegram.png";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "../../custom-hooks";
@@ -225,7 +225,8 @@ const NavbarHome = () => {
                   animate="visible"
                   exit="exit"
                   className="social-link"
-                  href="/"
+                  href="https://www.instagram.com/adinovacreative"
+                  target="_blank"
                 >
                   <Image
                     alt="instagram"
@@ -259,7 +260,8 @@ const NavbarHome = () => {
                     },
                   }}
                   className="social-link ml-3"
-                  href="/"
+                  href="https://twitter.com/adinovacreative"
+                  target="_blank"
                 >
                   <Image
                     alt="twitter"
@@ -293,7 +295,8 @@ const NavbarHome = () => {
                     },
                   }}
                   className="social-link ml-3"
-                  href="/"
+                  href="https://www.youtube.com/channel/UC_JxeDKSWSR_p55PYyitPHQ"
+                  target="_blank"
                 >
                   <Image
                     alt="youtube"
@@ -327,10 +330,11 @@ const NavbarHome = () => {
                     },
                   }}
                   className="social-link ml-3"
-                  href="/"
+                  href="https://t.me/adinovacommunity"
+                  target="_blank"
                 >
                   <Image
-                    alt="arroba"
+                    alt="telegram"
                     width="40px"
                     height="40px"
                     borderRadius="100%"
@@ -454,7 +458,8 @@ const NavbarHome = () => {
                 animate="visible"
                 exit="exit"
                 className="social-link"
-                href="/"
+                href="https://www.instagram.com/adinovacreative"
+                target="_blank"
               >
                 <Image
                   alt="instagram"
@@ -488,7 +493,8 @@ const NavbarHome = () => {
                   },
                 }}
                 className="social-link ml-3"
-                href="/"
+                href="https://twitter.com/adinovacreative"
+                target="_blank"
               >
                 <Image
                   alt="twitter"
@@ -522,7 +528,8 @@ const NavbarHome = () => {
                   },
                 }}
                 className="social-link ml-3"
-                href="/"
+                href="https://www.youtube.com/channel/UC_JxeDKSWSR_p55PYyitPHQ"
+                target="_blank"
               >
                 <Image
                   alt="youtube"
@@ -556,7 +563,8 @@ const NavbarHome = () => {
                   },
                 }}
                 className="social-link ml-3"
-                href="/"
+                href="https://t.me/adinovacommunity"
+                target="_blank"
               >
                 <Image
                   alt="arroba"

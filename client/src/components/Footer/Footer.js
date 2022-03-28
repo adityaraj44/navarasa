@@ -3,7 +3,7 @@ import React from "react";
 import instagram from "../../imgs/instagram.svg";
 import twitter from "../../imgs/twitter.svg";
 import youtube from "../../imgs/youtube.svg";
-import arroba from "../../imgs/arroba.svg";
+import arroba from "../../imgs/telegram.png";
 import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
@@ -25,7 +25,12 @@ const Footer = () => {
                 justifyContent="space-between"
                 alignItems="flex-end"
               >
-                <a className="social-link" href="/">
+                <a
+                  className="social-link"
+                  href="https://www.instagram.com/adinovacreative"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Image
                     alt="instagram"
                     width="40px"
@@ -33,7 +38,11 @@ const Footer = () => {
                     src={instagram}
                   />
                 </a>
-                <a className="social-link ml-4" href="/">
+                <a
+                  className="social-link ml-4"
+                  href="https://twitter.com/adinovacreative"
+                  target="_blank" rel="noreferrer"
+                >
                   <Image
                     width="40px"
                     height="40px"
@@ -41,7 +50,11 @@ const Footer = () => {
                     src={twitter}
                   />
                 </a>
-                <a className="social-link ml-4" href="/">
+                <a
+                  className="social-link ml-4"
+                  href="https://www.youtube.com/channel/UC_JxeDKSWSR_p55PYyitPHQ"
+                  target="_blank" rel="noreferrer"
+                >
                   <Image
                     width="40px"
                     height="40px"
@@ -49,8 +62,17 @@ const Footer = () => {
                     src={youtube}
                   />
                 </a>
-                <a className="social-link ml-4" href="/">
-                  <Image width="40px" height="40px" alt="arroba" src={arroba} />
+                <a
+                  className="social-link ml-4"
+                  href="https://t.me/adinovacommunity"
+                  target="_blank" rel="noreferrer"
+                >
+                  <Image
+                    width="40px"
+                    height="40px"
+                    alt="telegram"
+                    src={arroba}
+                  />
                 </a>
               </Flex>
             </Box>

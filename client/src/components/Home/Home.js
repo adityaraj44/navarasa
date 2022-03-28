@@ -1,9 +1,9 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, {  useContext, useEffect } from "react";
 import { Box, Image, Spinner, Text } from "@chakra-ui/react";
 import NavbarHome from "./NavbarHome";
 import HomeBanner from "../Banner/HomeBanner";
-import placeholder from "../../imgs/placeholder.JPG";
-import { BsPlayFill, BsPauseFill } from "react-icons/bs";
+// import placeholder from "../../imgs/placeholder.JPG";
+// import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "../../custom-hooks";
@@ -25,51 +25,7 @@ const Home = () => {
   const isSmall = useMediaQuery("(max-width:992px)");
   const isXs = useMediaQuery("(max-width:480px)");
 
-  const inView = {
-    hidden: {
-      opacity: 0,
-      y: -30,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        duration: 0.5,
-        delay: 0.2,
-      },
-    },
-  };
-
-  const videoRef = useRef();
-
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [isButtonVisible, setIsButtonVisible] = useState(null);
-
-  // hover the video to show the play/pause button
-  const handleMouseEnter = () => {
-    setIsButtonVisible(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsButtonVisible(false);
-  };
-
-  const handleVideo = () => {
-    let prev = isVideoPlaying;
-    setIsVideoPlaying(!prev);
-    if (!prev) {
-      videoRef.current.play();
-      setTimeout(() => {
-        setIsButtonVisible(false);
-      }, 3000);
-    } else {
-      videoRef.current.pause();
-      setTimeout(() => {
-        setIsButtonVisible(false);
-      }, 3000);
-    }
-  };
+ 
 
   return (
     <>
@@ -245,9 +201,10 @@ const Home = () => {
           <Box
             maxWidth="968px"
             mx="auto"
-            className={`video ${isSmall ? "px-mobile" : "px-home"}`}
+            className={`${isSmall ? "px-mobile" : "px-home"}`}
           >
             <motion.div
+              className="video"
               initial={{
                 opacity: 0,
                 y: 100,
@@ -270,38 +227,14 @@ const Home = () => {
                   duration: 0.6,
                 },
               }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onFocus={() => setIsButtonVisible(true)}
-              onBlur={() => setIsButtonVisible(false)}
             >
-              <video
-                preload="none"
-                ref={videoRef}
-                src="https://navarasa.s3.ap-south-1.amazonaws.com/Navarasa+Promo.mp4"
-                poster={placeholder}
-                controls
-                onEnded={() => setIsVideoPlaying(false)}
-                onPause={() => setIsVideoPlaying(false)}
-                onPlay={() => setIsVideoPlaying(true)}
-              />
-              {isButtonVisible === null || isButtonVisible === true ? (
-                <>
-                  {isVideoPlaying ? (
-                    <BsPauseFill
-                      onClick={handleVideo}
-                      className="video-element text-white bgPinkLight"
-                    />
-                  ) : (
-                    <BsPlayFill
-                      onClick={handleVideo}
-                      className="video-element text-white bgPinkLight"
-                    />
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+               <iframe
+                title="video"
+                className="video-frame"
+                src="https://www.youtube.com/embed/bgrPoDw3MA4"
+                      ></iframe>
+            
+             
             </motion.div>
           </Box>
           <Box maxWidth="1125px" mx="auto">
@@ -311,13 +244,7 @@ const Home = () => {
               fontWeight="bold"
               className="text-yellow mt-4"
             >
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-              >
-                Competition Details
-              </motion.p>
+              <motion.p>Competition Details</motion.p>
             </Box>
 
             <Box
@@ -325,20 +252,10 @@ const Home = () => {
               className={`text-white ${isSmall ? "px-mobile" : "px-home"}`}
               textAlign="left"
             >
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-              >
-                {parse(homeDetail.details)}
-              </motion.p>
+              <motion.p>{parse(homeDetail.details)}</motion.p>
 
               <br />
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-              >
+              <motion.p>
                 For more information, please read the{" "}
                 <span
                   style={{
@@ -350,38 +267,14 @@ const Home = () => {
                 .
               </motion.p>
               <br />
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-                className="font-bold"
-              >
-                Competition period:
-              </motion.p>
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-              >
-                {homeDetail.competitionPeriod}
-              </motion.p>
+              <motion.p className="font-bold">Competition period:</motion.p>
+              <motion.p>{homeDetail.competitionPeriod}</motion.p>
               <br />
               <Box>
                 {homeDetail.isFee === true && (
                   <>
-                    <motion.p
-                      variants={inView}
-                      initial="hidden"
-                      whileInView="visible"
-                      className="font-bold"
-                    >
-                      Entry fee:
-                    </motion.p>
-                    <motion.p
-                      variants={inView}
-                      initial="hidden"
-                      whileInView="visible"
-                    >
+                    <motion.p className="font-bold">Entry fee:</motion.p>
+                    <motion.p>
                       Rs. {homeDetail.entryFee.toLocaleString("en-IN")}/-
                     </motion.p>
                   </>
@@ -389,46 +282,20 @@ const Home = () => {
               </Box>
 
               <br />
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-                className="font-bold"
-              >
-                Eligibility:
-              </motion.p>
+              <motion.p className="font-bold">Eligibility:</motion.p>
               <Box fontFamily="Red Hat Display, sans-serif" marginLeft="30px">
                 {parse(homeDetail.eligibility)}
               </Box>
               <br />
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-                className="font-bold"
-              >
-                Prizes:
-              </motion.p>
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-              >
+              <motion.p className="font-bold">Prizes:</motion.p>
+              <motion.p>
                 1st prize, Rs. {homeDetail.firstPrize.toLocaleString("en-IN")}/-
               </motion.p>
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-              >
+              <motion.p>
                 2nd prize, Rs. {homeDetail.secondPrize.toLocaleString("en-IN")}
                 /-
               </motion.p>
-              <motion.p
-                variants={inView}
-                initial="hidden"
-                whileInView="visible"
-              >
+              <motion.p>
                 3rd prize, Rs.{homeDetail.thirdPrize.toLocaleString("en-IN")}/-
               </motion.p>
               <br />
