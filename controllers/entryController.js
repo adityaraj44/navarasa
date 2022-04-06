@@ -146,10 +146,10 @@ const finalizeEntry = asyncHandler(async (req, res) => {
         html: `<div style="margin:0; padding:0; text-align: center; font-family: Open Sans, sans-serif">
         <div style="width: 100%; height:100px; background-color: #FAD01C;
         ">
-            <div style="position: absolute; top: 80px; left: 0; right:0;">
-            <img width="60px" height="60px" src="https://navarasa.s3.ap-south-1.amazonaws.com/Adinova+Creative+Logo+Circle.png"
-            alt="adinova-logo">
-            </div>
+
+            <img width="60px" height="60px" style="padding-top: 70px;"
+                src="https://navarasa.s3.ap-south-1.amazonaws.com/Adinova+Creative+Logo+Circle.png" alt="adinova-logo">
+
 
 
         </div>
@@ -157,7 +157,8 @@ const finalizeEntry = asyncHandler(async (req, res) => {
             <p style="color: #DD29A6; font-size:40px; font-weight: 100;">We got your entry!</p>
             <p style="color: white; font-size:16px;">Your entry to the Indie Tamil Song Competition has been received.
             </p>
-            <p style="margin-top: 40px;color: #fad01c; font-size:16px; font-weight: 700">Your ref id is: #${entry.refId}.</p>
+            <p style="margin-top: 40px;color: #fad01c; font-size:16px; font-weight: 700">Your ref id is:
+                #${entry.refId}.</p>
             <p style="margin-top: 40px;color: white; font-size:16px;">
                 We are excited to listen to your song. You will hear from us if your song has been shortlisted and when
                 the winners have been selected.
