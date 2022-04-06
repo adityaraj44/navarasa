@@ -144,10 +144,10 @@ const finalizeEntry = asyncHandler(async (req, res) => {
         to: email,
         subject: "We have received your Indie Music Competition entry!", // Subject line
         html: `<div style="margin:0; padding:0; text-align: center; font-family: Open Sans, sans-serif">
-        <div style="width: 100%; height:100px; background-color: #FAD01C;
+        <div style="width: 100%; height:100px; background-color: #FAD01C; display:flex; justify-content:center; align-items:center;
         ">
 
-            <img width="60px" height="60px" style="padding-top: 70px;"
+            <img width="60px" height="60px"
                 src="https://navarasa.s3.ap-south-1.amazonaws.com/Adinova+Creative+Logo+Circle.png" alt="adinova-logo">
 
 
