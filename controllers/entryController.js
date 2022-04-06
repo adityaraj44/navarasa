@@ -147,11 +147,8 @@ const finalizeEntry = asyncHandler(async (req, res) => {
         <div style="width: 100%; height:100px; background-color: #FAD01C;
         ">
             <div style="position: absolute; top: 80px; left: 0; right:0;">
-                <svg width="52" height="60" viewBox="0 0 52 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M28.5 58.5566C26.953 59.4498 25.047 59.4498 23.5 58.5566L2.51924 46.4434C0.972234 45.5502 0.0192389 43.8996 0.0192391 42.1132L0.0192412 17.8868C0.0192414 16.1004 0.972237 14.4498 2.51924 13.5566L23.5 1.44338C25.047 0.550222 26.953 0.550222 28.5 1.44338L49.4808 13.5566C51.0278 14.4498 51.9808 16.1004 51.9808 17.8868L51.9808 42.1133C51.9808 43.8996 51.0278 45.5502 49.4808 46.4434L28.5 58.5566Z"
-                        fill="#DD29A6" />
-                </svg>
+            <img width="60px" height="60px" src="https://navarasa.s3.ap-south-1.amazonaws.com/Adinova+Creative+Logo+Circle.png"
+            alt="adinova-logo">
             </div>
 
 
@@ -176,15 +173,15 @@ const finalizeEntry = asyncHandler(async (req, res) => {
             <div
                 style="padding-top:40px;display: flex; flex-direction: row; justify-content:center; align-items:center;">
                 <div style="margin-right: 20px;"><a href="https://www.instagram.com/adinovacreative" target="_blank">
-                        <img width="40px" height="40px" src="https://navarasa.s3.ap-south-1.amazonaws.com/instagram.svg"
+                        <img width="40px" height="40px" src="https://navarasa.s3.ap-south-1.amazonaws.com/Insta.png"
                             alt="instagram">
                     </a></div>
                 <div style="margin-right: 20px;"><a href="https://twitter.com/adinovacreative" target="_blank"><img
-                            width="40px" height="40px" src="https://navarasa.s3.ap-south-1.amazonaws.com/twitter.svg"
+                            width="40px" height="40px" src="https://navarasa.s3.ap-south-1.amazonaws.com/twitter.png"
                             alt="twitter"></a></div>
                 <div style="margin-right: 20px;"><a href="https://www.youtube.com/channel/UC_JxeDKSWSR_p55PYyitPHQ"
                         target="_blank"><img width="40px" height="40px"
-                            src="https://navarasa.s3.ap-south-1.amazonaws.com/youtube.svg" alt="youtube"></a></div>
+                            src="https://navarasa.s3.ap-south-1.amazonaws.com/YT.png" alt="youtube"></a></div>
                 <div><a href="https://t.me/adinovacommunity" target="_blank"><img width="40px" height="40px"
                             src="https://navarasa.s3.ap-south-1.amazonaws.com/telegram.png" alt="telegram"></a></div>
             </div>
