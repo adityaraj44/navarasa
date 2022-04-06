@@ -143,7 +143,54 @@ const finalizeEntry = asyncHandler(async (req, res) => {
         from: "contact@adinovacreative.com", // sender address
         to: email,
         subject: "We have received your Indie Music Competition entry!", // Subject line
-        html: `<p>Your refid is</p><br /><strong>#${entry.refId}</strong>`, // plain text body
+        html: `<div style="margin:0; padding:0; text-align: center; font-family: Open Sans, sans-serif">
+        <div style="width: 100%; height:100px; background-color: #FAD01C;
+        ">
+            <div style="position: absolute; top: 80px; left: 0; right:0;">
+                <svg width="52" height="60" viewBox="0 0 52 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M28.5 58.5566C26.953 59.4498 25.047 59.4498 23.5 58.5566L2.51924 46.4434C0.972234 45.5502 0.0192389 43.8996 0.0192391 42.1132L0.0192412 17.8868C0.0192414 16.1004 0.972237 14.4498 2.51924 13.5566L23.5 1.44338C25.047 0.550222 26.953 0.550222 28.5 1.44338L49.4808 13.5566C51.0278 14.4498 51.9808 16.1004 51.9808 17.8868L51.9808 42.1133C51.9808 43.8996 51.0278 45.5502 49.4808 46.4434L28.5 58.5566Z"
+                        fill="#DD29A6" />
+                </svg>
+            </div>
+
+
+        </div>
+        <div style="background-color: #2C2553; padding: 40px 30px 80px">
+            <p style="color: #DD29A6; font-size:40px; font-weight: 100;">We got your entry!</p>
+            <p style="color: white; font-size:16px;">Your entry to the Indie Tamil Song Competition has been received.
+            </p>
+            <p style="margin-top: 40px;color: #fad01c; font-size:16px; font-weight: 700">Your ref id is: #${entry.refId}.</p>
+            <p style="margin-top: 40px;color: white; font-size:16px;">
+                We are excited to listen to your song. You will hear from us if your song has been shortlisted and when
+                the winners have been selected.
+
+            </p>
+            <p style="margin-top: 35px;color: white; font-size:16px;"> Feel free to contact us regarding any queries
+                relating to your
+                entry. Thank you.</p>
+            <p style="margin-top: 85px;color: white; font-size:14px;">Yours sincerely,</p>
+            <p style="color: #DD29A6; font-size:14px; font-weight:700">The Adinova Creative team</p>
+        </div>
+        <div style="background-color: #fad01c; height: 150px; width:100%;">
+            <div
+                style="padding-top:40px;display: flex; flex-direction: row; justify-content:center; align-items:center;">
+                <div style="margin-right: 20px;"><a href="https://www.instagram.com/adinovacreative" target="_blank">
+                        <img width="40px" height="40px" src="https://navarasa.s3.ap-south-1.amazonaws.com/instagram.svg"
+                            alt="instagram">
+                    </a></div>
+                <div style="margin-right: 20px;"><a href="https://twitter.com/adinovacreative" target="_blank"><img
+                            width="40px" height="40px" src="https://navarasa.s3.ap-south-1.amazonaws.com/twitter.svg"
+                            alt="twitter"></a></div>
+                <div style="margin-right: 20px;"><a href="https://www.youtube.com/channel/UC_JxeDKSWSR_p55PYyitPHQ"
+                        target="_blank"><img width="40px" height="40px"
+                            src="https://navarasa.s3.ap-south-1.amazonaws.com/youtube.svg" alt="youtube"></a></div>
+                <div><a href="https://t.me/adinovacommunity" target="_blank"><img width="40px" height="40px"
+                            src="https://navarasa.s3.ap-south-1.amazonaws.com/telegram.png" alt="telegram"></a></div>
+            </div>
+            <p style="color: #2C2553; font-size:14px; font-weight:700">© Copyright Adinova 2022</p>
+        </div>
+    </div>`,
       };
 
       transporter.sendMail(mailOptionsUser, function (err, info) {
@@ -420,7 +467,6 @@ const adminLogin = asyncHandler(async (req, res) => {
       success: false,
       error: "Invalid credentials",
     });
-
   } else {
     const isMatch = await bcrypt.compare(password, admin.password);
 
